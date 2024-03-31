@@ -1,0 +1,3 @@
+MongoDB.cpp is just an example of how to configure the database connection
+
+### NOT The final one please don't add anything yet
