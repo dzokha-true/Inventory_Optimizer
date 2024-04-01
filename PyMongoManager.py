@@ -11,7 +11,6 @@ from time import ctime
 MONGO_PASSWORD = quote_plus(os.getenv("PASSWORD"))
 URI = (f"mongodb+srv://zmamayev:{MONGO_PASSWORD}@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w"
        f"=majority&appName=BusinessInventoryChecker")
-print(URI)
 server_api = ServerApi('1')
 
 client = MongoClient(URI, server_api=server_api, tlsAllowInvalidCertificates=True)
@@ -19,6 +18,7 @@ client = MongoClient(URI, server_api=server_api, tlsAllowInvalidCertificates=Tru
 
 class DataBaseManager:
     def __init__(self):
+        self.data_base = client['BusinessInverntoryChecker']
         try:
             client.admin.command('ping')
             print("Pinged your deployment. You successfully connected to MongoDB!")
@@ -27,8 +27,7 @@ class DataBaseManager:
             sys.exit()  # End program if failed.
 
     def register(self, username, password, codeword):
-        data_base = client['BusinessInventoryChecker']
-        users = data_base['users']
+        users = self.['users']
         codeword = bcrypt.hashpw(codeword.encode(), bcrypt.gensalt())
         codeword_check = users.find_one({'codeword': codeword})
         if codeword_check:
@@ -37,8 +36,7 @@ class DataBaseManager:
             return users_check
 
     def login(self, username, password):
-        data_base = client['BusinessInventoryChecker']
-        users = data_base['users']
+        users = self.data_base['users']
         user_check = users.find_one({'username': username})
         if user_check:
             attempts = 0
@@ -51,14 +49,13 @@ class DataBaseManager:
                     print(f"your password was incorrect. Please try again. You have {5 - attempts} attempts left.")
             if attempts == 5:
                 print("You have exceeded the maximum number of attempts. Please try again later.")
-                sys.exit()
+                sys.exit(0)
         else:
             print("User does not exist. Please register for an account.")
             return False
 
-    def add_item(self, item_name, item_quantity, item_price):
-        data_base = client['BusinessInventoryChecker']
-        items = data_base['items']
+    def add_item(self, item_name, item_quantity, item_price): #TODO ID FOR EACH ITEM ADDED
+        items = self.data_base['items']
         item_check = items.find_one({'item_name': item_name})
         if item_check:
             print("Item already exists. Please update the quantity instead.")
@@ -67,8 +64,7 @@ class DataBaseManager:
             return item
 
     def update_item(self, item_name, item_quantity):
-        data_base = client['BusinessInventoryChecker']
-        items = data_base['items']
+        items = self.data_base['items']
         item_check = items.find_one({'item_name': item_name})
         if item_check:
             item = items.update_one({'item_name': item_name}, {'$set': {'item_quantity': item_quantity}})
@@ -77,8 +73,7 @@ class DataBaseManager:
             print("Item does not exist. Please add the item first.")
 
     def delete_item(self, item_name):
-        data_base = client['BusinessInventoryChecker']
-        items = data_base['items']
+        items = self.data_base['items']
         item_check = items.find_one({'item_name': item_name})
         if item_check:
             item = items.delete_one({'item_name': item_name})
@@ -91,8 +86,8 @@ class DataBaseManager:
             :param: item_sold: expects a dictionary with the item name as a key and the quantity sold as a value.
             :return: None
             """
-        data_base = client['BusinessInventoryChecker']
-        items = data_base['items']
+        #TODO ADD PROFIT FROM SALE
+        items = self.data_base['items']
         for item in items_sold:
             item_check = items.find_one({'item_name': item})
             if item_check:
@@ -100,11 +95,12 @@ class DataBaseManager:
                 if item_quantity >= items_sold[item]:
                     item = items.update_one({'item_name': item},
                                             {'$set': {'item_quantity': item_quantity - items_sold[item]}})
-                    data_base['sales'].insert_one({'item_name': item, 'quantity_sold': items_sold[item], 'time': ctime()})
+                    self.data_base['sales'].insert_one({'item_name': item, 'quantity_sold': items_sold[item], 'time': ctime()})
                 else:
                     print(f"Item {item} does not have enough quantity to sell.")
             else:
                 print(f"Item {item} does not exist. Please add the item first.")
 
 
-#DB = DataBaseManager()
+DB = DataBaseManager()
+DB.add_item("Hi", 10,500)
