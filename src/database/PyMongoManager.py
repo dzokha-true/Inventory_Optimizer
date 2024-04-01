@@ -101,6 +101,6 @@ class DataBaseManager:
             else:
                 print(f"Item {item} does not exist. Please add the item first.")
 
-
-DB = DataBaseManager()
-DB.add_item("Hi", 10,500)
+# example commands
+# DB = DataBaseManager()
+# DB.add_item("Hi", 10,500)
