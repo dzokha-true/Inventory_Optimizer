@@ -27,7 +27,7 @@ class DataBaseManager:
             sys.exit()  # End program if failed.
 
     def register(self, username, password, codeword):
-        users = self.['users']
+        users = self.data_base['users']
         codeword = bcrypt.hashpw(codeword.encode(), bcrypt.gensalt())
         codeword_check = users.find_one({'codeword': codeword})
         if codeword_check:
