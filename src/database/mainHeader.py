@@ -24,8 +24,53 @@ def testing(username, password):
     users.insert_one({'username': username, 'password': hashed_password, 'status': "Admin"})
     return True
 # ABOVE NEEDS TO BE DELETED AT THE END (USED FOR CORRECTING THE PROGRAM WHEN USERS DATA NEEDS TO BE RESETED)
+
+def passwordChecker():
+    case = True
+    while case:
+        password = input("Enter password: ")
+        capital = False
+        special = False
+        number = False
+        
+        if len(password) < 8:
+            print("Password has to be atleast 8 characters long")
+        for x in password:
+            if x in str(numbers):
+                number = True
+            if x not in str(numbers) and x not in letters and x not in capitals:
+                special = True
+            if x in capitals:
+                capital = True
+        
+        if capital == False:
+            print("Your password has to contain capital letter")
+        if special == False:
+            print("Your password has to contain special character")
+        if number == False:
+            print("Your password has to contain a number")
+
+        if capital == True and special == True and number == True and len(password) >= 8:
+            case = False
+            
+        capital = False
+        special = False
+        number = False
     
-    
+    return password
+
+def statuscheck():
+        statusCheck = input("Write code according to your priveledges (should be given by the company): ")
+        if statusCheck == "ReadWrite":
+            return register(username, password, "RW")
+        elif statusCheck == "Admin":
+            return register(username, password, "Admin")
+        elif statusCheck == "Read":
+            return register(username, password, "R")
+        else:
+            print("You don't have any priveledges!")
+            sys.exit(0)
+            
 def LoginSystem():
     
     URI = "mongodb+srv://" + "Read" + ":" + "Read" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
@@ -50,40 +95,9 @@ def LoginSystem():
             else:
                 username_check = False
                 
-        while case:
-            password = input("Enter password: ")
-            if len(password) < 8:
-                print("Password has to be atleast 8 characters long")
-            for x in password:
-                if x in str(numbers):
-                    number = True
-                if x not in str(numbers) and x not in letters and x not in capitals:
-                    special = True
-                if x in capitals:
-                    capital = True
-            if capital == False:
-                print("Your password has to contain capital letter")
-            if special == False:
-                print("Your password has to contain special character")
-            if number == False:
-                print("Your password has to contain a number")
+        password = passwordChecker()
+        return statuscheck()
 
-            if capital == True and special == True and number == True and len(password) > 8:
-                case = False
-            capital = False
-            special = False
-            number = False
-        
-        statusCheck = input("Write code according to your priveledges (should be given by the company): ")
-        if statusCheck == "ReadWrite":
-            return register(username, password, "RW")
-        elif statusCheck == "Admin":
-            return register(username, password, "Admin")
-        elif statusCheck == "Read":
-            return register(username, password, "R")
-        else:
-            print("You don't have any priveledges!")
-            sys.exit(0)
     elif choice == "yes":
         username = input("Enter username: ")
         password = input("Enter password: ")
@@ -138,44 +152,8 @@ def login(username, password):
             else:
                 username_check = False
             
-        case = True
-        capital = False
-        special = False
-        number = False
-        while case:
-            password = input("Enter password: ")
-            if len(password) < 8:
-                print("Password has to be atleast 8 characters long")
-            for x in password:
-                if x in str(numbers):
-                    number = True
-                if x not in str(numbers) and x not in letters and x not in capitals:
-                    special = True
-                if x in capitals:
-                    capital = True
-            if capital == False:
-                print("Your password has to contain capital letter")
-            if special == False:
-                print("Your password has to contain special character")
-            if number == False:
-                print("Your password has to contain a number")
-
-            if capital == True and special == True and number == True and len(password) > 8:
-                case = False
-            capital = False
-            special = False
-            number = False
-        
-        statusCheck = input("Write code according to your priveledges (should be given by the company): ")
-        if statusCheck == "ReadWrite":
-            return register(username, password, "RW")
-        elif statusCheck == "Admin":
-            return register(username, password, "Admin")
-        elif statusCheck == "Read":
-            return register(username, password, "R")
-        else:
-            print("You don't have any priveledges!")
-            sys.exit(0)
+        passwordChecker()
+        return statuscheck()
 
 
 class Product():
@@ -189,22 +167,19 @@ class Product():
         if self.status == "Admin":
             username = "Admin"
             password = "Admin"
-            text = "You are the Admin!"
         elif self.status == "RW":
             username = "ReadWrite"
             password = "ReadWrite"
-            text = "You can READ and WRITE!"
         else:
             username = "Read"
             password = "Read"
-            text = "You can READ only!"
 
         URI = "mongodb+srv://" + username + ":" + password + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         self.data_base = client['BusinessInverntoryChecker']
         client.admin.command('ping')
-        print("You successfully connected to the DataBase! " + text)
+
 
     def add_product(self, SKU, product_name, stock): 
         if self.status == "R":
@@ -272,7 +247,7 @@ class Product():
                 product = products.delete_one({'SKU': SKU})
                 print("You have successfully deleted a product!")
             else:
-                print("Product does not exist. Please add the Product first.")
+                print("Product does not exist. Please add the product first.")
 
     def get_product_everything(self):
         products = self.data_base['Product']
@@ -310,6 +285,9 @@ class Product():
         else:
             print("No document found with SKU: " + SKU)
 
+
+
+
 class Transaction():
     
     def __init__(self, statuses):
@@ -317,59 +295,148 @@ class Transaction():
         if self.status == "Admin":
             username = "Admin"
             password = "Admin"
-            text = "You are the Admin!"
         elif self.status == "RW":
             username = "ReadWrite"
             password = "ReadWrite"
-            text = "You can READ and WRITE!"
         else:
             username = "Read"
             password = "Read"
-            text = "You can READ only!"
 
         URI = "mongodb+srv://" + username + ":" + password + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         self.data_base = client['BusinessInverntoryChecker']
         client.admin.command('ping')
-        print("You successfully connected to the DataBase! " + text)
+
+    def get_transaction_everything_day(self, date):
+        transactions = self.data_base['Transaction']
+        cursor = transactions.find({'date': date})
+        results = list(cursor)
+        if len(results) == 0:
+            print("There are no transactions for the date inputted")
+        else:
+            bold_start = "\033[1m"
+            bold_end = "\033[0m"
+            print('\n')
+            for document in results:  # Use 'results' instead of 'cursor'
+                print(f"Date: {bold_start}{document.get('date', 'N/A')}{bold_end} -- "
+                      f"SKU: {bold_start}{document.get('SKU', 'N/A')}{bold_end} -- "
+                      f"Product Name: {bold_start}{document.get('product_name', 'N/A')}{bold_end} -- "
+                      f"Transaction Type: {bold_start}{document.get('transaction_type', 'N/A')}{bold_end} -- "
+                      f"Stock: {bold_start}{document.get('stock', 'N/A')}{bold_end} -- "
+                      f"Price: {bold_start}{document.get('price', 'N/A')}{bold_end}")
+            print('\n')
+    
+    def get_transaction_everything_name(self, product_name):
+        transactions = self.data_base['Transaction']
+        cursor = transactions.find({'product_name': product_name})
+        results = list(cursor)
+        if len(results) == 0:
+            print("There are no transactions for the product name inputted")
+        else:
+            bold_start = "\033[1m"
+            bold_end = "\033[0m"
+            print('\n')
+            for document in results:  # Use 'results' instead of 'cursor'
+                print(f"Date: {bold_start}{document.get('date', 'N/A')}{bold_end} -- "
+                      f"SKU: {bold_start}{document.get('SKU', 'N/A')}{bold_end} -- "
+                      f"Product Name: {bold_start}{document.get('product_name', 'N/A')}{bold_end} -- "
+                      f"Transaction Type: {bold_start}{document.get('transaction_type', 'N/A')}{bold_end} -- "
+                      f"Stock: {bold_start}{document.get('stock', 'N/A')}{bold_end} -- "
+                      f"Price: {bold_start}{document.get('price', 'N/A')}{bold_end}")
+            print('\n')
+    
+    def get_transaction_everything_SKU(self, SKU):
+        transactions = self.data_base['Transaction']
+        cursor = transactions.find({'SKU': SKU})
+        results = list(cursor)
+        if len(results) == 0:
+            print("There are no transactions for the SKU inputted")
+        else:
+            bold_start = "\033[1m"
+            bold_end = "\033[0m"
+            print('\n')
+            for document in results:  # Use 'results' instead of 'cursor'
+                print(f"Date: {bold_start}{document.get('date', 'N/A')}{bold_end} -- "
+                      f"SKU: {bold_start}{document.get('SKU', 'N/A')}{bold_end} -- "
+                      f"Product Name: {bold_start}{document.get('product_name', 'N/A')}{bold_end} -- "
+                      f"Transaction Type: {bold_start}{document.get('transaction_type', 'N/A')}{bold_end} -- "
+                      f"Stock: {bold_start}{document.get('stock', 'N/A')}{bold_end} -- "
+                      f"Price: {bold_start}{document.get('price', 'N/A')}{bold_end}")
+            print('\n')
         
-        
-        
-    # EVERYTHING ABOVE BEEN TESTED
-        
-        
-        
-    def add_transaction(self, date, SKU, product_name, transaction_type, stock, price): 
+    def get_transaction_everything_type(self, transaction_type):
+        transactions = self.data_base['Transaction']
+        cursor = transactions.find({'transaction_type': transaction_type})
+        results = list(cursor)
+        if len(results) == 0:
+            print("There are no transactions for the transaction type inputted")
+        else:
+            bold_start = "\033[1m"
+            bold_end = "\033[0m"
+            print('\n')
+            for document in results:  # Use 'results' instead of 'cursor'
+                print(f"Date: {bold_start}{document.get('date', 'N/A')}{bold_end} -- "
+                      f"SKU: {bold_start}{document.get('SKU', 'N/A')}{bold_end} -- "
+                      f"Product Name: {bold_start}{document.get('product_name', 'N/A')}{bold_end} -- "
+                      f"Transaction Type: {bold_start}{document.get('transaction_type', 'N/A')}{bold_end} -- "
+                      f"Stock: {bold_start}{document.get('stock', 'N/A')}{bold_end} -- "
+                      f"Price: {bold_start}{document.get('price', 'N/A')}{bold_end}")
+            print('\n')
+            
+# FUNCTIONS BELOW NEEDS TO BE EDITTED
+            
+    def delete_transaction(self, date, SKU, product_name, transaction_type, stock, price, status):
+        if self.status == "R":
+            print("You dont have access to add any items")
+            return None
+        else:            
+            transactions = self.data_base['Transaction']
+            db = Product(status)
+            products = db.data_base['Product']
+            
+            transaction_check = transactions.find_one({'date': date, 'SKU': SKU, 'product_name': product_name, 'transaction_type': transaction_type, 'stock': stock, 'price': price})
+            if transaction_check:
+                product_check = products.find_one({'SKU': SKU})
+                if product_check:
+                    new_stock = product_check['stock'] + stock
+                    products.update_one({'SKU': SKU}, {'$set': {'stock': new_stock}})
+                    transaction = transactions.delete_one({'date': date, 'SKU': SKU, 'product_name': product_name, 'transaction_type': transaction_type, 'stock': stock, 'price': price})
+                    print("You have successfully deleted a transaction!")
+                else:
+                    print("Product doesn't exist. Please try adding it first!")
+            else:
+                print("Transaction does not exist. Please add the transaction first.")
+    
+    def add_transaction(self, date, SKU, product_name, transaction_type, stock, price, status):
         if self.status == "R":
             print("You dont have access to add any products")
             return None
         else:
             transactions = self.data_base['Transaction']
-            transaction = transactions.insert_one({'date': date, 'SKU': SKU, 'product_name': product_name, 'transaction_type': transaction_type, 'stock': int(stock), 'price': int(price)})
-            print("You have successfully added the product!")
-            return None
+            db = Product(status)
+            products = db.data_base['Product']
+            
+            product_check = products.find_one({'SKU': SKU})
+            if product_check:
+                new_stock = product_check['stock']  - stock
+                if new_stock < 0:
+                    print("Cant do this transaction as there is not enough in stock")
+                    return None
+                else:
+                    products.update_one({'SKU': SKU}, {'$set': {'stock': new_stock}})
+                    transaction = transactions.insert_one({'date': date, 'SKU': SKU, 'product_name': product_name, 'transaction_type': transaction_type, 'stock': int(stock), 'price': int(price)})
+                    print("You have successfully added the transaction!")
+            else:
+                print("Product doesn't exist. Please try adding it first!")
 
     def update_transaction(self, date, SKU, product_name, transaction_type, stock, price):
         # make sure that stock changes in Product Database
         ...
 
-    def delete_transaction(self, date, SKU, product_name, transaction_type, stock, prize):
-        # make sure that stock changes in Product Database
-        ...
-
-    def get_transaction_everything_day(self, date):
-        ...
-    
-    def get_transaction_everything_name(self, product_name):
-        ...
-    
-    def get_transaction_everything_SKU(self, SKU):
+    def get_transaction_all(self):
         ...
         
-    def get_transaction_everything_type(self, transaction_type):
-        ...
-
     def transaction_to_csv(self):
         ...
 
