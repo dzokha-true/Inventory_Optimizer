@@ -438,12 +438,37 @@ class Transaction():
         ...
         
     def transaction_to_csv(self):
-        ...
+        # Every user
+        with open('transaction.csv', 'w', newline='') as csvfile:
+            fieldnames = ['date', 'SKU', 'product_name', 'transaction_type', 'stock', 'price']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
 
-    def csv_to_transaction(self):
+            for row in self.data_base['Transaction'].find():
+                date = row.get('date')
+                SKU = row.get('SKU')
+                product_name = row.get('product_name')
+                transaction_type = row.get('transaction_type')
+                stock = row.get('stock')
+                price = row.get('price')
+
+            writer.writerow({'date': date, 'SKU': SKU, 'product_name': product_name, 'transaction_type': transaction_type, 'stock': stock, 'price': price})
+
+        csvfile.close()
+
+        return None
+
+    # this method is for inputting sample data into database or user inputting csv file instead of single transaction
+    def csv_to_transaction(self,filename):
         # Only Admin
-        ...
-        
-# example commands
-# DB = DataBaseManager()
-# DB.add_item("Hi", 10,500)
+        if self.status == "R":
+            print("You dont have access to this feature")
+            return None
+        else:
+            with open(filename, newline='') as csvfile:
+                myreader = csv.reader(csvfile)
+            for row in myreader:
+                self.add_transaction(row[0],row[1],row[2],row[3],row[4],row[5])
+            filename.close()
+            print("You have successfully added all the products!")
+            return None
