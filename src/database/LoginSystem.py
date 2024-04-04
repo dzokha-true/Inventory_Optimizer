@@ -10,7 +10,6 @@ from pymongo.server_api import ServerApi
 from pymongo.errors import ConnectionFailure
 from datetime import date
 import re
-from User import User
 import HelperFunctions
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
@@ -29,16 +28,18 @@ class LoginSystem:
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
         self.data_base = client['LoginSystem']
         self.login_DB = self.data_base['AccessDetails']
+        
+        self.start_login()
     
     # First stage of login asking the user for either creating an account or logging in
     def start_login(self):
         
         # Ask the user if they have an account
-        choice = print("Do you have an account (yes or no): ")
+        choice = input("Do you have an account (yes or no): ")
         
         # Keep asking the same question until the user inputs yes or no
         while choice != "yes" and choice != "no":
-            choice = print("Please enter either yes or no: ")
+            choice = input("Please enter either yes or no: ")
             
         # if user has account, then the functions called the login function, else it calls the register function
         if choice == "yes":
@@ -60,23 +61,20 @@ class LoginSystem:
             attempts = 0
             while attempts < 5:
                 
+                password = input("Please enter the password: ")
+                
                 # if the password is correct, it returns True (i.e., managed to login)
                 if bcrypt.checkpw(password.encode('utf8'), user_check['password']):
                     
-                    # retreive the user status, fiscal_year and lifo_fifo and assign them
-                    fiscal_year = user_check.get('fiscal_year')
-                    lifo_fifo = user_check.get('lifo_fifo')
+                    self.username = username
+                    self.status = user_check.get('status')
                     
-                    # create a User object with all the needed data
-                    user = User(status, fiscal_year, lifo_fifo)
-                    
-                    return user
+                    return True
                 
                 # if the password is not correct then increment the attempt and print the password is not correct, the amount of attempts left and ask user for the password again
                 else:
                     attempts += 1
                     print("Your password is incorrect. Please try again. You have " + str((5 - attempts)) + " attempts left.")
-                    password = input("Try the password again: ")
                     
             # If the user did not manage to get the password correct after 5 attempts, print that no attempts left and return False (i.e., not managed to login)
             if attempts == 5:
@@ -117,21 +115,46 @@ class LoginSystem:
         status = HelperFunctions.status_check(self)
         
         # Find an admin in the database
-        admin_user = self.login_DB.find_one({'status': 'admin'})
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
         
-        # Set the fiscal_year and lifo_fifo the same as the admin setting
+        self.username = username
+        self.status = status
         fiscal_year = admin_user.get('fiscal_year')
         lifo_fifo = admin_user.get('lifo_fifo')
         
         # hash the password and insert it onto the database
         hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-        users.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': fiscal_year, 'lifo_fifo': lifo_fifo})
+        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': fiscal_year, 'lifo_fifo': lifo_fifo})
         
-        # create a User object with all the needed data
-        user = User(status, fiscal_year, lifo_fifo)
+        return True
+    
+    # change the fiscal year for everyone, only admins can do it
+    def change_fiscal_year(self):
         
-        return user
+        # Checks if the user is admin and if not, prints the correct message
+        if self.status != "Admin":
+            print("You can not change the fiscal year")
+            return False
         
+        # gets a new fiscal year date and changes the database for all the users accordingly
+        new_fiscal_year = HelperFunctions.check_fiscal_year()
+        result = self.login_DB.update_many({}, {"$set": {"fiscal_year": new_fiscal_year}})
+        return True
+    
+    # change the lifo fifo computation for everyone, only admin can do it
+    def change_lifo_fifo(self):
+        
+        # Checks if the user is admin and if not, prints the correct message
+        if self.status != "Admin":
+            print("You can not change the life or fifo computation")
+            return False
+        
+        # gets a new fifo or lifo computation and changes the database for all the users accordingly
+        new_lifo_fifo = HelperFunctions.check_lifo_fifo()
+        result = self.login_DB.update_many({}, {"$set": {"lifo_fifo": new_lifo_fifo}})
+        return True
+        
+    
         
         
         

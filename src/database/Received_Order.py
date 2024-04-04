@@ -19,5 +19,12 @@ numbers = (1,2,3,4,5,6,7,8,9,0)
 class Received_Order(Place_Order):
     
     # Initilise the object
-    def __init__():
-        return None
+    def __init__(self):
+        super().__init__()
+        # Connects to the BusinessInventoryChecker database
+        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        client = MongoClient(URI, server_api=ServerApi('1'))
+        
+        # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
+        self.data_base = client['CompanyDetails']
+        self.received_order_DB = self.data_base['OrdersReceived']

@@ -9,6 +9,7 @@ from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from pymongo.errors import ConnectionFailure
 from datetime import date
+from datetime import datetime
 import re
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
@@ -22,34 +23,35 @@ def password_checker():
     capital = False
     special = False
     number = False
-        
-    #Asking the user for the password
-    password = str(input("Please enter the password: "))
-        
+    password = ''
+    
     # keep asking the user until the password has 8 characters, 1 upper case letter, 1 number and 1 special character
-    while capital == False or special == False or number == False or str(password) < 8:
-            
+    while capital == False or special == False or number == False or len(password) < 8:
+        password = str(input("Please enter the password: "))
+        number = False
+        capital = False
+        special = False
+        
         # prints according message if the password has less than 8 characters
-        if len(password < 8):
+        if len(password) < 8:
             print("Password has to be atleast 8 characters long!")
             
         # checks if the password has a number, a capital letter and a special character
         for letter in password:
             if letter in str(numbers):
-                    numbers = True
-            else:
-                print("Your paswword has to contain a number!")
-                numbers = False
+                    number = True
             if letter not in str(numbers) and letter not in letters and letter not in capitals:
                 special = True
-            else:
-                print("Your password has to contain a special character!")
-                special = False
             if letter in capitals:
                 capital = True
-            else:
-                print("Your password has to contain a capital letter")
-                capital = False
+        
+        if number == False:
+            print("Your paswword has to contain a number!")
+        if special == False:
+            print("Your password has to contain a special character!")
+        if capital == False:
+            print("Your password has to contain a capital letter")
+                
     return password
 
 # Check the user access level
@@ -60,14 +62,14 @@ def status_check(object):
     
     # returns a string depending on their access level. If the user didnt enter it correct, the user is sent back to the intial login
     if status == "ReadWrite":
-        return "RW"
-    elif statusCheck == "Admin":
+        return "ReadWrite"
+    elif status == "Admin":
         return "Admin"
-    elif statusCheck == "Read":
-        return "R"
+    elif status == "Read":
+        return "Read"
     else:
         print("You don't have any priveledges!")
-        object.start_login()
+        return False
         
 # Check if the date has been entered in correct format
 def normal_date_checker():
@@ -153,4 +155,25 @@ def stock_Checker():
 
 # Check if the fiscal year format is correct
 def check_fiscal_year():
-    return None
+    
+    # sets the format for the fiscal date and the loop case
+    date_format = "%m-%d"
+    valid_date = False
+    
+    # Asks the user for input until a valid date is inputted
+    while not valid_date:
+        user_input = input("Please enter the fiscal date in MM-DD format: ")
+        
+        # Tries to make it into daytime object and if it cant, it will ask for user input again
+        try:
+            valid_date = datetime.strptime(user_input, date_format)
+        except ValueError:
+            print("Invalid format. Please ensure the date is in MM-DD format.")
+    return user_input
+
+# Checks if the user wants lifo or fifo
+def check_lifo_fifo():
+    choice = input("Would you like COGS to calculate using lifo or fifo: ")
+    while choice != "lifo" and choice != "fifo":
+        choice = input("Please input either lifo or fifo: ")
+    return choice
