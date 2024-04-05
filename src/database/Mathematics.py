@@ -31,26 +31,36 @@ class Mathematics(Received_Order):
 
     # calculate gross profit
     def gross_profit(self, product):
+        # range of dates
+        # Tie to a date, per SKU
         revenue = self.revenue_calculator()
         COGS = self.COGS(product)
         return revenue - COGS
         
     #calculate gross margin
     def gross_margin(self):
+        # range of dates
+        # Tie to a date, per SKU
         return self.gross_profit() / self.revenue_calculator() * 100
 
     #calculate average inventory
     def average_inventory(self):
+        # range of dates
+        # Tie to a date, per SKU
         start = self.received_order_DB.cost.find().sort({"cost": -1}).limit(1) 
         end = self.received_order_DB.cost.find().sort({"cost": 1}).limit(1) 
         return (start + end)/2
         
     # Turnover Ratio
     def inventory_turnover_ratio(self):
+        # range of dates
+        # Tie to a date, per SKU
         return self.COGS(product)/self.average_inventory()
         
     #COGS
     def COGS(self, product):
+        # range of dates
+        # Tie to a date, per SKU
         number_stock = self.received_order_DB.find({},{"product":product}).count()
         COGS = 0
         all_product = self.sales_DB.find({},{"product":product}).pretty()

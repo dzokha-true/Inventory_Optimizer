@@ -31,31 +31,41 @@ class Received_Order(Place_Order):
         self.performance_DB = self.data_base['Performance']
 
     def order_received():
-        
+        ...
     
     def expected_inventory(num, cost):
+        # range of dates
+        # add a date
         document = self.performance_DB.find_one({'num': 1})
         new_expected_inventory = document.get('expected_inventory', 0) + num * cost
         self.performance_DB.update_one({'num': 1}, {'$set': {'expected_inventory': new_expected_inventory}})
         
     def actual_inventory(num, cost):
+        # range of dates
+        #add a date
         document = self.performance_DB.find_one({'num': 1})
         new_actual_inventory = document.get('actual_inventory', 0) + num * cost
         self.performance_DB.update_one({'num': 1}, {'$set': {'actual_inventory': new_actual_inventory}})
         
     def shrinkage():
+        # range of dates
+        # add a date
         document = self.performance_DB.find_one({'num': 1})
         expected_inventory = document.get('expected_inventory', 0)
         actual_inventory = document.get('actual_inventory', 0)
         return expected_inventory - actual_inventory
         
     def shrinkage_percent():
+        # range of dates
+        # Add a date
         document = self.performance_DB.find_one({'num': 1})
         expected_inventory = document.get('expected_inventory', 0)
         actual_inventory = document.get('actual_inventory', 0)
         return ((expected_inventory - actual_inventory) / expected_inventory) * 100
         
     def writeoff(items, cost):
+        # range of dates
+        # Add a date
         document = self.performance_DB.find_one({'num': 1})
         new_writeoff = document.get('writeoff', 0) + num * cost
         self.performance_DB.update_one({'num': 1}, {'$set': {'writeoff': new_writeoff}})

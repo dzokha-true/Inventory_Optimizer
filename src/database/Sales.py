@@ -30,6 +30,8 @@ class Sales(Product):
         self.sales_DB = self.data_base['SalesDone']
         
     def revenue_calculator(num, cost):
+        # range of dates
+        # add a date
         document = self.performance_DB.find_one({'num': 1})
         new_revenue = document.get('revenue', 0) + num * cost
         self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': new_revenue}})
@@ -38,8 +40,11 @@ class Sales(Product):
         document = self.performance_DB.find_one({'num': 1})
         self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': 0}})
         
-    def anual_usage():
-        ...
+    def ABC_revenue():
+        #range of dates
+        # tied to date
+        #num * cost per SKU per item
+        
         
     def SKU_class():
         ...
@@ -78,5 +83,11 @@ class Sales(Product):
 
     def update_sale():
         ...
+        
+
+
+        
+        
+        
         
         

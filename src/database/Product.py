@@ -90,7 +90,7 @@ class Product(LoginSystem):
         case = True
         while case:
             choice = input("Please enter the SKU class you want to display (A, B or C): ")
-            if choice == 'A' or choice == 'B' or choice == 'C': # ARE THERE ANY OTHER POSIBILITIES?
+            if choice == 'A' or choice == 'B' or choice == 'C':
                 case = False
             else:
                 print("Please enter the correct letter!")
@@ -115,7 +115,7 @@ class Product(LoginSystem):
     ###############################################################
             
     def pareto_chart(self): # FINISH THIS FUNCTION
-        
+        # range of dates
         #define aesthetics for plot
         color1 = 'steelblue'
         color2 = 'red'
@@ -229,7 +229,22 @@ class Product(LoginSystem):
                 print("Transaction does not exist. Please add the transaction first.")
         
         
-        
+# adding a product
+#input SKU, product_name
+#stock = 0
+#price = 0
+#inventory_value = 0
+#expected sales = ...
+#SKU_class = 'C'
+#check if already exists, return None # Later Error
+#if it doesnt, add it
+
+# editting later when GUI is done
+
+# deleting
+#check if none zero stock, and if none zero then return None
+#else delete the data field
+
         
         
 

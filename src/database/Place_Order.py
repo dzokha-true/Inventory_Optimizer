@@ -54,47 +54,47 @@ class Place_Order(Sales):
         
         self.expected_inventory(number_of_items, cost)
         
-def update_order(self):
+    def update_order(self):
 
-    date_str = HelperFunctions.normal_date_checker()
-    SKU = HelperFunctions.SKU_Checker()
-    product_name = input("Please enter the current product name: ")
-    number_of_items = HelperFunctions.stock_Checker()
-    cost = HelperFunctions.price_Checker()
+        date_str = HelperFunctions.normal_date_checker()
+        SKU = HelperFunctions.SKU_Checker()
+        product_name = input("Please enter the current product name: ")
+        number_of_items = HelperFunctions.stock_Checker()
+        cost = HelperFunctions.price_Checker()
 
-    query = {
-        "date": date_str,
-        "SKU": SKU,
-        "product_name": product_name,
-        "number_of_items": number_of_items,
-        "cost": cost
-    }
-
-    if self.place_order_DB.find_one(query) is None:
-        print("Order not found.")
-        return None
-
-    print("Please enter the new details for the order:")
-    new_date_str = HelperFunctions.normal_date_checker()
-    new_SKU = HelperFunctions.SKU_Checker()
-    new_product_name = input("Please enter the new product name: ")
-    new_number_of_items = HelperFunctions.stock_Checker()
-    new_cost = HelperFunctions.price_Checker()
-
-    self.expected_inventory(new_number_of_items, new_cost)
-
-    # Update the document.
-    new_values = {
-        "$set": {
-            "date": new_date_str,
-            "SKU": new_SKU,
-            "product_name": new_product_name,
-            "number_of_items": new_number_of_items,
-            "cost": new_cost
+        query = {
+            "date": date_str,
+            "SKU": SKU,
+            "product_name": product_name,
+            "number_of_items": number_of_items,
+            "cost": cost
         }
-    }
 
-    self.place_order_DB.update_one(query, new_values)
+        if self.place_order_DB.find_one(query) is None:
+            print("Order not found.")
+            return None
+
+        print("Please enter the new details for the order:")
+        new_date_str = HelperFunctions.normal_date_checker()
+        new_SKU = HelperFunctions.SKU_Checker()
+        new_product_name = input("Please enter the new product name: ")
+        new_number_of_items = HelperFunctions.stock_Checker()
+        new_cost = HelperFunctions.price_Checker()
+
+        self.expected_inventory(new_number_of_items, new_cost)
+
+        # Update the document.
+        new_values = {
+            "$set": {
+                "date": new_date_str,
+                "SKU": new_SKU,
+                "product_name": new_product_name,
+                "number_of_items": new_number_of_items,
+                "cost": new_cost
+            }
+        }
+
+        self.place_order_DB.update_one(query, new_values)
         
     def delete_order():
         
