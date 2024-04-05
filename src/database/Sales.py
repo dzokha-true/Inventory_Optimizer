@@ -28,3 +28,5 @@ class Sales(Product):
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
         self.data_base = client['CompanyDetails']
         self.sales_DB = self.data_base['SalesDone']
+        
+

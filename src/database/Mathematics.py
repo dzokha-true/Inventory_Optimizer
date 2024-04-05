@@ -55,10 +55,11 @@ class Mathematics(Received_Order,Sales):
         COGS = 0
         all_product = self.data_base['SalesDone'].find({},{"product":product}).pretty()
         number_sales = self.data_base['SalesDone'].count()
-        if self.login_DB.find({"lifo_fifo":"fifo"):
+        if self.login_DB.find({"lifo_fifo":"fifo"}):
             for i in [0,number_sales-1]:
                 COGS += all_product[i].price
-        elif self.login_DB.find({"lifo_fifo":"lifo"):
+        elif self.login_DB.find({"lifo_fifo":"lifo"}):
             for i in [number_stock,number_stock-number_sales+1]:
                 COGS += all_product[i].price
+                
 a = Mathematics()

@@ -177,3 +177,23 @@ def check_lifo_fifo():
     while choice != "lifo" and choice != "fifo":
         choice = input("Please input either lifo or fifo: ")
     return choice
+
+def check_order_number():
+    
+    # asks the user for the number until the user enters it in a correct format
+    case = True
+    while case:
+        try:
+            choice = int(input("Enter the order number: "))
+            
+            # checks if the number is equal or above zero
+            if choice >= 0:
+                case = False
+            else:
+                print("Order value has to greater than zero!")
+        
+        # catches the exception if the user enters a letter and prints an appropriate message
+        except ValueError as ve:
+            print("Please enter a number!")
+            case = True      
+    return choice
