@@ -74,28 +74,20 @@ def status_check(object):
 # Check if the date has been entered in correct format
 def normal_date_checker():
     
-    # assign a pattern to check the user input
     pattern = r'^\d{4}-\d{2}-\d{2}$'
-    
-    # ask the user for the date unitl the format is correct
-    loop = True
-    while loop:
+
+    while True:
         date_input = input("Please enter the date in the format (YYYY-MM-DD): ")
-        
-        # checks if the user input is in correct format
-        check = re.match(pattern, date_input)
-        if not check:
-            print("Please enter the correct format!")
+
+        if not re.match(pattern, date_input):
+            print("Invalid format. Please ensure the date is in YYYY-MM-DD format.")
         else:
-            
-            # checks if the input is an actual date
-            loop = False
             try:
-                my_date = date(int(date_input[0:4]), int(date_input[5:7]), int(date_input[8:10]))
-            except ValueError as ve:
-                print("Please make sure that the Month is between 1-12 and Day is between 1-31 depending on the Month")
-                loop = True
-    return my_date
+                year, month, day = map(int, date_input.split('-'))
+                my_date = date(year, month, day)
+                return my_date  
+            except ValueError:
+                print("Invalid date. Please make sure the date is correct (e.g., the month has the right number of days).")
     
 # checks if the price is correct
 def price_Checker():

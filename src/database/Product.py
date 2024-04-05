@@ -145,7 +145,7 @@ class Product(LoginSystem):
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
             writer.writeheader()
 
-            for row in self.product_DB['Transaction'].find():
+            for row in self.product_DB.find():
                 SKU = row.get('SKU')
                 product_name = row.get('product_name')
                 stock = row.get('stock')

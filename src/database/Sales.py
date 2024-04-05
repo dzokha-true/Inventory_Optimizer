@@ -29,4 +29,54 @@ class Sales(Product):
         self.data_base = client['CompanyDetails']
         self.sales_DB = self.data_base['SalesDone']
         
+    def revenue_calculator(num, cost):
+        document = self.performance_DB.find_one({'num': 1})
+        new_revenue = document.get('revenue', 0) + num * cost
+        self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': new_revenue}})
+        
+    def reset_revenue():
+        document = self.performance_DB.find_one({'num': 1})
+        self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': 0}})
+        
+    def anual_usage():
+        ...
+        
+    def SKU_class():
+        ...
+        
+    def sales_to_csv():
+        with open('sales.csv', 'w', newline='') as csvfile:
+            fieldnames = ['date', 'SKU', 'product_name', 'num', 'cost']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
 
+            for row in self.place_order_DB.find():
+                date = row.get('date')
+                SKU = row.get('SKU')
+                product_name = row.get('product_name')
+                num = row.get('num')
+                cost = row.get('cost')
+                
+            writer.writerow({'date': date, 'SKU': SKU, 'product_name': product_name, 'num': num, 'cost': cost})
+        csvfile.close()
+
+    def csv_to_sales():
+        if self.status != "Admin":
+            print("You dont have access to this feature")
+        else:
+            with open('sales.csv', newline='') as csvfile:
+                myreader = csv.reader(csvfile)
+            for row in myreader:  
+                self.place_order_DB.insert_one({'date': row[0], 'SKU': row[1], 'product_name': row[2], 'num': row[3], 'cost': row[4]})
+            filename.close()
+        
+    def add_sale():
+        ...
+        
+    def delete_sale:
+        ...
+
+    def update_sale():
+        ...
+        
+        
