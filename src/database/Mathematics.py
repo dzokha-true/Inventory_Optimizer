@@ -16,9 +16,9 @@ letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
 
-class Mathematics(Received_Order):
+class Mathematics(Received_Order,Sales):
     
-    # Inilise the object
+    # Initialise the object
     def __init__(self):
         super().__init__()
         # Connects to the BusinessInventoryChecker database
@@ -28,5 +28,37 @@ class Mathematics(Received_Order):
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
         self.data_base = client['CompanyDetails']
         self.place_order_DB = self.data_base['OrdersPlaced']
+
+    # calculate gross profit
+    def gross_profit(product):
+        revenue = self.revenue_calculator()
+        COGS = self.COGS(product)
+        return revenue - COGS
         
+    #calculate gross margin
+    def gross_margin():
+        return self.gross_profit() / self.revenue_calculator() * 100
+
+    #calculate average inventory
+    def average_inventory():
+        start = self.data_base['OrdersReceived'].cost.find().sort({"cost": -1}).limit(1) 
+        end = self.data_base['OrdersReceived'].cost.find().sort({"cost": 1}).limit(1) 
+        return (start + end)/2
+        
+    # Turnover Ratio
+    def inventory_turnover_ratio():
+        return self.COGS(product)/self.average_inventory()
+        
+    #COGS
+    def COGS(product):
+        number_stock = self.data_base['OrdersReceived'].find({},{"product":product}).count()
+        COGS = 0
+        all_product = self.data_base['SalesDone'].find({},{"product":product}).pretty()
+        number_sales = self.data_base['SalesDone'].count()
+        if self.login_DB.find({"lifo_fifo":"fifo"):
+            for i in [0,number_sales-1]:
+                COGS += all_product[i].price
+        elif self.login_DB.find({"lifo_fifo":"lifo"):
+            for i in [number_stock,number_stock-number_sales+1]:
+                COGS += all_product[i].price
 a = Mathematics()
