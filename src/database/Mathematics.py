@@ -41,8 +41,8 @@ class Mathematics(Received_Order,Sales):
 
     #calculate average inventory
     def average_inventory():
-        start = self.data_base['OrdersReceived'].cost.find().sort({"cost": -1}).limit(1) 
-        end = self.data_base['OrdersReceived'].cost.find().sort({"cost": 1}).limit(1) 
+        start = self.received_order_DB.cost.find().sort({"cost": -1}).limit(1) 
+        end = self.received_order_DB.cost.find().sort({"cost": 1}).limit(1) 
         return (start + end)/2
         
     # Turnover Ratio
@@ -51,10 +51,10 @@ class Mathematics(Received_Order,Sales):
         
     #COGS
     def COGS(product):
-        number_stock = self.data_base['OrdersReceived'].find({},{"product":product}).count()
+        number_stock = self.received_order_DB.find({},{"product":product}).count()
         COGS = 0
-        all_product = self.data_base['SalesDone'].find({},{"product":product}).pretty()
-        number_sales = self.data_base['SalesDone'].count()
+        all_product = self.sales_DB.find({},{"product":product}).pretty()
+        number_sales = self.sales_DB.count()
         if self.login_DB.find({"lifo_fifo":"fifo"}):
             for i in [0,number_sales-1]:
                 COGS += all_product[i].price
