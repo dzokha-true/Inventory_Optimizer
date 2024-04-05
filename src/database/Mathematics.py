@@ -30,27 +30,27 @@ class Mathematics(Received_Order,Sales):
         self.place_order_DB = self.data_base['OrdersPlaced']
 
     # calculate gross profit
-    def gross_profit(product):
+    def gross_profit(self, product):
         revenue = self.revenue_calculator()
         COGS = self.COGS(product)
         return revenue - COGS
         
     #calculate gross margin
-    def gross_margin():
+    def gross_margin(self):
         return self.gross_profit() / self.revenue_calculator() * 100
 
     #calculate average inventory
-    def average_inventory():
+    def average_inventory(self):
         start = self.received_order_DB.cost.find().sort({"cost": -1}).limit(1) 
         end = self.received_order_DB.cost.find().sort({"cost": 1}).limit(1) 
         return (start + end)/2
         
     # Turnover Ratio
-    def inventory_turnover_ratio():
+    def inventory_turnover_ratio(self):
         return self.COGS(product)/self.average_inventory()
         
     #COGS
-    def COGS(product):
+    def COGS(self, product):
         number_stock = self.received_order_DB.find({},{"product":product}).count()
         COGS = 0
         all_product = self.sales_DB.find({},{"product":product}).pretty()
