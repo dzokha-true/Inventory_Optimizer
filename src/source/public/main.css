@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+
+body {
+    color: rgb(61, 61, 61);
+    font-family: "Crimson Text";
+    font-size: 20px;
+}
+
+header {
+    height: 250px;
+}
+
+header h1 {
+    position: absolute;
+    font-size: 85px;
+    line-height: 80px;
+    padding-left: 10%;
+}
+
+header p {
+    position: absolute;
+    padding-left: 10%;
+    margin-top: 240px;
+}
+
+#hero {
+    position: absolute;
+    z-index: -1;
+    width: 500px;
+    top: 6%;
+    right: 10%;
+}
+main {
+    margin-top: 50px;
+    padding-bottom: 100px;
+    text-align: center;
+    margin-right: 70%;
+}
+
+#conditions {
+    margin-top: 120px;
+  
+}
+
+
+#conditions h4, #conditions h2{
+    margin: 0px;
+}
+
+#conditions h4 {
+    margin-top: 30px;
+}
+
+#conditions h2 {
+    margin-bottom: 30px;
+}
+
+form * {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 0px 38px -6px rgba(189,189,189,1);
+    -moz-box-shadow: 0px 0px 38px -6px rgba(189,189,189,1);
+    box-shadow: 0px 0px 38px -6px rgba(189,189,189,1);
+}
+
+
+form input[type="button"]{
+    background: rgb(240, 149, 176);
+    font-weight: bold;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-family: "Crimson Text";
+    font-size: 18px;
+}

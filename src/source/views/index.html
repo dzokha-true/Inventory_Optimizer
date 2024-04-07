@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/main.css" type = "text/css" />
+    <title>Inventory!</title>
+</head>
+<body>
+
+    <img id="hero" src= "../public/images/mini.png" />
+    <header>
+        <h1> Inventory <br/> Rockstar </h1>
+        <p> for  <strong>  EC327 projects</strong> </p>
+    </header>
+
+    <main>
+        <form method = "POST" id="weatherForm">
+            <input id="startButton" type="button" value ="Start"/>
+        </form>
+    </main>
+
+    <script src="../public/functions.js"></script>
+    <script>
+        document.getElementById("startButton").addEventListener("click", function() {
+            redirectToLogin();
+        });
+
+        function redirectToLogin() {
+            window.location.href = "login.html";
+        }
+    </script>
+
+    <script>
+        const { remote } = require('electron');
+
+        document.getElementById('startButton').addEventListener('click', () => {
+            remote.app.emit('open-login-page');
+        });
+    </script>
+
+</body>
+</html>
