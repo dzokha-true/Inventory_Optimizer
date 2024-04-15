@@ -1,27 +1,60 @@
-const object = document.getElementById("")
+// global variable declaration for each function
 
-const insertData = (newData) =>{
-    fetch('http://localhost:5000/get',{
+// from login class 
+
+// from product class
+const display_all_product = () =>{
+    fetch('http://localhost:5000/get/all_product',{
         method:'POST',
         headers: {
-
+            'Content-Type':'application/json'
         },
-        body:JSON.stringify(newData)
     })
     .then(resp => resp.json())
-    .then((data) => {
-        console.log(data)
-    })
+    .then(data =>console.log(data))
     .catch(error => console.log(error))
 }
 
-object.addEventListener('submit',(e)=>{
-    e.preventDefault()
+const display_product_name = (name) =>{
+    fetch('http://localhost:5000/get/product/name',{
+        method:'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+    })
+    .then(resp => resp.json())
+    .then(data => console.log(data))
+    .catch(error => console.log(error))
+}
 
-    const newData={
-        title:title.value,
-        body:body.value
-    }
+const display_product_sku = (sku) =>{
+    fetch('http://localhost:5000/get/product/SKU',{
+        method:'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+    })
+    .then(resp => resp.json())
+    .then(data =>console.log(data))
+    .catch(error => console.log(error))
+}
 
-    insertData(newData)
-})
+const display_product_class = (Class_sku) =>{
+    fetch('http://localhost:5000/get/product/SKU',{
+        method:'POST',
+        headers: {
+            'Content-Type':'application/json'
+        },
+    })
+    .then(resp => resp.json())
+    .then(data =>console.log(data))
+    .catch(error => console.log(error))
+}
+
+// from sales class
+
+// from received order
+
+// from place order
+
+// from math
