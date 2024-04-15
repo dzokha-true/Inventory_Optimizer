@@ -8,21 +8,43 @@
 </head>
 <body>
     <div class="container">
-    <main>
-        <p> Welcome </p>
-        <form method = "POST" id="weatherForm">
-            <input type = "text" id = "product" placeholder="Username"/>
-        </form>
-        <form method = "POST" id="weatherForm">
-            <input type = "text" id = "product" placeholder="Password"/>
-        </form>
-        <form method = "POST" id="weatherForm">
-            <input id="postSubmit" type="submit" value ="Login"/>
-        </form>
-       
-    </main>
+        <main>
+            <p> <strong> Welcome </strong> </p>
+            <form id="loginForm">
+                <input type = "text" id = "username" placeholder="Username"/>
+                <br> <br>
+                <input type = "text" id = "password" placeholder="Password"/>
+                <br> <br>
+                <input type= "submit" id = "postSubmit" value ="Login"/>
+            </form>
+        
+        </main>
     </div>
     
     <script src = "../public/functions.js"></script>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function() {
+            event.preventDefault();
+
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+
+        if (isAuthenticated(username,password)){
+            window.location.href = "map.html";
+            postSubmit = true;
+        } else {
+            alert("Invalid username or password");
+        }
+    });
+    </script>
+
+    <script>
+        document.getElementById('postSubmit').addEventListener('click', () => {
+            remote.app.emit('open-map-page');
+        });
+    </script>
+
+
 </body>
 </html>

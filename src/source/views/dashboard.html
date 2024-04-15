@@ -1,0 +1,80 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/map.css" type = "text/css" />
+    <title>Inventory!</title>
+</head>
+<body>
+    <nav id="navbar">
+        <ul class="navbar-items flexbox-col">
+          <li class="navbar-logo flexbox-left">
+            <a class="navbar-item-inner flexbox">
+                <img src="../public/images/mini.png" id="LogoMenu" data-name="Layer 1" viewBox="0 0 1438.88 1819.54" />
+              <!-- <span class="link-text1">Electrix!</span> -->
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left dashboard">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="search-outline"></ion-icon>
+              </div>
+              <span class="link-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="home-outline"></ion-icon>
+              </div>
+              <span class="link-text">Inventory</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="folder-open-outline"></ion-icon>
+              </div>
+              <span class="link-text">Orders</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+              </div>
+              <span class="link-text">Sales</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="people-outline"></ion-icon>
+              </div>
+              <span class="link-text">Performance</span>
+            </a>
+          </li>
+        </ul>
+    </nav>
+
+</body>
+
+<script>
+  document.getElementById("LogoMenu").addEventListener("click", function() {
+  window.location.href = "map.html";
+  redirectToMainMenu();
+});
+
+  function redirectToMainMenu() {
+      window.location.href = "map.html";
+  }
+</script>
+
+<script>
+  document.getElementById("LogoMenu").addEventListener("click", () => {
+      remote.app.emit('login-successful-page');
+  });
+</script>
+
+</html>

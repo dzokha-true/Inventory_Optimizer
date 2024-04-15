@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
 body {
-    color: rgb(61, 61, 61);
+    color: rgb(255, 252, 252);
     font-family: "Crimson Text";
-    font-size: 20px;
+    font-size: 30px;
 }
 
 .container {
@@ -41,7 +41,13 @@ form * {
 
 
 form input[type="submit"]{
-    background: rgb(161, 244, 255);
+    background: rgb(255, 117, 152);
+    color: rgb(255, 255, 255);
     font-weight: bold;
     margin-top: -1%;
+    padding-left: 20%;
+    padding-right: 20%;
+    font-family: "Crimson Text";
+    font-size: 15px;
+
 }

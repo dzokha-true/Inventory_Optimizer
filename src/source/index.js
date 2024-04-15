@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require("electron");
+const {app, BrowserWindow, ipcMain} = require("electron");
 const url = require("url");
 const path = require("path");
 
@@ -49,6 +49,47 @@ app.on("activate", () => {
 app.on("open-login-page", () => {
     mainWin.loadURL(url.format({
         pathname: path.join(__dirname, "views/login.html"),
+        protocol: "file",
+        slashes: true
+    }));
+});
+
+ipcMain.on('login-successful', () => {
+    mainWin.loadURL(url.format({
+        pathname: path.join(__dirname, "views/map.html"),
+        protocol: "file",
+        slashes: true
+    }));
+});
+
+ipcMain.on('data-page', () => {
+    mainWin.loadURL(url.format({
+        pathname: path.join(__dirname, "views/data.html"),
+        protocol: "file",
+        slashes: true
+    }));
+});
+
+ipcMain.on('dashboard-page', () => {
+    mainWin.loadURL(url.format({
+        pathname: path.join(__dirname, "views/dashboard.html"),
+        protocol: "file",
+        slashes: true
+    }));
+});
+
+ipcMain.on('inventory-page', () => {
+    mainWin.loadURL(url.format({
+        pathname: path.join(__dirname, "views/inventory.html"),
+        protocol: "file",
+        slashes: true
+    }));
+});
+
+
+ipcMain.on('order-page', () => {
+    mainWin.loadURL(url.format({
+        pathname: path.join(__dirname, "views/order.html"),
         protocol: "file",
         slashes: true
     }));
