@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import PercentFormatter
 import HelperFunctions
 from LoginSystem import LoginSystem
+import numpy as np
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -115,27 +116,63 @@ class Product(LoginSystem):
     ###############################################################
             
     def pareto_chart(self): # FINISH THIS FUNCTION
-        # range of dates
-        #define aesthetics for plot
-        color1 = 'steelblue'
-        color2 = 'red'
-        line_size = 4
+        # Fetch the data from the MongoDB database
+        cursor = self.product_DB.find({}, {'_id': 0, 'SKU': 1, 'inventory_value': 1})
 
-        #create basic bar plot
-        fig, ax = plt.subplots()
-        ax.bar(df.index, df['count'], color=color1)
+        # Convert the cursor to a list for easier manipulation
+        data_list = list(cursor)
 
-        #add cumulative percentage line to plot
-        ax2 = ax.twinx()
-        ax2.plot(df.index, df['cumperc'], color=color2, marker="D", ms=line_size)
-        ax2.yaxis.set_major_formatter(PercentFormatter())
+        # Sort the data in descending order by inventory_value
+        sorted_data = sorted(data_list, key=lambda x: x['inventory_value'], reverse=True)
 
-        #specify axis colors
-        ax.tick_params(axis='y', colors=color1)
-        ax2.tick_params(axis='y', colors=color2)
+        # Extract the SKUs and inventory_values into separate lists
+        SKUs = [item['SKU'] for item in sorted_data]
+        inventory_values = [item['inventory_value'] for item in sorted_data]
 
-        #display Pareto chart
-        plt.show()
+        # Calculate the cumulative percentage
+        cum_percent = np.cumsum(inventory_values) / np.sum(inventory_values) * 100
+
+        # Create the Pareto chart
+        fig, ax1 = plt.subplots()
+
+        # Create the bars representing individual values
+        ax1.bar(SKUs, inventory_values, color='blue')
+        ax1.set_ylabel('Inventory Value')
+
+        # Create the line representing the cumulative total
+        ax2 = ax1.twinx()
+        ax2.plot(SKUs, cum_percent, color='red', marker='o')
+        ax2.set_ylabel('Cumulative Percentage')
+
+        # Set the x-axis labels to be the SKUs, rotated 90 degrees for readability
+        plt.xticks(SKUs, rotation=90)
+
+        # Save the plot to a file
+        plt.savefig('pareto_chart.png', bbox_inches='tight')
+
+        print("Pareto chart has been saved as 'pareto_chart.png'")
+
+        # # range of dates
+        # # define aesthetics for plot
+        # color1 = 'steelblue'
+        # color2 = 'red'
+        # line_size = 4
+        #
+        # # create basic bar plot
+        # fig, ax = plt.subplots()
+        # ax.bar(df.index, df['count'], color=color1)
+        #
+        # # add cumulative percentage line to plot
+        # ax2 = ax.twinx()
+        # ax2.plot(df.index, df['cumperc'], color=color2, marker="D", ms=line_size)
+        # ax2.yaxis.set_major_formatter(PercentFormatter())
+        #
+        # # specify axis colors
+        # ax.tick_params(axis='y', colors=color1)
+        # ax2.tick_params(axis='y', colors=color2)
+        #
+        # # display Pareto chart
+        # plt.show()
         
     ###############################################################
         
