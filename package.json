@@ -1,11 +1,18 @@
 {
-  "name": "inventory_optimizer",
+  "name": "electronjs",
   "version": "1.0.0",
-  "description": "",
+  "description": "- Clone repository",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron ."
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Cole Shaigec, Pree Simphliphan, Vugar Amirov, Zhakhangir Mamayev, Rawisara Chairat",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "Inventory_Optimizer"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0"
+  }
 }
