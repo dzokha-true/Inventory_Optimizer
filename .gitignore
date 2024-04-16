@@ -1,0 +1,7 @@
+# ignore ALL .csvfiles
+*.csv
+
+# ignore ALL files in ANY directory named temp
+.venv/
+node_modules/
+**/.DS_Store
