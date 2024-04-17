@@ -3,5 +3,6 @@
 
 # ignore ALL files in ANY directory named temp
 .venv/
+.vscode/
 node_modules/
 **/.DS_Store
