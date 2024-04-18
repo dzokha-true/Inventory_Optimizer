@@ -23,7 +23,6 @@ ipcRenderer.on('login-failure', (event, data) => {
 
 ipcRenderer.on('login-attempt-exceeded', () => {
     document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
-    document.getElementById('loginButton').disabled = true; 
     window.location.href = '../views/index.html';
     remote.app.emit('main-page');
 });
@@ -35,4 +34,19 @@ ipcRenderer.on('reset-login', () => {
     document.getElementById('password').value = '';
     // Enable the login button if it was previously disabled
     document.getElementById('loginButton').disabled = false;
+});
+
+document.getElementById('registerForm').addEventListener('submit', (event) => {
+    event.preventDefault(); 
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const status = document.getElementById('status').value;
+  
+    ipcRenderer.send('perform-register', { username, password, status });
+  });
+
+  ipcRenderer.on('register_success', () => {
+    document.getElementById('message_register').textContent = '.....';
+    window.location.href = '../views/login.html';
+    remote.app.emit('open-login-page');
 });
