@@ -2,9 +2,10 @@
   "name": "electronjs",
   "version": "1.0.0",
   "description": "- Clone repository",
-  "main": "index.js",
+  "main": "src/source/index.js",
   "scripts": {
-    "start": "electron ."
+    "start": "APP_DEV=true electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cole Shaigec, Pree Simphliphan, Vugar Amirov, Zhakhangir Mamayev, Rawisara Chairat",
   "license": "ISC",
