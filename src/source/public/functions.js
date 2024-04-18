@@ -45,10 +45,17 @@ ipcRenderer.on('login-success', (event, arg) => {
     //alert("valid username or password");
     //  console.log("success");
    });
-  
-ipcRenderer.on('login-failure', (event, arg) => {
-    const messageDiv = document.getElementById('message');
-    messageDiv.innerText = arg; // Display the error message
-    //alert("Invalid username or password");
-    console.log("error");
-  });
+
+ipcRenderer.on('login-failure', (event, data) => {
+    if (data.attemptsLeft > 0) {
+        document.getElementById('message').textContent = `Login failed. Attempts left: ${data.attemptsLeft}`;
+    } else {
+        document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
+        document.getElementById('loginButton').disabled = true;
+    }
+});
+
+ipcRenderer.on('login-attempt-exceeded', () => {
+    document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
+    document.getElementById('loginButton').disabled = true;
+});
