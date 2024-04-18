@@ -71,7 +71,7 @@ app.on("activate", () => {
     }
 });
 
-
+// login page
 app.on("open-login-page", () => {
     mainWin.loadURL(url.format({
         pathname: path.join(__dirname, "views/login.html"),
@@ -80,6 +80,7 @@ app.on("open-login-page", () => {
     }));
 });
 
+// for login performing
 ipcMain.on('perform-login', (event, { username, password }) => {
     loginAttempts++;
 
@@ -112,6 +113,31 @@ ipcMain.on('perform-login', (event, { username, password }) => {
     });
   });
 
+  ipcMain.on('perform-register', (event, { username, password, status }) => {
+    
+    // change path to script for register
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password]);
+
+    pythonProcess.stdout.on('data', (data) => {
+      const registerResponse = data.toString().trim();
+        
+      if (registerResponse === 'Success') { 
+	    event.reply('register_success', { username, password });
+      }
+
+    });  
+    pythonProcess.on('error', (error) => {
+      console.error(`An error occurred: ${error.message}`);
+      event.reply('register-failure', 'An error occurred during register.');
+    });
+  
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      event.reply('register-failure', 'An error occurred during register.');
+    });
+  });
+
+//renderer for each page
 ipcMain.on('main-page', () => {
 	mainWin.loadURL(url.format({
 		pathname: path.join(__dirname, "views/index.html"),
