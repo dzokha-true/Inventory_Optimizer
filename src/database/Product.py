@@ -10,8 +10,8 @@ from pymongo.server_api import ServerApi
 from pymongo.errors import ConnectionFailure
 from datetime import date
 import re
-import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
+#import matplotlib.pyplot as plt
+#from matplotlib.ticker import PercentFormatter
 import HelperFunctions
 from LoginSystem import LoginSystem
 
@@ -23,6 +23,7 @@ class Product(LoginSystem):
     
     # initilse a constructor
     def __init__(self):
+        self.status = "Admin"
         super().__init__()
         # Connects to the BusinessInventoryChecker database
         URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
@@ -180,9 +181,9 @@ class Product(LoginSystem):
             stock = HelperFunctions.stock_Checker()
             order = HelperFunctions.check_order_number()
             cost = HelperFunctions.price_Checker()
-            inventory_value = # NEEDS TO BE ADDED
-            expected_sales = # NEEDS TO BE ADDED
-            SKU_class = # NEEDS TO BE ADDED
+            #inventory_value = # NEEDS TO BE ADDED
+            #expected_sales = # NEEDS TO BE ADDED
+            #SKU_class = # NEEDS TO BE ADDED
             SKU_check = self.product_DB.find_one({'SKU': SKU})
             if SKU_check:
                 print("The product already exists! Try updating it instead")
@@ -198,9 +199,9 @@ class Product(LoginSystem):
             stock = HelperFunctions.stock_Checker()
             order = HelperFunctions.check_order_number()
             cost = HelperFunctions.price_Checker()
-            inventory_value = # NEEDS TO BE ADDED
-            expected_sales = # NEEDS TO BE ADDED
-            SKU_class = # NEEDS TO BE ADDED
+            #inventory_value = # NEEDS TO BE ADDED
+            #expected_sales = # NEEDS TO BE ADDED
+            #SKU_class = # NEEDS TO BE ADDED
             SKU_check = self.product_DB.find_one({'SKU': SKU})
             if SKU_check:
                 self.product_DB.update_one({'SKU': SKU}, {'$set': {'SKU': SKU, 'product_name': product_name, 'stock': stock, 'order': order, 'cost': cost, 'inventory_value': inventory_value, 'expected_sales': expected_sales, 'SKU_class': SKU_class}})
@@ -216,9 +217,9 @@ class Product(LoginSystem):
             stock = HelperFunctions.stock_Checker()
             order = HelperFunctions.check_order_number()
             cost = HelperFunctions.price_Checker()
-            inventory_value = # NEEDS TO BE ADDED
-            expected_sales = # NEEDS TO BE ADDED
-            SKU_class = # NEEDS TO BE ADDED
+            #inventory_value = # NEEDS TO BE ADDED
+            #expected_sales = # NEEDS TO BE ADDED
+            #SKU_class = # NEEDS TO BE ADDED
             SKU_check = self.product_DB.find_one({'SKU': SKU})
             
             product_check = self.product_DB.find_one({'SKU': SKU, 'product_name': product_name, 'stock': stock, 'order': order, 'cost': cost, 'inventory_value': inventory_value, 'expected_sales': expected_sales, 'SKU_class': SKU_class})

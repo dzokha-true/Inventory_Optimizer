@@ -19,6 +19,7 @@ const { spawn } = require('child_process');
 
 let mainWin;
 let userWin;
+let loginAttempts = 0;
 
 function createWindow() {
     mainWin = new BrowserWindow({
@@ -89,7 +90,13 @@ app.on("open-login-page", () => {
 
 ipcMain.on('perform-login', (event, { username, password }) => {
     // Here, replace 'path/to/LoginSystem.py' with the actual path to your Python script
-    const pythonProcess = spawn('../Inventory_Optimizer/.venv/bin/python', ['src/database/LoginSystem.py', username, password]);
+    loginAttempts++;
+    
+    if (loginAttempts > 5) {
+        event.reply('login-attempt-exceeded');
+        return;
+    }
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password]);
 
     pythonProcess.stdout.on('data', (data) => {
       const loginResponse = data.toString().trim();
@@ -101,10 +108,9 @@ ipcMain.on('perform-login', (event, { username, password }) => {
         // createuserWindow();
       } else {
         //console.log("C");
-        event.reply('login-failure', 'Login Failed. Please try again.');
+        event.reply('login-failure', { attemptsLeft: 5 - loginAttempts });
       }
-    });
-  
+    });  
     pythonProcess.on('error', (error) => {
       console.error(`An error occurred: ${error.message}`);
       event.reply('login-failure', 'An error occurred during login.');

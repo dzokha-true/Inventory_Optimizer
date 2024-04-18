@@ -41,13 +41,14 @@ class Sales(Product):
         self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': 0}})
         
     def ABC_revenue(self):
+        return True
         #range of dates
         # tied to date
         #num * cost per SKU per item
         
         
     def SKU_class(self):
-        ...
+        return True
         
     def sales_to_csv(self):
         with open('sales.csv', 'w', newline='') as csvfile:

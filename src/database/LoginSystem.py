@@ -160,12 +160,6 @@ class LoginSystem:
         result = self.login_DB.update_many({}, {"$set": {"lifo_fifo": new_lifo_fifo}})
         return True
 
-db = LoginSystem()
-    
-if __name__ == "__main__":
-    if len(sys.argv) == 3:
-        _, username, password = sys.argv
-        db.login(username, password)
         
         
         
