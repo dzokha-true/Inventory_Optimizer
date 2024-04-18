@@ -1,0 +1,297 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/map.css" type = "text/css" />
+    <title>Inventory!</title>
+</head>
+<body>
+
+    <nav id="navbar">
+        <ul class="navbar-items flexbox-col">
+          <li class="navbar-logo flexbox-left">
+            <a class="navbar-item-inner flexbox">
+                <img src="../public/images/mini.png" id="LogoMenu" data-name="Layer 1" viewBox="0 0 1438.88 1819.54" />
+              <!-- <span class="link-text1">Electrix!</span> -->
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left" id = "dashboard">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="search-outline"></ion-icon>
+              </div>
+              <span class="link-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left inventory">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="home-outline"></ion-icon>
+              </div>
+              <span class="link-text">Inventory</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="folder-open-outline"></ion-icon>
+              </div>
+              <span class="link-text">Orders</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+              </div>
+              <span class="link-text">Sales</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="people-outline"></ion-icon>
+              </div>
+              <span class="link-text">Performance</span>
+            </a>
+          </li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+  
+        <div class="top_navbar">
+          <div class="hamburger">
+             <div class="one"></div>
+             <div class="two"></div>
+             <div class="three"></div>
+          </div>
+          <div class="top_menu">
+            <div class="logo"></div>
+            <ul>
+              <li><a href="#">
+                <i class="btn-circle-download">
+                    <svg id="arrow" width="14px" height="20px" viewBox="17 14 14 20">
+                    <path d="M24,15 L24,32"></path>
+                    <polyline points="30 27 24 33 18 27"></polyline>
+                    </svg>
+                    <svg id="check" width="21px" height="15px" viewBox="13 17 21 15">
+                    <polyline points="32.5 18.5 20 31 14.5 25.5"></polyline>
+                    </svg>
+                    <svg  id="border" width="48px" height="48px" viewBox="0 0 48 48">
+                    <path d="M24,1 L24,1 L24,1 C36.7025492,1 47,11.2974508 47,24 L47,24 L47,24 C47,36.7025492 36.7025492,47 24,47 L24,47 L24,47 C11.2974508,47 1,36.7025492 1,24 L1,24 L1,24 C1,11.2974508 11.2974508,1 24,1 L24,1 Z"></path>
+                    </svg>
+                </i>
+    
+                </a></li>
+              <li><a href="#">
+                <i class="material-icons"></i>
+                <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M853.333333 938.666667H170.666667v-85.333334a213.333333 213.333333 0 0 1 213.333333-213.333333h256a213.333333 213.333333 0 0 1 213.333333 213.333333v85.333334z m-341.333333-384a256 256 0 1 1 0-512 256 256 0 0 1 0 512z"  />
+                </svg>
+                </a></li>
+              <li><a href="#">
+                <i class="notification-box">
+                    <span class="notification-count">1</span>
+                    <div class="notification-bell">
+                        <span class="bell-top"></span>
+                        <span class="bell-middle"></span>
+                        <span class="bell-bottom"></span>
+                        <span class="bell-rad"></span>
+                    </div>
+                </i>
+                </a></li>
+            </ul>
+          </div>
+        </div>
+        
+        
+        <div class="main_container"></div>
+    </div>
+    
+    <div class ="frame2">
+        <div class="button-container">
+            <a href="#" class="btn2" id = table >Table</a>
+        </div>
+    </div>
+
+    <div class ="frame3">
+        <div class="button-container">
+            <a href="#" class="btn3" id = graph >Graph</a>
+        </div>
+    </div>
+
+    <div class="table">
+        <h2><small>Products</small></h2>
+        <div class="Card">
+            <div class="CardInner">
+            <label>Search the products</label>
+                <div class="container">
+                    <div class="Icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                    <div class="InputContainer">
+                    <input type = "text" id = "products" placeholder="Enter product's detail..."/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class ="frame">
+            <div class="button-container">
+            <span class="button-text">Add Product</span>
+            <a href="#" class="btn" id = addbutton >+</a>
+            </div>
+        </div>
+
+
+
+        <ul class="responsive-table">
+          <li class="table-header">
+            <div class="col col-1">SKU</div>
+            <div class="col col-2">Name</div>
+            <div class="col col-3">Number <br> in Stock</div>
+            <div class="col col-4">Number <br> on Order</div>
+            <div class="col col-5">Unit <br> Cost</div>
+            <div class="col col-6">Inventory <br> Value</div>
+            <div class="col col-7">Expected <br> Sales</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="SKU">FRG-123-LG-2</div>
+            <div class="col col-2" data-label="Name">LG Smart Fridge</div>
+            <div class="col col-3" data-label="StockAmount">12</div>
+            <div class="col col-4" data-label="OrderAmount">3</div>
+            <div class="col col-5" data-label="UnitCost">$9,000</div>
+            <div class="col col-6" data-label="InventoryValue">$108,000</div>
+            <div class="col col-7" data-label="ExpectedSales">4</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="SKU">NDS-424-DS-1</div>
+            <div class="col col-2" data-label="Name">Nintendo DS</div>
+            <div class="col col-3" data-label="StockAmount">43</div>
+            <div class="col col-4" data-label="OrderAmount">12</div>
+            <div class="col col-5" data-label="UnitCost">$250</div>
+            <div class="col col-6" data-label="InventoryValue">$10,750</div>
+            <div class="col col-7" data-label="ExpectedSales">30</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="SKU">42257</div>
+            <div class="col col-2" data-label="Name">John Smith</div>
+            <div class="col col-3" data-label="StockAmount">$341</div>
+            <div class="col col-4" data-label="OrderAmount">Pending</div>
+            <div class="col col-5" data-label="UnitCost">John Doe</div>
+            <div class="col col-6" data-label="InventoryValue">$350</div>
+            <div class="col col-7" data-label="ExpectedSales">Pending</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="SKU">42311</div>
+            <div class="col col-2" data-label="Name">John Carpenter</div>
+            <div class="col col-3" data-label="StockAmount">$115</div>
+            <div class="col col-4" data-label="OrderAmount">Pending</div>
+            <div class="col col-5" data-label="UnitCost">John Doe</div>
+            <div class="col col-6" data-label="InventoryValue">$350</div>
+            <div class="col col-7" data-label="ExpectedSales">Pending</div>
+          </li>
+        </ul>
+    </div>
+
+</body>
+
+<script>
+    const searchInput = document.getElementById('products');
+
+    searchInput.addEventListener('input', function() {
+        const searchText = this.value.toLowerCase().trim();
+
+        const rows = document.querySelectorAll('.table-row');
+
+        rows.forEach(row => {
+            const rowText = row.textContent.toLowerCase();
+            
+            if (rowText.includes(searchText)) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none'; 
+            }
+        });
+    });
+
+</script>
+
+<script>
+    const downloadButton = document.querySelector('.btn-circle-download');
+    downloadButton.addEventListener('click', function() {
+    this.classList.add('load');
+    setTimeout(() => {
+        this.classList.add('done');
+    }, 1000);
+
+    setTimeout(() => {
+        this.classList.remove('load', 'done');
+    }, 5000);
+});
+
+</script>
+
+<script>
+    document.getElementById("LogoMenu").addEventListener("click", function() {
+    window.location.href = "map.html";
+    redirectToMainMenu();
+  });
+  
+    function redirectToMainMenu() {
+        window.location.href = "map.html";
+    }
+</script>
+
+<script>
+    document.getElementById("LogoMenu").addEventListener("click", () => {
+        remote.app.emit('login-successful-page');
+    });
+</script>
+
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", function() {
+    window.location.href = "dashboard.html";
+    redirectToDashboard();
+});
+
+    function redirectToDashboard() {
+        window.location.href = "dashboard.html";
+    }
+</script>
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", () => {
+        remote.app.emit('dashboard-page');
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const firstProfileImage = document.getElementById("addbutton");
+        const cookiePopup = document.getElementById("cookiesPopup");
+        const closeButton = document.querySelector(".cookiesContent .close");
+        const acceptButton = document.querySelector(".cookiesContent .accept");
+        
+    
+        firstProfileImage.addEventListener("click", function() {
+            cookiePopup.style.display = "block"; 
+        });
+    
+        closeButton.addEventListener("click", function() {
+            cookiePopup.style.display = "none"; 
+        });
+
+        acceptButton.addEventListener("click", function() {
+            cookiePopup.style.display = "none"; 
+        });
+    });
+
+</script>
+
+
+</html>

@@ -1,0 +1,40 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/map.css" type = "text/css" />
+    <title>Inventory!</title>
+</head>
+<body>
+
+    <div class="container">
+        <div class="cookiesContent" id="cookiesPopup">
+        <button class="close">✖</button>
+        <img src="../public/images/mini.png" alt="cookies-img" />
+        <p>We use cookies for improving user experience, analytics and marketing.</p>
+        <button class="accept">That's fine!</button>
+        </div>
+    </div> 
+
+    <script>
+        
+        document.querySelector(".close").addEventListener("click", function() {
+            window.location.href = "map.html";
+            redirectToMap();
+        });
+    
+            function redirectToMap() {
+                window.location.href = "map.html";
+            }
+    </script>
+
+    <script>
+        document.querySelector(".close").addEventListener('click', () => {
+            remote.app.emit('login-successful-page');
+        });
+    </script>
+</body>
+
+
+</html>

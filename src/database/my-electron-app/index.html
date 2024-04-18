@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .login-container { max-width: 300px; margin: 100px auto; padding: 20px; text-align: center; }
+    input { margin-bottom: 10px; width: 100%; padding: 10px; }
+    button { width: 100%; padding: 10px; }
+    .message { margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <h1>Login</h1>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
+
