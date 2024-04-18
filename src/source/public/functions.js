@@ -1,37 +1,7 @@
-// function isAuthenticated(username,password){
-//     const validUsername = "Username";
-//     const validPassword = "Password";
-
-//     if (username == validUsername && password == validPassword){
-//     return true;
-//     } else {
-//         return false;
-//     }
-// }
-
-// function runLoginScript(scriptPath="src/database/LoginSystem.py", args) {
-//     const python = spawn("../Inventory_Optimizer/.venv/bin/python", [scriptPath, ...args]);
-
-//     python.stdout.on('data', (data) => {
-//         console.log(`stdout: ${data}`);
-//         const loginResponse = data.toString().trim();
-        
-//         return loginResponse;
-//     });
-
-//     python.stderr.on('data', (data) => {
-//         console.error(`stderr: ${data}`);
-//     });
-//     python.on('close', (code) => {
-//         console.log(`child process exited with code ${code}`);
-//     });
-// }
-
 const { ipcRenderer } = require('electron');
-//const { remote } = require('electron');
 
 document.getElementById('loginForm').addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
   
@@ -39,11 +9,8 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
   });
   
 ipcRenderer.on('login-success', (event, arg) => {
-     // Load the page on successful login
     window.location.href = '../views/map.html';
     remote.app.emit('map-page');
-    //alert("valid username or password");
-    //  console.log("success");
    });
 
 ipcRenderer.on('login-failure', (event, data) => {
@@ -51,11 +18,35 @@ ipcRenderer.on('login-failure', (event, data) => {
         document.getElementById('message').textContent = `Login failed. Attempts left: ${data.attemptsLeft}`;
     } else {
         document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
-        document.getElementById('loginButton').disabled = true;
     }
 });
 
 ipcRenderer.on('login-attempt-exceeded', () => {
     document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
-    document.getElementById('loginButton').disabled = true;
+    window.location.href = '../views/index.html';
+    remote.app.emit('main-page');
+});
+
+ipcRenderer.on('reset-login', () => {
+    document.getElementById('message').textContent = '';
+    // Optionally, clear the username and password fields
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    // Enable the login button if it was previously disabled
+    document.getElementById('loginButton').disabled = false;
+});
+
+document.getElementById('registerForm').addEventListener('submit', (event) => {
+    event.preventDefault(); 
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const status = document.getElementById('status').value;
+  
+    ipcRenderer.send('perform-register', { username, password, status });
+  });
+
+  ipcRenderer.on('register_success', () => {
+    document.getElementById('message_register').textContent = '.....';
+    window.location.href = '../views/login.html';
+    remote.app.emit('open-login-page');
 });
