@@ -23,7 +23,8 @@ let userWin;
 function createWindow() {
     mainWin = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         },
         width: 1200,
         height: 600,
@@ -46,7 +47,8 @@ function createWindow() {
 function createuserWindow() {
     userWin = new BrowserWindow({
         webPreferences: {
-            nodeIntegration: true
+            nodeIntegration: true,
+            contextIsolation: false
         },
         width: 1200,
         height: 600,
@@ -87,16 +89,18 @@ app.on("open-login-page", () => {
 
 ipcMain.on('perform-login', (event, { username, password }) => {
     // Here, replace 'path/to/LoginSystem.py' with the actual path to your Python script
-    const pythonProcess = spawn('../Inventory_Optimizer/.venv/bin/python', ['../database/LoginSystem.py', username, password]);
+    const pythonProcess = spawn('../Inventory_Optimizer/.venv/bin/python', ['src/database/LoginSystem.py', username, password]);
 
     pythonProcess.stdout.on('data', (data) => {
       const loginResponse = data.toString().trim();
         
       if (loginResponse === 'Success') { // Assuming 'Success' is printed by your Python script
-        //event.reply('login-sucess', { username, password });
-        mainWin.close();
-        createuserWindow();
+        //console.log("B");
+        event.reply('login-success', { username, password });
+        // mainWin.close();
+        // createuserWindow();
       } else {
+        //console.log("C");
         event.reply('login-failure', 'Login Failed. Please try again.');
       }
     });
