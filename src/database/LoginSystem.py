@@ -16,6 +16,12 @@ letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
 
+# TALK TO PREE ABOUT THE USER ACCESS LEVEL
+# TALK TO PREE ABOUT THE RETURNS AND PRINTS
+
+
+
+
 class LoginSystem:
     
     # Initialiser for LoginSystem class
@@ -28,9 +34,8 @@ class LoginSystem:
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
         self.data_base = client['LoginSystem']
         self.login_DB = self.data_base['AccessDetails']
-        
-        self.start_login()
-    
+      
+      
     # First stage of login asking the user for either creating an account or logging in
     def start_login(self):
         
@@ -48,54 +53,55 @@ class LoginSystem:
             return self.register()
     
     # logging in the user
-    def login(self):
-        
-        # Ask the user for their username and checks if the username exists
-        username = str(input("Please enter the username: "))
-        user_check = self.login_DB.find_one({'username': username})
+    def login(self, username, password):
         
         # If user exists
-        if user_check:
+        #if user_check:
             
             # The user has 5 attempts to get the correct password for the inputted username
-            attempts = 0
-            while attempts < 5:
+            #attempts = 0
+            #while attempts < 5:
                 
-                password = input("Please enter the password: ")
-                
-                # if the password is correct, it returns True (i.e., managed to login)
+            user_check = self.login_DB.find_one({'username': username})
+            if user_check:    # if the password is correct, it returns True (i.e., managed to login)
                 if bcrypt.checkpw(password.encode('utf8'), user_check['password']):
                     
                     self.username = username
                     self.status = user_check.get('status')
                     
+                    print("Success")
                     return True
+                else:
+                    print("Wrong Password")
+                    return False
                 
                 # if the password is not correct then increment the attempt and print the password is not correct, the amount of attempts left and ask user for the password again
-                else:
-                    attempts += 1
-                    print("Your password is incorrect. Please try again. You have " + str((5 - attempts)) + " attempts left.")
+            else:
+                    #attempts += 1
+                print("Wrong Password")
+                return False
+                    #print("Your password is incorrect. Please try again. You have " + str((5 - attempts)) + " attempts left.")
                     
             # If the user did not manage to get the password correct after 5 attempts, print that no attempts left and return False (i.e., not managed to login)
-            if attempts == 5:
-                print("You have exceeded the maximum number of attempts. Please try again later.")
-                return False
+            #if attempts == 5:
+                #print("You have exceeded the maximum number of attempts. Please try again later.")
+                #return False
                 
         # If user doesn't exist
-        else:
+        #else:
             # print that the user doesnt exist and ask the user if they want to login or register
-            print("User does not exist. You need to register for an account.")
-            choice = str(input("Would you like to register or login: "))
+            #print("User does not exist. You need to register for an account.")
+            #choice = str(input("Would you like to register or login: "))
             
             # keeping asking for either register or login as user inputs
-            while choice != "register" and choice != "login":
-                choice = str(input("Please input either register or login: "))
+            #while choice != "register" and choice != "login":
+                #choice = str(input("Please input either register or login: "))
             
             # if user inputted register, then call the register function. If user inputted login, then call the login function
-            if choice == "register":
-                return self.register()
-            else:
-                return self.login()
+            #if choice == "register":
+                #return self.register()
+            #else:
+                #return self.login()
     
     def register(self):
         
@@ -153,10 +159,13 @@ class LoginSystem:
         new_lifo_fifo = HelperFunctions.check_lifo_fifo()
         result = self.login_DB.update_many({}, {"$set": {"lifo_fifo": new_lifo_fifo}})
         return True
-        
+
+db = LoginSystem()
     
-        
-        
+if __name__ == "__main__":
+    if len(sys.argv) == 3:
+        _, username, password = sys.argv
+        db.login(username, password)
         
         
         
