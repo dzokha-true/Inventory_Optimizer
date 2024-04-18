@@ -18,6 +18,9 @@
         <form>
             <input id="startButton" type="button" value ="Start"/>
         </form>
+        <form>
+            <input id="registerButton" type="button" value ="Register"/>
+        </form>
     </main>
 
     <script src="../public/functions.js"></script>
@@ -28,6 +31,16 @@
 
         function redirectToLogin() {
             window.location.href = "login.html";
+        }
+    </script>
+
+    <script>
+        document.getElementById("registerButton").addEventListener("click", function() {
+            redirectToRegister();
+        });
+
+        function redirectToRegister() {
+            window.location.href = "register.html";
         }
     </script>
 
