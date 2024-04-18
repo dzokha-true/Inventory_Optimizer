@@ -3,23 +3,11 @@ const url = require("url");
 const path = require("path");
 const { spawn } = require('child_process');
 
-//electron reload
-// if(process.env.NODE_ENV !== "production"){
-//     require("electron-reload")(__dirname, {
-//         electron: path.join(__dirname, "../node_modules", ".bin", "electron")
-//     });
-// }
-// var isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == "true") : false;
-
-// if (isDev) {
-//     require('electron-reload')(__dirname, {
-//         electron: path.join(__dirname, 'node_modules', '.bin', 'electron')
-//     });
-// }
 
 let mainWin;
 let userWin;
 let loginAttempts = 0;
+const MAX_LOGIN_ATTEMPTS = 5;
 
 function createWindow() {
     mainWin = new BrowserWindow({
@@ -43,6 +31,10 @@ function createWindow() {
         mainWin = null;
         app.quit();
     });
+}
+
+function resetLoginAttempts() {
+    loginAttempts = 0;
 }
 
 function createuserWindow() {
@@ -89,25 +81,23 @@ app.on("open-login-page", () => {
 });
 
 ipcMain.on('perform-login', (event, { username, password }) => {
-    // Here, replace 'path/to/LoginSystem.py' with the actual path to your Python script
     loginAttempts++;
-    
-    if (loginAttempts > 5) {
-        event.reply('login-attempt-exceeded');
+
+    if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
+        resetLoginAttempts();
+        event.reply('reset-login');
+        mainWin.loadFile('src/source/views/index.html');
         return;
     }
+    
     const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password]);
 
     pythonProcess.stdout.on('data', (data) => {
       const loginResponse = data.toString().trim();
         
-      if (loginResponse === 'Success') { // Assuming 'Success' is printed by your Python script
-        //console.log("B");
-        event.reply('login-success', { username, password });
-        // mainWin.close();
-        // createuserWindow();
+      if (loginResponse === 'Success') { 
+	event.reply('login-success', { username, password });
       } else {
-        //console.log("C");
         event.reply('login-failure', { attemptsLeft: 5 - loginAttempts });
       }
     });  
@@ -121,6 +111,14 @@ ipcMain.on('perform-login', (event, { username, password }) => {
       event.reply('login-failure', 'An error occurred during login.');
     });
   });
+
+ipcMain.on('main-page', () => {
+	mainWin.loadURL(url.format({
+		pathname: path.join(__dirname, "views/index.html"),
+		protocol: "file",
+		slashes: true
+	}));
+});
 
 ipcMain.on('map-page', () => {
     mainWin.loadURL(url.format({
@@ -161,4 +159,9 @@ ipcMain.on('order-page', () => {
         protocol: "file",
         slashes: true
     }));
+});
+
+app.on('window-all-closed', () => app.quit());
+app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
