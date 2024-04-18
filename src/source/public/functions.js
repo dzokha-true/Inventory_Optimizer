@@ -40,8 +40,8 @@ document.getElementById('loginForm').addEventListener('submit', (event) => {
   
 ipcRenderer.on('login-success', (event, arg) => {
      // Load the page on successful login
-     window.location.href = '../views/map.html';
-    //remote.app.emit('map-page');
+    window.location.href = '../views/map.html';
+    remote.app.emit('map-page');
     //alert("valid username or password");
     //  console.log("success");
    });
@@ -50,5 +50,5 @@ ipcRenderer.on('login-failure', (event, arg) => {
     const messageDiv = document.getElementById('message');
     messageDiv.innerText = arg; // Display the error message
     //alert("Invalid username or password");
-    // console.log("error");
+    console.log("error");
   });
