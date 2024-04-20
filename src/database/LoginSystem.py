@@ -36,6 +36,9 @@ class LoginSystem:
         self.login_DB = self.data_base['AccessDetails']
       
       
+      
+      
+      
     # First stage of login asking the user for either creating an account or logging in
     def start_login(self):
         
@@ -52,87 +55,82 @@ class LoginSystem:
         else:
             return self.register()
     
+    
+    
+    
+    
     # logging in the user
     def login(self, username, password):
-        
-        # If user exists
-        #if user_check:
-            
-            # The user has 5 attempts to get the correct password for the inputted username
-            #attempts = 0
-            #while attempts < 5:
-                
-            user_check = self.login_DB.find_one({'username': username})
-            if user_check:    # if the password is correct, it returns True (i.e., managed to login)
-                if bcrypt.checkpw(password.encode('utf8'), user_check['password']):
-                    
-                    self.username = username
-                    self.status = user_check.get('status')
-                    
-                    print("Success")
-                    return True
-                else:
-                    print("Wrong Password")
-                    return False
-                
-                # if the password is not correct then increment the attempt and print the password is not correct, the amount of attempts left and ask user for the password again
+        user_check = self.login_DB.find_one({'username': username})
+        if user_check:    
+            if bcrypt.checkpw(password.encode('utf8'), user_check['password']):
+                self.username = username
+                self.status = user_check.get('status')
+                self.fiscal_year = user_check.get('fiscal_year')
+                self.lifo_fifo = user_check.get('lifo_fifo')
+                print("Success")
+                return True
             else:
-                    #attempts += 1
                 print("Wrong Password")
                 return False
-                    #print("Your password is incorrect. Please try again. You have " + str((5 - attempts)) + " attempts left.")
-                    
-            # If the user did not manage to get the password correct after 5 attempts, print that no attempts left and return False (i.e., not managed to login)
-            #if attempts == 5:
-                #print("You have exceeded the maximum number of attempts. Please try again later.")
-                #return False
-                
-        # If user doesn't exist
-        #else:
-            # print that the user doesnt exist and ask the user if they want to login or register
-            #print("User does not exist. You need to register for an account.")
-            #choice = str(input("Would you like to register or login: "))
+        else:
+            print("Wrong Password")
+            return False
             
-            # keeping asking for either register or login as user inputs
-            #while choice != "register" and choice != "login":
-                #choice = str(input("Please input either register or login: "))
             
-            # if user inputted register, then call the register function. If user inputted login, then call the login function
-            #if choice == "register":
-                #return self.register()
-            #else:
-                #return self.login()
+            
     
-    def register(self):
-        
-        # Ask the user for a username and check if it already exists
-        username = str(input("Please enter a username for the account: "))
+    def register(self, username, password, stat):
         user_check = self.login_DB.find_one({'username': username})
-        
-        # Keep asking for a username until the user enters a username which doesn't exist
-        while user_check:
-            username = str(input("Username already exists! Please enter another username: "))
-            user_check = self.login_DB.find_one({'username': username})
-        
-        # Call password_checker function to get a secure password to assign to the account
+        if user_check:
+            print("User exists")
+            return False
         password = HelperFunctions.password_checker()
-        
-        # Assign the user status
-        status = HelperFunctions.status_check(self)
-        
-        # Find an admin in the database
+        capital = False
+        special = False
+        number = False
+        if capital == False or special == False or number == False or len(password) < 8:
+            if len(password) < 8:
+                print("Length is wrong")
+                return False
+            for letter in password:
+                if letter in str(numbers):
+                        number = True
+                if letter not in str(numbers) and letter not in letters and letter not in capitals:
+                    special = True
+                if letter in capitals:
+                    capital = True
+            if number == False:
+                print("No numbers")
+                return False
+            if special == False:
+                print("No special characters")
+                return False
+            if capital == False:
+                print("No capitals")
+                return False                  
         admin_user = self.login_DB.find_one({'status': 'Admin'})
-        
+        if stat == "ReadWrite":
+            self.status = "RW"
+        elif stat == "Admin":
+            self.status = "Admin"
+        elif stat == "Read":
+            self.status ="R"
+        else:
+            print("Wrong status")
+            return False
         self.username = username
         self.status = status
-        fiscal_year = admin_user.get('fiscal_year')
-        lifo_fifo = admin_user.get('lifo_fifo')
-        
-        # hash the password and insert it onto the database
+        self.fiscal_year = admin_user.get('fiscal_year')
+        self.lifo_fifo = admin_user.get('lifo_fifo')
         hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': fiscal_year, 'lifo_fifo': lifo_fifo})
-        
+        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
+        print("Success")
         return True
+    
+    
+    
+    
     
     # change the fiscal year for everyone, only admins can do it
     def change_fiscal_year(self):
