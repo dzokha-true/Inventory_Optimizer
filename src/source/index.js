@@ -81,9 +81,9 @@ app.on("open-login-page", () => {
 });
 
 // for login performing
-ipcMain.on('perform-login', (event, { username, password }) => {
+ipcMain.on('perform-login', (event, { username, password}) => {
     loginAttempts++;
-
+    operation = 'login';
     if (loginAttempts >= MAX_LOGIN_ATTEMPTS) {
         resetLoginAttempts();
         event.reply('reset-login');
@@ -91,7 +91,7 @@ ipcMain.on('perform-login', (event, { username, password }) => {
         return;
     }
     
-    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password]);
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password, operation]);
 
     pythonProcess.stdout.on('data', (data) => {
       const loginResponse = data.toString().trim();
@@ -113,16 +113,18 @@ ipcMain.on('perform-login', (event, { username, password }) => {
     });
   });
 
-  ipcMain.on('perform-register', (event, { username, password, status }) => {
-    
+  ipcMain.on('perform-register', (event, { username, password, stat }) => {
+    operation = 'register';
     // change path to script for register
-    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password]);
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password, stat, operation]);
 
     pythonProcess.stdout.on('data', (data) => {
       const registerResponse = data.toString().trim();
         
       if (registerResponse === 'Success') { 
 	    event.reply('register_success', { username, password });
+      } else {
+          event,reply('register-failure', {data});
       }
 
     });  
