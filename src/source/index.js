@@ -124,7 +124,7 @@ ipcMain.on('perform-login', (event, { username, password}) => {
       if (registerResponse === 'Success') { 
 	    event.reply('register_success', { username, password });
       } else {
-          event,reply('register-failure', {data});
+          event.reply('register-failure', {data});
       }
 
     });  
