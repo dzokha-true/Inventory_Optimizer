@@ -15,7 +15,6 @@ import json
 #from matplotlib.ticker import PercentFormatter
 import HelperFunctions
 from LoginSystem import LoginSystem
-import numpy as np
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -33,7 +32,7 @@ class Product(LoginSystem):
         self.status = "Admin"
         super().__init__()
         # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsAllowInvalidCertificates=true"
+        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
