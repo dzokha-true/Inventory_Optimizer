@@ -22,7 +22,7 @@ class Received_Order(Place_Order):
     def __init__(self):
         super().__init__()
         # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 

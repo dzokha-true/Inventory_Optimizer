@@ -28,7 +28,7 @@ class LoginSystem:
     def __init__(self):
         
         # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
@@ -82,16 +82,17 @@ class LoginSystem:
     
     def register(self, username, password, status):
         user_check = self.login_DB.find_one({'username': username})
+        case = False
         if user_check:
-            print("User exists")
-            return False
+            print("User Exists!")
+            case = True
         capital = False
         special = False
         number = False
         if capital == False or special == False or number == False or len(password) < 8:
             if len(password) < 8:
-                print("Length is wrong")
-                return False
+                print("Minimum 8 Length!")
+                case = True
             for letter in password:
                 if letter in str(numbers):
                         number = True
@@ -100,32 +101,36 @@ class LoginSystem:
                 if letter in capitals:
                     capital = True
             if number == False:
-                print("No numbers")
-                return False
+                print("Need Numbers!")
+                case = True
             if special == False:
-                print("No special characters")
-                return False
+                print("Need Special Characters!")
+                case = True
             if capital == False:
-                print("No capitals")
-                return False                  
-        admin_user = self.login_DB.find_one({'status': 'Admin'})
-        if status == "ReadWrite":
-            self.status = "RW"
-        elif status == "Admin":
-            self.status = "Admin"
-        elif status == "Read":
-            self.status ="R"
+                print("Need Capitals!")
+                case = True
         else:
-            print(status+"Wrong status")
-            return False
-        self.username = username
-        self.status = status
-        self.fiscal_year = admin_user.get('fiscal_year')
-        self.lifo_fifo = admin_user.get('lifo_fifo')
-        hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
-        print("Success")
-        return True
+            admin_user = self.login_DB.find_one({'status': 'Admin'})
+            if status == "ReadWrite":
+                self.status = "RW"
+            elif status == "Admin":
+                self.status = "Admin"
+            elif status == "Read":
+                self.status ="R"
+            else:
+                print("Wrong Status!")
+                case = True
+            if case:
+                return False
+            else:
+                self.username = username
+                self.status = status
+                self.fiscal_year = admin_user.get('fiscal_year')
+                self.lifo_fifo = admin_user.get('lifo_fifo')
+                hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
+                self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
+                print("Success")
+                return True
     
     
     
