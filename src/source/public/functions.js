@@ -1,10 +1,10 @@
 const { ipcRenderer } = require('electron');
 
 // document.getElementById('loginForm').addEventListener('submit', (event) => {
-//     event.preventDefault();
+//     event.preventDefault(); 
 //     const username = document.getElementById('username').value;
 //     const password = document.getElementById('password').value;
-//
+  
 //     ipcRenderer.send('perform-login', { username, password });
 //   });
   
@@ -27,7 +27,7 @@ ipcRenderer.on('login-attempt-exceeded', () => {
     remote.app.emit('main-page');
 });
 
-ipcRenderer.on('reset-login', () => {
+ipcRenderer.on('reset-login', (event,arg) => {
     document.getElementById('message').textContent = '';
     // Optionally, clear the username and password fields
     document.getElementById('username').value = '';
@@ -36,26 +36,23 @@ ipcRenderer.on('reset-login', () => {
     document.getElementById('loginButton').disabled = false;
 });
 
-document.getElementById('registerForm').addEventListener('submit', (event) => {
-    console.log("form Submitted")
-    event.preventDefault();
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const status = document.getElementById('status').value;
+// document.getElementById('registerForm').addEventListener('submit', (event) => {
+//     event.preventDefault(); 
+//     const username = document.getElementById('username').value;
+//     const password = document.getElementById('password').value;
+//     const status = document.getElementById('status').value;
   
-    ipcRenderer.send('perform-register', { username, password, status});
-  });
+//     ipcRenderer.send('perform-register', { username, password, status });
+//   });
 
-ipcRenderer.on('register_success', () => {
-    console.log('Received register_success event');  // Add this line
+ipcRenderer.on('register_success', (event,data) => {
     window.location.href = '../views/index.html';
     remote.app.emit('main-page');
 });
 
 ipcRenderer.on('register-failure', (event, data) => {
-    console.log(data)
-    const our_data = JSON.parse(data.object);
-    console.log(our_data)
+    const our_data = data.response;
+    console.log(our_data);
     document.getElementById('message_register').textContent = our_data;
 });
 

@@ -25,6 +25,17 @@
     
     <script src="../public/functions.js"></script>
 
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', (event) => {
+    event.preventDefault(); 
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const status = document.getElementById('status').value;
+  
+    ipcRenderer.send('perform-register', { username, password, status });
+  });
+    </script>
+
 
 </body>
 </html>
