@@ -28,7 +28,7 @@ class LoginSystem:
     def __init__(self):
         
         # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
@@ -85,7 +85,6 @@ class LoginSystem:
         if user_check:
             print("User exists")
             return False
-        password = HelperFunctions.password_checker()
         capital = False
         special = False
         number = False
@@ -120,11 +119,11 @@ class LoginSystem:
             print("Wrong status")
             return False
         self.username = username
-        self.status = status
+        self.status = stat
         self.fiscal_year = admin_user.get('fiscal_year')
         self.lifo_fifo = admin_user.get('lifo_fifo')
         hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
+        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': stat, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
         print("Success")
         return True
     

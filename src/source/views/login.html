@@ -22,7 +22,13 @@
     </div>
     
     <script src="../public/functions.js"></script>
+    <script>document.getElementById('loginForm').addEventListener('submit', (event) => {
+     event.preventDefault();
+     const username = document.getElementById('username').value;
+     const password = document.getElementById('password').value;
 
+     ipcRenderer.send('perform-login', { username, password });
+   }); </script>
     <!-- <script>
         const { ipcRenderer } = require('electron');
 

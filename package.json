@@ -4,7 +4,7 @@
   "description": "- Clone repository",
   "main": "src/source/index.js",
   "scripts": {
-    "start": "APP_DEV=true electron .",
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Cole Shaigec, Pree Simphliphan, Vugar Amirov, Zhakhangir Mamayev, Rawisara Chairat",

@@ -1,12 +1,12 @@
 const { ipcRenderer } = require('electron');
 
-document.getElementById('loginForm').addEventListener('submit', (event) => {
-    event.preventDefault(); 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-  
-    ipcRenderer.send('perform-login', { username, password });
-  });
+// document.getElementById('loginForm').addEventListener('submit', (event) => {
+//     event.preventDefault();
+//     const username = document.getElementById('username').value;
+//     const password = document.getElementById('password').value;
+//
+//     ipcRenderer.send('perform-login', { username, password });
+//   });
   
 ipcRenderer.on('login-success', (event, arg) => {
     window.location.href = '../views/map.html';
@@ -37,21 +37,26 @@ ipcRenderer.on('reset-login', () => {
 });
 
 document.getElementById('registerForm').addEventListener('submit', (event) => {
-    event.preventDefault(); 
+    console.log("form Submitted")
+    event.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const status = document.getElementById('status').value;
   
-    ipcRenderer.send('perform-register', { username, password, stat });
+    ipcRenderer.send('perform-register', { username, password, status});
   });
 
 ipcRenderer.on('register_success', () => {
+    console.log('Received register_success event');  // Add this line
     window.location.href = '../views/index.html';
-    remote.app.emit('map-page');
+    remote.app.emit('main-page');
 });
 
 ipcRenderer.on('register-failure', (event, data) => {
-    document.getElementById('message_register').textContent = data;
+    console.log(data)
+    const our_data = JSON.parse(data.object);
+    console.log(our_data)
+    document.getElementById('message_register').textContent = our_data;
 });
 
 ipcRenderer.on('reset-register', () => {
