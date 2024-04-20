@@ -24,7 +24,7 @@
               <span class="link-text">Dashboard</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left inventory">
+          <li class="navbar-item flexbox-left" id = "inventory">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="home-outline"></ion-icon>
@@ -32,7 +32,7 @@
               <span class="link-text">Inventory</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left">
+          <li class="navbar-item flexbox-left" id = "order">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="folder-open-outline"></ion-icon>
@@ -40,7 +40,7 @@
               <span class="link-text">Orders</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left">
+          <li class="navbar-item flexbox-left" id = "sales">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="pie-chart-outline"></ion-icon>
@@ -48,7 +48,7 @@
               <span class="link-text">Sales</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left">
+          <li class="navbar-item flexbox-left" id = "performance">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="people-outline"></ion-icon>
@@ -166,6 +166,7 @@
             <div class="col col-6">Inventory <br> Value</div>
             <div class="col col-7">Expected <br> Sales</div>
           </li>
+          <ul class="responsive-row">
           <li class="table-row">
             <div class="col col-1" data-label="SKU">FRG-123-LG-2</div>
             <div class="col col-2" data-label="Name">LG Smart Fridge</div>
@@ -202,6 +203,25 @@
             <div class="col col-6" data-label="InventoryValue">$350</div>
             <div class="col col-7" data-label="ExpectedSales">Pending</div>
           </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="SKU">42311</div>
+            <div class="col col-2" data-label="Name">John Carpenter</div>
+            <div class="col col-3" data-label="StockAmount">$115</div>
+            <div class="col col-4" data-label="OrderAmount">Pending</div>
+            <div class="col col-5" data-label="UnitCost">John Doe</div>
+            <div class="col col-6" data-label="InventoryValue">$350</div>
+            <div class="col col-7" data-label="ExpectedSales">Pending</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="SKU">42311</div>
+            <div class="col col-2" data-label="Name">John Carpenter</div>
+            <div class="col col-3" data-label="StockAmount">$115</div>
+            <div class="col col-4" data-label="OrderAmount">Pending</div>
+            <div class="col col-5" data-label="UnitCost">John Doe</div>
+            <div class="col col-6" data-label="InventoryValue">$350</div>
+            <div class="col col-7" data-label="ExpectedSales">Pending</div>
+          </li>
+        </ul>
         </ul>
     </div>
 
