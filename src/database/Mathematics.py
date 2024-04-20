@@ -11,6 +11,7 @@ from pymongo.errors import ConnectionFailure
 from datetime import date
 import re
 from Received_Order import Received_Order
+from LoginSystem import LoginSystem
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -72,7 +73,7 @@ class Mathematics(Received_Order):
             for i in [number_stock,number_stock-number_sales+1]:
                 COGS += all_product[i].price
                 
-a = Mathematics()
+a = LoginSystem()
 if __name__ == "__main__":
     # Check if username and password are provided as command-line arguments
     if len(sys.argv) == 3:
