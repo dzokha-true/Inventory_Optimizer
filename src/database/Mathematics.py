@@ -72,12 +72,18 @@ class Mathematics(Received_Order):
             for i in [number_stock,number_stock-number_sales+1]:
                 COGS += all_product[i].price
                 
+                
 a = Mathematics()
 if __name__ == "__main__":
     # Check if username and password are provided as command-line arguments
-    if len(sys.argv) == 3:
-        _, username, password = sys.argv
-        a.login(username, password)
+    if len(sys.argv) == 4:
+        _, username, password, operation = sys.argv
+        if operation == "login":
+            a.login(username, password)
+    elif len(sys.argv) == 5:
+        _, username, password, stat, operation = sys.argv
+        if operation == "register":
+            a.register(username, password, stat)
     else:
         print("Usage: LoginSystem.py <username> <password>")
         sys.exit(1)
