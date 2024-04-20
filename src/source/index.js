@@ -114,22 +114,24 @@ ipcMain.on('perform-login', (event, { username, password}) => {
   });
 
   ipcMain.on('perform-register', (event, { username, password, status }) => {
-    console.log('perform register event is being triggered');
-      operation = 'register';
-      // change path to script for register
-      const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password, status, operation]);
-          pythonProcess.stdout.on('data', (data) => {
-              const registerResponse = data.toString().trim();
-              console.log('Python script output:', registerResponse);  // Add this line
+    operation = 'register';
+    // change path to script for register
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, password, status, operation]);
 
-              if (registerResponse === 'Success') {
-                  console.log('Emitting register_success event');  // Add this line
-                  event.reply('register_success', { username, password });
-              } else {
-                  event.reply('register-failure', { registerResponse});
-              }
-          });
-      pythonProcess.on('error', (error) => {
+    pythonProcess.stdout.on('data', (data) => {
+      const registerResponse = data.toString().trim();
+
+      let dataString = ''
+      dataString += registerResponse;
+        
+      if (registerResponse === 'Success') { 
+	    event.reply('register_success', { username, password });
+      } else {
+          event.reply('register-failure', {response: dataString});
+      }
+
+    });  
+    pythonProcess.on('error', (error) => {
       console.error(`An error occurred: ${error.message}`);
       event.reply('register-failure', 'An error occurred during register.');
     });
@@ -181,6 +183,33 @@ ipcMain.on('inventory-page', () => {
     }));
 });
 
+///////// create table
+ipcMain.on('create-table', (event, {message}) => {
+
+    const python = spawn('python', ["src/database/Product.py", message]);
+
+    let dataString = '';
+    python.stdout.on('data', (data) => {
+        dataString += data.toString();
+        event.reply('table_success', {dataset: dataString});
+        //console.log(dataString);
+    });
+    
+    python.stdout.on('end', () => {
+        //const dataconvert = JSON.parse(dataString);
+        // app.get('/data', (req, res) => {
+        //     res.json(dataconvert); // send data to front-end
+        // });
+    });
+    
+    python.stderr.on('data', (data) => {
+        console.error(`stderr: ${data}`);
+    });
+    
+    python.on('close', (code) => {
+        console.log(`child process exited with code ${code}`);
+    });
+  });
 
 ipcMain.on('order-page', () => {
     mainWin.loadURL(url.format({

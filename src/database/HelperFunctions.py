@@ -16,8 +16,60 @@ letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
 
+# checking if the password is correct
+def password_checker():
+        
+    # Assigning variables to check for capital letters, special characters and numbers
+    capital = False
+    special = False
+    number = False
+    password = ''
+    
+    # keep asking the user until the password has 8 characters, 1 upper case letter, 1 number and 1 special character
+    while capital == False or special == False or number == False or len(password) < 8:
+        password = str(input("Please enter the password: "))
+        number = False
+        capital = False
+        special = False
+        
+        # prints according message if the password has less than 8 characters
+        if len(password) < 8:
+            print("Password has to be atleast 8 characters long!")
+            
+        # checks if the password has a number, a capital letter and a special character
+        for letter in password:
+            if letter in str(numbers):
+                    number = True
+            if letter not in str(numbers) and letter not in letters and letter not in capitals:
+                special = True
+            if letter in capitals:
+                capital = True
+        
+        if number == False:
+            print("Your paswword has to contain a number!")
+        if special == False:
+            print("Your password has to contain a special character!")
+        if capital == False:
+            print("Your password has to contain a capital letter")
+                
+    return password
 
-
+# Check the user access level
+def status_check(object):
+    
+    # Asks the user for their access level code given by the company
+    status = input("Write code according to your priveledges (should be given by the company): ")
+    
+    # returns a string depending on their access level. If the user didnt enter it correct, the user is sent back to the intial login
+    if status == "ReadWrite":
+        return "ReadWrite"
+    elif status == "Admin":
+        return "Admin"
+    elif status == "Read":
+        return "Read"
+    else:
+        print("You don't have any priveledges!")
+        return False
         
 # Check if the date has been entered in correct format
 def normal_date_checker():

@@ -28,7 +28,7 @@ class LoginSystem:
     def __init__(self):
         
         # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
@@ -80,7 +80,7 @@ class LoginSystem:
             
             
     
-    def register(self, username, password, stat):
+    def register(self, username, password, status):
         user_check = self.login_DB.find_one({'username': username})
         if user_check:
             print("User exists")
@@ -109,21 +109,21 @@ class LoginSystem:
                 print("No capitals")
                 return False                  
         admin_user = self.login_DB.find_one({'status': 'Admin'})
-        if stat == "ReadWrite":
+        if status == "ReadWrite":
             self.status = "RW"
-        elif stat == "Admin":
+        elif status == "Admin":
             self.status = "Admin"
-        elif stat == "Read":
+        elif status == "Read":
             self.status ="R"
         else:
-            print("Wrong status")
+            print(status+"Wrong status")
             return False
         self.username = username
-        self.status = stat
+        self.status = status
         self.fiscal_year = admin_user.get('fiscal_year')
         self.lifo_fifo = admin_user.get('lifo_fifo')
         hashed_password = bcrypt.hashpw(password.encode('utf8'), bcrypt.gensalt())
-        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': stat, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
+        self.login_DB.insert_one({'username': username, 'password': hashed_password, 'status': status, 'fiscal_year': self.fiscal_year, 'lifo_fifo': self.lifo_fifo})
         print("Success")
         return True
     
@@ -163,4 +163,3 @@ class LoginSystem:
         
         
         
-

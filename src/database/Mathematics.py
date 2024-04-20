@@ -11,6 +11,8 @@ from pymongo.errors import ConnectionFailure
 from datetime import date
 import re
 from Received_Order import Received_Order
+from LoginSystem import LoginSystem
+import json
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -72,18 +74,20 @@ class Mathematics(Received_Order):
             for i in [number_stock,number_stock-number_sales+1]:
                 COGS += all_product[i].price
                 
-                
-a = Mathematics()
+
+
 if __name__ == "__main__":
+    # Check if username and password are provided as command-line arguments
+    db = Mathematics()
     # Check if username and password are provided as command-line arguments
     if len(sys.argv) == 4:
         _, username, password, operation = sys.argv
         if operation == "login":
-            a.login(username, password)
+            db.login(username, password)
     elif len(sys.argv) == 5:
-        _, username, password, stat, operation = sys.argv
+        _, username, password, status, operation = sys.argv
         if operation == "register":
-            a.register(username, password, stat)
+            db.register(username, password, status)
     else:
         print("Usage: LoginSystem.py <username> <password>")
         sys.exit(1)
