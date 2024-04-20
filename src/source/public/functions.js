@@ -46,12 +46,12 @@ document.getElementById('registerForm').addEventListener('submit', (event) => {
   });
 
 ipcRenderer.on('register_success', () => {
-    window.location.href = '../views/login.html';
+    window.location.href = '../views/index.html';
     remote.app.emit('map-page');
 });
 
 ipcRenderer.on('register-failure', (event, data) => {
-    document.getElementById('message').textContent = `${data}`;
+    document.getElementById('message_register').textContent = data;
 });
 
 ipcRenderer.on('reset-register', () => {
