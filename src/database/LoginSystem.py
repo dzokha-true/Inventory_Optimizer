@@ -28,7 +28,7 @@ class LoginSystem:
     def __init__(self):
         
         # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
         
         # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
