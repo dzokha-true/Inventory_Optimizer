@@ -1,8 +1,9 @@
 # ignore ALL .csvfiles
 *.csv
 
-# ignore ALL files in ANY directory named temp
+# ignore ALL files in ANY directory named
 .venv/
 .vscode/
 node_modules/
 **/.DS_Store
+__pycache__/
