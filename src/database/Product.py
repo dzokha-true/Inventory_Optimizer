@@ -29,9 +29,9 @@ numbers = (1,2,3,4,5,6,7,8,9,0)
 class Product(LoginSystem):
     
     # initilse a constructor
-    def _init_(self, arguments):
+    def __init__(self):
         self.status = "Admin"
-        super()._init_()
+        super().__init__()
         # Connects to the BusinessInventoryChecker database
         URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsAllowInvalidCertificates=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
@@ -282,25 +282,3 @@ class Product(LoginSystem):
 #else delete the data field
 
 
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        _, message = sys.argv
-    #     db = Product()
-        if(message == "printALL"):
-            URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsAllowInvalidCertificates=true"
-            client = MongoClient(URI, server_api=ServerApi('1'))
-                
-            # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
-            data_base = client['CompanyDetails']
-            product_DB = data_base['ProductInformation']
-            cursor = product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'stock': 1, 'cost': 1,
-                                                'inventory_value': 1, 'expected_sales': 1, 'SKU_class': 1})
-            data = []
-            for document in cursor:
-                data.append(document)
-            print(json.dumps(data))  # print JSON data
-    else:
-        print("InValid argument")
-        sys.exit(1)
-
-    
