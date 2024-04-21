@@ -24,7 +24,7 @@
               <span class="link-text">Dashboard</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left inventory" id = "inventory">
+          <li class="navbar-item flexbox-left" id = "inventory">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="home-outline"></ion-icon>
@@ -32,7 +32,7 @@
               <span class="link-text">Inventory</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left" id = "orders">
+          <li class="navbar-item flexbox-left orders" id = "orders">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="folder-open-outline"></ion-icon>
@@ -131,8 +131,8 @@
         </div>
     </div>
 
-    <div class="table">
-        <h2><small>Products</small></h2>
+    <div class="table2">
+        <h2><small>Orders</small></h2>
         <div class="Card">
             <div class="CardInner">
                 <div class="container">
@@ -149,7 +149,7 @@
 
         <div class ="frame">
             <div class="button-container">
-            <span class="button-text">Add Product</span>
+            <span class="button-text">Place Order</span>
             <a href="#" class="btn" id = "addbutton" >+</a>
             </div>
         </div>
@@ -158,72 +158,80 @@
 
         <ul class="responsive-table">
           <li class="table-header">
-            <div class="col col-1">SKU</div>
-            <div class="col col-2">Name</div>
-            <div class="col col-3">Number <br> in Stock</div>
-            <div class="col col-4">Number <br> on Order</div>
-            <div class="col col-5">Unit <br> Cost</div>
-            <div class="col col-6">Inventory <br> Value</div>
-            <div class="col col-7">Expected <br> Sales</div>
+            <div class="col col-1">Order Number</div>
+            <div class="col col-2">Order Date</div>
+            <div class="col col-3">Expected Arrival Date</div>
+            <div class="col col-4">SKU</div>
+            <div class="col col-5">Product</div>
+            <div class="col col-6">Quantity</div>
+            <div class="col col-7">Unit <br> Price</div>
+            <div class="col col-8">Supplier</div>
+            <div class="col col-9">Status</div>
           </li>
           <ul class="responsive-row">
           <li class="table-row">
-            <div class="col col-1" data-label="SKU">FRG-123-LG-2</div>
-            <div class="col col-2" data-label="Name">LG Smart Fridge</div>
-            <div class="col col-3" data-label="StockAmount">12</div>
-            <div class="col col-4" data-label="OrderAmount">3</div>
-            <div class="col col-5" data-label="UnitCost">$9,000</div>
-            <div class="col col-6" data-label="InventoryValue">$108,000</div>
-            <div class="col col-7" data-label="ExpectedSales">4</div>
+            <div class="col col-1" data-label="Number">
+                <svg class="svg-icon productButton" id ="productButton1" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
+                </svg> 
+                1</div>
+
+                <div class = "container">
+                    <div class="productContent" id="productPopup1"></div>
+                  </div>
+            <div class="col col-2" data-label="Date">01/01/24</div>
+            <div class="col col-3" data-label="Arrival">03/31/24</div>
+            <div class="col col-4" data-label="SKU">FRG-123-LG-2</div>
+            <div class="col col-5" data-label="Product">LG Smart Fridge</div>
+            <div class="col col-6" data-label="Quantity">3</div>
+            <div class="col col-7" data-label="Unit">$9,000</div>
+            <div class="col col-8" data-label="Supplier">LG</div>
+            <div class="col col-9" data-label="Status">In Transit</div>
           </li>
           <li class="table-row">
-            <div class="col col-1" data-label="SKU">NDS-424-DS-1</div>
-            <div class="col col-2" data-label="Name">Nintendo DS</div>
-            <div class="col col-3" data-label="StockAmount">43</div>
-            <div class="col col-4" data-label="OrderAmount">12</div>
-            <div class="col col-5" data-label="UnitCost">$250</div>
-            <div class="col col-6" data-label="InventoryValue">$10,750</div>
-            <div class="col col-7" data-label="ExpectedSales">30</div>
+            <div class="col col-1" data-label="Number"> 
+                <svg class="svg-icon productButton" id ="productButton2" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
+            </svg> 2</div>
+
+             <div class = "container">
+                <div class="productContent" id="productPopup1"></div>
+              </div>
+
+            <div class="col col-2" data-label="Date">25/12/24</div>
+            <div class="col col-3" data-label="Arrival">04/12/24</div>
+            <div class="col col-4" data-label="SKU">NDS-424-DS-1</div>
+            <div class="col col-5" data-label="Product">Nintendo DS</div>
+            <div class="col col-6" data-label="Quantity">12</div>
+            <div class="col col-7" data-label="Unit">$250</div>
+            <div class="col col-8" data-label="Supplier">Nintendo</div>
+            <div class="col col-9" data-label="Status">In Transit</div>
+
           </li>
           <li class="table-row">
-            <div class="col col-1" data-label="SKU">PREE</div>
-            <div class="col col-2" data-label="Name">John Smith</div>
-            <div class="col col-3" data-label="StockAmount">$341</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">42311</div>
-            <div class="col col-2" data-label="Name">John Carpenter</div>
-            <div class="col col-3" data-label="StockAmount">$115</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">42311</div>
-            <div class="col col-2" data-label="Name">John Carpenter</div>
-            <div class="col col-3" data-label="StockAmount">$115</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">42311</div>
-            <div class="col col-2" data-label="Name">John Carpenter</div>
-            <div class="col col-3" data-label="StockAmount">$115</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
+            <div class="col col-1" data-label="Number">
+                <svg class="svg-icon productButton" id ="productButton3" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
+                </svg> 3
+            </div>
+            <div class = "container">
+                <div class="productContent" id="productPopup1"></div>
+              </div>
+            <div class="col col-2" data-label="Date">11/11/24</div>
+            <div class="col col-3" data-label="Arrival">11/12/24</div>
+            <div class="col col-4" data-label="SKU">APD-537-EB-4</div>
+            <div class="col col-5" data-label="Product">AirPods</div>
+            <div class="col col-6" data-label="Quantity">10</div>
+            <div class="col col-7" data-label="Unit">$75</div>
+            <div class="col col-8" data-label="Supplier">Apple</div>
+            <div class="col col-9" data-label="Status">Pending</div>
+            
           </li>
         </ul>
         </ul>
     </div>
+
+    
 
     <!-- <div class="container">
         <div class="cookiesContent" id="cookiesPopup">
@@ -397,7 +405,7 @@
     <div class="right-container" id = "modal">
         <span class="arrow"></span>
         <header>
-            <h1>Product Details</h1>
+            <h1>Order Details</h1>
             <div class="set">
                 <div class="SKU">
                     <label id="SKU">SKU</label>
@@ -576,6 +584,61 @@
 
 </script>
 
+ <!-- <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const productButtons = document.querySelectorAll(".productButton");
+        const productPopups = document.querySelectorAll(".productContent");
+    
+        productButtons.forEach(function(productButton, index) {
+            productButton.addEventListener("click", function(event) {
+                productPopups[index].style.display = "flex"; 
+                event.stopPropagation();
+            });
+        });
+    
+        document.addEventListener("click", function(event) {
+            productPopups.forEach(function(productPopup) {
+                if (!productPopup.contains(event.target)) {
+                    productPopup.style.display = "none"; 
+                }
+            });
+        });
+    });
+</script>  -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const productButtons = document.querySelectorAll(".productButton");
+        const productPopups = document.querySelectorAll(".productContent");
+    
+        productButtons.forEach(function(productButton, index) {
+            productButton.addEventListener("click", function(event) {
+                
+                productPopups.forEach(function(popup) {
+                    popup.style.display = "none";
+                });
+    
+                
+                const popup = productPopups[index];
+                popup.style.display = "flex";
+                popup.style.top = `${productButton.offsetTop + productButton.offsetHeight}px`;
+                popup.style.left = `${productButton.offsetLeft}px`;
+    
+                event.stopPropagation();
+            });
+        });
+    
+        document.addEventListener("click", function(event) {
+            productPopups.forEach(function(productPopup) {
+                if (!productPopup.contains(event.target)) {
+                    productPopup.style.display = "none"; 
+                }
+            });
+        });
+    });
+    
+</script>
+
 
 <script>
     document.getElementById("dashboard").addEventListener("click", function() {
@@ -610,7 +673,6 @@ document.getElementById("inventory").addEventListener("click", () => {
     remote.app.emit('inventory-page');
 });
 </script>
-
 
 <script>
     document.getElementById("orders").addEventListener("click", function() {

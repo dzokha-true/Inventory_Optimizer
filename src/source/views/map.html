@@ -161,20 +161,56 @@
 
     <script>
       document.getElementById("orders").addEventListener("click", function() {
-      window.location.href = "order.html";
-      redirectToOrder();
+      window.location.href = "orders.html";
+      redirectToOrders();
     });
 
-      function redirectToOrder() {
-          window.location.href = "order.html";
+      function redirectToOrders() {
+          window.location.href = "orders.html";
       }
     </script>
 
     <script>
-        document.getElementById("orders").addEventListener("click", () => {
-            remote.app.emit('order-page');
+        document.getElementById("oders").addEventListener("click", () => {
+            remote.app.emit('orders-page');
         });
     </script>
+
+    <script>
+      document.getElementById("sales").addEventListener("click", function() {
+      window.location.href = "sales.html";
+      redirectToSales();
+  });
+  
+      function redirectToSales() {
+          window.location.href = "sales.html";
+      }
+  </script>
+  
+  <script>
+      document.getElementById("sales").addEventListener("click", () => {
+          remote.app.emit('sales-page');
+      });
+  </script>
+  
+  <script>
+      document.getElementById("performance").addEventListener("click", function() {
+      window.location.href = "performance.html";
+      redirectToPerformance();
+  });
+  
+      function redirectToPerformance() {
+          window.location.href = "performance.html";
+      }
+  </script>
+  
+  <script>
+      document.getElementById("performance").addEventListener("click", () => {
+          remote.app.emit('performance-page');
+      });
+  </script>
+  
+  
 
 </body>
 </html>
