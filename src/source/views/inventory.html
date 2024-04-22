@@ -32,7 +32,7 @@
               <span class="link-text">Inventory</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left" id = "order">
+          <li class="navbar-item flexbox-left" id = "orders">
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="folder-open-outline"></ion-icon>
@@ -66,11 +66,20 @@
              <div class="one"></div>
              <div class="two"></div>
              <div class="three"></div>
+             <div class="four"></div>
           </div>
           <div class="top_menu">
             <div class="logo"></div>
             <ul>
-              <li><a href="#">
+              <li><a href="#" id = "setting">
+                <i class="material-icons"></i>
+                <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M511.9935 699.733c-102.4 0-187.733-85.333-187.733-187.733s85.333-187.733 187.733-187.733S699.7265 409.6 699.7265 512s-85.333 187.733-187.733 187.733z m472.177-250.311c-5.689-22.756-22.756-39.822-45.511-45.511l-11.378-5.689c-34.133-11.378-68.267-34.133-91.022-68.267s-22.756-73.956-17.067-113.778l5.689-11.378c5.689-17.067 0-45.511-17.067-62.578 0 0-17.067-11.378-56.889-34.133s-56.889-28.444-56.889-28.444c-22.756-5.689-45.511 0-62.578 17.067l-11.378 11.378c-28.444 22.756-68.267 39.822-108.089 39.822s-79.644-17.067-108.089-39.822l-5.689-17.067c-17.067-11.378-45.511-22.756-62.578-11.378 0 0-17.067 5.689-56.889 28.444s-56.889 34.133-56.889 34.133c-17.067 17.067-28.444 39.822-22.756 62.578l5.689 17.067c11.378 34.133 5.689 73.956-17.067 113.778-22.756 28.444-51.2 51.2-91.022 62.578l-11.378 5.689c-22.756 0-39.822 22.756-45.511 45.511 0 0-5.689 17.067-5.689 62.578s5.689 62.578 5.689 62.578c5.689 22.756 22.756 39.822 45.511 45.511l11.378 5.689c34.133 11.378 68.267 34.133 91.022 68.267s22.756 73.956 17.067 113.778l-5.689 11.378c-5.689 17.067 0 45.511 17.067 62.578 0 0 17.067 11.378 56.889 34.133s56.889 28.444 56.889 28.444c22.756 5.689 45.511 0 62.578-17.067l11.378-11.378c28.444-28.444 62.578-39.822 108.089-39.822 39.822 0 79.644 17.067 108.089 39.822l11.378 11.378c17.067 17.067 39.822 22.756 62.578 17.067 0 0 17.067-5.689 56.889-28.444s56.889-34.133 56.889-34.133 22.756-39.822 17.067-62.578l-5.689-17.067c-11.378-34.133-5.689-73.956 17.067-108.089s51.2-56.889 91.022-68.267l17.067-5.689c22.756-5.689 39.822-22.756 45.511-45.511 0 0 5.689-17.067 5.689-62.578-5.689-45.511-11.378-62.578-11.378-62.578z"  />
+                </svg>
+                </a>
+              </li>
+
+              <li><a href="#" id = "download">
                 <i class="btn-circle-download">
                     <svg id="arrow" width="14px" height="20px" viewBox="17 14 14 20">
                     <path d="M24,15 L24,32"></path>
@@ -83,15 +92,18 @@
                     <path d="M24,1 L24,1 L24,1 C36.7025492,1 47,11.2974508 47,24 L47,24 L47,24 C47,36.7025492 36.7025492,47 24,47 L24,47 L24,47 C11.2974508,47 1,36.7025492 1,24 L1,24 L1,24 C1,11.2974508 11.2974508,1 24,1 L24,1 Z"></path>
                     </svg>
                 </i>
-    
-                </a></li>
-              <li><a href="#">
+                </a>
+              </li>
+
+              <li><a href="#" id = "profile">
                 <i class="material-icons"></i>
                 <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <path d="M853.333333 938.666667H170.666667v-85.333334a213.333333 213.333333 0 0 1 213.333333-213.333333h256a213.333333 213.333333 0 0 1 213.333333 213.333333v85.333334z m-341.333333-384a256 256 0 1 1 0-512 256 256 0 0 1 0 512z"  />
                 </svg>
-                </a></li>
-              <li><a href="#">
+                </a>
+              </li>
+
+              <li><a href="#" id = "notification">
                 <i class="notification-box">
                     <span class="notification-count">1</span>
                     <div class="notification-bell">
@@ -101,7 +113,8 @@
                         <span class="bell-rad"></span>
                     </div>
                 </i>
-                </a></li>
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -121,7 +134,6 @@
             <a href="#" class="btn3" id = graph >Graph</a>
         </div>
     </div>
-
 
     <ul class="table">
         <h2><small>Products</small></h2>
@@ -151,8 +163,8 @@
         </div>
 
 
-    <div>
-        <ul class="responsive-table" id="inventory_table">
+        <div class="scroll">
+        <ul class="responsive-table">
           <li class="table-header">
               <div class="col col-1">SKU</div>
               <div class="col col-2">Name</div>
@@ -163,9 +175,161 @@
               <div class="col col-7">Expected Sales</div>
           </li>
         </ul>
-    </div>
-</ul>
+        <ul class="responsive-row" id="inventory_table">
 
+        </ul>
+        </div>
+    </div>
+
+    <div class="container">
+      <div class="profileContent" id="profilePopup">
+      <span class="arrow"></span>
+      <img src="../public/images/mini.png" alt="cookies-img" />
+      <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+      <button class="accept">Log out</button>
+      </div>
+  </div>  
+  
+  <div class="container">
+      <div class="container notifications-container shadow" id = "notiPopup">
+          <div class = "realheader">
+          <div class="row header">
+          <div class="col-7">
+              <p class="title">
+              Notifications
+              <span class="unread-notifications-number">2</span>
+              </p>
+          </div>
+          </div>
+          </div>
+  
+  
+          <div class="row notifications">
+          <div class="col-12">
+  
+              <div class="row single-notification-box unread">
+              <div class="col-11 notification-text">
+                  <p>
+                  <a href="#" class="link name">FRG-123-LG-2</a>
+                  <span class="description">needed reorder</span>
+                  <a class="link" href="order.html">Go to Orders Page!</a>
+                  <span class="unread-symbol">•</span>
+                  </p>
+                  <p class="time">1m ago</p>
+              </div>
+              </div>
+  
+              <div class="row single-notification-box unread">
+              <div class="col-11 notification-text">
+                  <p>
+                  <a href="#" class="link name">NDS-424-DS-1</a>
+                  <span class="description">needed reorder</span>
+                  <a class="link group" href="order.html">Go to Orders Page!</a>
+                  <span class="unread-symbol">•</span>
+                  </p>
+                  <p class="time">1 day ago</p>
+              </div>
+              </div>
+  
+              <div class="row single-notification-box read">
+              <div class="col-11 notification-text">
+                  <p>
+                  <a href="#" class="link name">Rizky Hasanuda</a>
+                  <span class="description">sent you a private message</span>
+                  <span class="unread-symbol">•</span>
+                  </p>
+                  <p class="time">5 days ago</p>
+                  <div class="private-message">
+                  Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
+                  I'm already having lots of fun and improving my game.
+                  </div> 
+              </div>
+              </div>
+  
+              <div class="row single-notification-box read">
+              <div class="col-10 notification-text comment">
+                  <p>
+                  <a href="#" class="link name">Kimberly Smita</a>
+                  <span class="description">commented on your picture</span>
+                  <span class="unread-symbol">•</span>
+                  </p>
+                  <p class="time">1 week ago</p>
+              </div>
+              </div>
+  
+              <div class="row single-notification-box read">
+              <div class="col-11 notification-text">
+                  <p>
+                  <a href="#" class="link name">Nathan Petersa</a>
+                  <span class="description">reacted to your recent post</span>
+                  <a class="link" href="http://">5 end-game strategies to increase your win rate</a>
+                  <span class="unread-symbol">•</span>
+                  </p>
+                  <p class="time">2 weeks ago</p>
+              </div>
+              </div>
+  
+              <div class="row single-notification-box read">
+              <div class="col-11 notification-text">
+                  <p>
+                  <a href="#" class="link name">Anna Kim</a>
+                  <span class="description">left the group</span>
+                  <a class="link" href="http://">Chess Club</a>
+                  <span class="unread-symbol">•</span>
+                  </p>
+                  <p class="time">2 weeks ago</p>
+              </div>
+              </div>
+              
+          </div>
+          <div class="col-5 mark-as-read text-end">
+              <a href="#" id="markAllAsRead" class="mark-as-read-button align-middle">Mark all as read</a>
+          </div> 
+      </div>
+  </div>
+  
+  
+  
+  
+  
+  <div class="container">
+      <div class="right-container" id = "modal">
+          <span class="arrow"></span>
+          <header>
+              <h1>Product Details</h1>
+              <div class="set">
+                  <div class="SKU">
+                      <label id="SKU">SKU</label>
+                      <input id="SKU" type="text" placeholder="SKU">
+                  </div>
+              </div>
+              <div class="set">
+                  <div class="Name">
+                      <label id="Name">Name</label>
+                      <input id="Name" type="text" placeholder="Name">
+                  </div>
+              </div>
+              <div class="set">
+                  <div class="Amount">
+                      <label id="Amount">Amount</label>
+                      <input id="Amount" type="text" placeholder="Amount">
+                  </div>
+              </div>
+              
+          </header>
+          <footer>
+              <div class="set">
+                  <button id="back">Back</button>
+                  <button id="next">Confirm</button>
+              </div>
+          </footer>
+  
+      </div>
+  
+      
+  
+  </div> 
+  
 
 </body>
 
@@ -223,61 +387,109 @@
 </script>
 
 <script>
-    document.getElementById("dashboard").addEventListener("click", function() {
-    window.location.href = "dashboard.html";
-    remote.app.emit('dashboard-page');
+  document.addEventListener("DOMContentLoaded", function() {
+      const addProduct = document.getElementById("addbutton");
+      const modal = document.getElementById("modal");
+      const closeButton = document.querySelector(".right-container footer #back");
+  
+      addProduct.addEventListener("click", function(event) {
+          event.preventDefault();
+          modal.style.display = "grid"; 
+      });
+  
+      closeButton.addEventListener("click", function() {
+          modal.style.display = "none"; 
+      });
+
+  });
+
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const profileButton = document.querySelector("#profile");
+      const profilePopup = document.getElementById("profilePopup");
+      const logOutButton = document.querySelector(".profileContent .accept");
+  
+      profileButton.addEventListener("click", function(event) {
+          profilePopup.style.display = "flex"; 
+      });
+  
+      document.addEventListener("click", function(event) {
+          const clickInsideProfileButton = profileButton.contains(event.target);
+          const clickInsideProfilePopup = profilePopup.contains(event.target);
+
+          if (!clickInsideProfileButton && !clickInsideProfilePopup) {
+              profilePopup.style.display = "none"; 
+          }
+      });
+
+      logOutButton.addEventListener("click", function(event) {
+          redirectToLogin();
+      });
+
+      function redirectToLogin() {
+          window.location.href = "login.html";
+      }
+  });
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const notiButton = document.querySelector("#notification");
+      const notiPopup = document.getElementById("notiPopup");
+  
+      notiButton.addEventListener("click", function(event) {
+          notiPopup.style.display = "flex"; 
+      });
+  
+      document.addEventListener("click", function(event) {
+          const clickInsideNotiButton = notiButton.contains(event.target);
+          const clickInsideNotiPopup = notiPopup.contains(event.target);
+
+          if (!clickInsideNotiButton && !clickInsideNotiPopup) {
+              notiPopup.style.display = "none"; 
+          }
+      });
+
+  });
+
+</script>
+
+<script>
+  document.getElementById("dashboard").addEventListener("click", function() {
+  window.location.href = "dashboard.html";
+  remote.app.emit('dashboard-page');
 });
 </script>
 
 <script>
-  document.getElementById("inventory").addEventListener("click", function() {
-  window.location.href = "inventory.html";
-  remote.app.emit('inventory-page');
+document.getElementById("inventory").addEventListener("click", function() {
+window.location.href = "inventory.html";
+remote.app.emit('inventory-page');
 });
 </script>
 
 <script>
-  document.getElementById("order").addEventListener("click", function() {
-  window.location.href = "order.html";
-  remote.app.emit('order-page');
+document.getElementById("order").addEventListener("click", function() {
+window.location.href = "order.html";
+remote.app.emit('order-page');
 });
 </script>
 
 <script>
-  document.getElementById("sales").addEventListener("click", function() {
-  window.location.href = "sales.html";
-  remote.app.emit('sales-page');
+document.getElementById("sales").addEventListener("click", function() {
+window.location.href = "sales.html";
+remote.app.emit('sales-page');
 });
 </script>
 
 <script>
-  document.getElementById("performance").addEventListener("click", function() {
-  window.location.href = "performance.html";
-  remote.app.emit('sales-page');
+document.getElementById("performance").addEventListener("click", function() {
+window.location.href = "performance.html";
+remote.app.emit('performance-page');
 });
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const firstProfileImage = document.getElementById("addbutton");
-        const cookiePopup = document.getElementById("cookiesPopup");
-        const closeButton = document.querySelector(".cookiesContent .close");
-        const acceptButton = document.querySelector(".cookiesContent .accept");
-        
-    
-        firstProfileImage.addEventListener("click", function() {
-            cookiePopup.style.display = "block"; 
-        });
-    
-        closeButton.addEventListener("click", function() {
-            cookiePopup.style.display = "none"; 
-        });
-
-        acceptButton.addEventListener("click", function() {
-            cookiePopup.style.display = "none"; 
-        });
-    });
-
 </script>
 
 

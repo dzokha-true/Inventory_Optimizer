@@ -15,7 +15,7 @@
               <!-- <span class="link-text1">Electrix!</span> -->
             </a>
           </li>
-          <li class="navbar-item flexbox-left dashboard" id = dashboard>
+          <li class="navbar-item flexbox-left" id = dashboard>
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="search-outline"></ion-icon>
@@ -47,7 +47,7 @@
               <span class="link-text">Sales</span>
             </a>
           </li>
-          <li class="navbar-item flexbox-left" id = performance>
+          <li class="navbar-item flexbox-left performance" id = performance>
             <a class="navbar-item-inner flexbox-left">
               <div class="navbar-item-inner-icon-wrapper flexbox">
                 <ion-icon name="people-outline"></ion-icon>
@@ -57,15 +57,32 @@
           </li>
         </ul>
     </nav>
+    <div class = "table4">
+        <h2><small>Performance Report</small><br><small> FY 2024, Q1</small></h2>
+        
+        <div class ="frame">
+            <div class="button-container">
+            <span class="button-text">Generate Report</span>
+            <a href="#" class="btn" id = "addbutton" >+</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="display_area_performance">
+
+    </div>
 
     
 
 </body>
 
+<script src ="../../backend/performance.js"> </script>
+
 <script>
   document.getElementById("LogoMenu").addEventListener("click", function() {
   window.location.href = "map.html";
   redirectToMainMenu();
+  remote.app.emit('map-page');
 });
 
   function redirectToMainMenu() {
@@ -74,18 +91,9 @@
 </script>
 
 <script>
-  document.getElementById("LogoMenu").addEventListener("click", () => {
-      remote.app.emit('login-successful-page');
-  });
-</script>
-
-<script>
   document.getElementById("dashboard").addEventListener("click", function() {
   window.location.href = "dashboard.html";
   remote.app.emit('dashboard-page');
-  event.preventDefault();
-  const message = "generate_report"; // to be changed later
-  ipcRenderer.send('get_report', {message});
 });
 </script>
 
