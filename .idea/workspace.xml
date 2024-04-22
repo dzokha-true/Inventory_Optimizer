@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="242fa34a-e464-4ae4-9f9a-44caf108bd87" name="Changes" comment="Trying to merg ethe diverged branches">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/database/Product.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/database/Product.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/source/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/source/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/source/public/functions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/source/public/functions.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/source/public/map.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/source/public/map.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/source/views/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/source/views/inventory.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
+    <envs>
+      <env key="FLASK_APP" value="app" />
+    </envs>
+    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
+    <option name="myEnvs">
+      <map>
+        <entry key="FLASK_APP" value="app" />
+      </map>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2eQqQ22Ihh5vmWDFTWTHBc6Vyg9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="compactDirectories" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JavaScript Debug.dashboard.html.executor": "Run",
+    "JavaScript Debug.data.html.executor": "Run",
+    "JavaScript Debug.index.html.executor": "Run",
+    "JavaScript Debug.inventory.html.executor": "Run",
+    "JavaScript Debug.login.html.executor": "Run",
+    "JavaScript Debug.map.html.executor": "Run",
+    "JavaScript Debug.register.html.executor": "Run",
+    "Node.js.app.js.executor": "Run",
+    "Node.js.functions.js.executor": "Run",
+    "Node.js.index.js.executor": "Run",
+    "Node.js.inventory.js.executor": "Run",
+    "Python.LoginSystem.executor": "Run",
+    "Python.Product.executor": "Run",
+    "git-widget-placeholder": "Merging merging__experiment",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "ts.external.directory.path": "C:\\Users\\Zhakh\\PyCharm 2023.3.5\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Zhakh\PycharmProjects\MongoBongo" />
+      <recent name="C:\Users\Zhakh\PycharmProjects\MongoBongo\Inventory_Optimizer" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.functions.js">
+    <configuration name="functions.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/source/public/functions.js" working-dir="$PROJECT_DIR$/src/source/public">
+      <method v="2" />
+    </configuration>
+    <configuration name="Product" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="MongoBongo" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.12 (MongoBongo)" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/database" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/database/Product.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.functions.js" />
+        <item itemvalue="Python.Product" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="242fa34a-e464-4ae4-9f9a-44caf108bd87" name="Changes" comment="" />
+      <created>1711847129510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711847129510</updated>
+      <workItem from="1711919493649" duration="98000" />
+      <workItem from="1711919609180" duration="845000" />
+      <workItem from="1711920505817" duration="12339000" />
+      <workItem from="1711999445391" duration="1503000" />
+      <workItem from="1712065148082" duration="1063000" />
+      <workItem from="1712077876445" duration="628000" />
+      <workItem from="1712432391674" duration="599000" />
+      <workItem from="1712876854034" duration="1588000" />
+      <workItem from="1713055261001" duration="2607000" />
+      <workItem from="1713133101722" duration="3554000" />
+      <workItem from="1713187583209" duration="206000" />
+      <workItem from="1713188082031" duration="3811000" />
+      <workItem from="1713363105996" duration="462000" />
+      <workItem from="1713377055376" duration="487000" />
+      <workItem from="1713386827504" duration="4863000" />
+      <workItem from="1713461881183" duration="5884000" />
+      <workItem from="1713479999470" duration="689000" />
+      <workItem from="1713482380603" duration="12390000" />
+      <workItem from="1713551581801" duration="96000" />
+      <workItem from="1713553957582" duration="346000" />
+      <workItem from="1713585731720" duration="848000" />
+      <workItem from="1713640579709" duration="336000" />
+      <workItem from="1713640941561" duration="11734000" />
+      <workItem from="1713662601825" duration="1425000" />
+      <workItem from="1713721428912" duration="1348000" />
+      <workItem from="1713804335763" duration="5540000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="fixed frontend crash for inventory, added template for sales and order.js" />
+    <MESSAGE value="Trying to merg ethe diverged branches" />
+    <option name="LAST_COMMIT_MESSAGE" value="Trying to merg ethe diverged branches" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/MongoBongo$Product.coverage" NAME="Product Coverage Results" MODIFIED="1713643090833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
+    <SUITE FILE_PATH="coverage/MongoBongo$LoginSystem.coverage" NAME="LoginSystem Coverage Results" MODIFIED="1713483168255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/database" />
+  </component>
+</project>

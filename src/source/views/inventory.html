@@ -66,6 +66,7 @@
              <div class="one"></div>
              <div class="two"></div>
              <div class="three"></div>
+             <div class="four"></div>
           </div>
           <div class="top_menu">
             <div class="logo"></div>
@@ -85,13 +86,15 @@
                 </i>
     
                 </a></li>
-              <li><a href="#">
+
+            <li><a href="#" id = "profile">
                 <i class="material-icons"></i>
                 <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
                     <path d="M853.333333 938.666667H170.666667v-85.333334a213.333333 213.333333 0 0 1 213.333333-213.333333h256a213.333333 213.333333 0 0 1 213.333333 213.333333v85.333334z m-341.333333-384a256 256 0 1 1 0-512 256 256 0 0 1 0 512z"  />
                 </svg>
                 </a></li>
-              <li><a href="#">
+
+            <li><a href="#" id = "notification">
                 <i class="notification-box">
                     <span class="notification-count">1</span>
                     <div class="notification-bell">
@@ -142,11 +145,11 @@
         <div class ="frame" id='load'>
           <button type="click">Load Table</button>
         </div>
-        
+
         <div class ="frame">
             <div class="button-container">
             <span class="button-text">Add Product</span>
-            <a href="#" class="btn" id = addbutton >+</a>
+            <a href="#" class="btn" id = "addbutton" >+</a>
             </div>
         </div>
 
@@ -234,6 +237,10 @@
   window.location.href = "inventory.html";
   remote.app.emit('inventory-page');
 });
+
+    function redirectToDashboard() {
+        window.location.href = "dashboard.html";
+    }
 </script>
 
 <script>
@@ -259,25 +266,50 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const firstProfileImage = document.getElementById("addbutton");
-        const cookiePopup = document.getElementById("cookiesPopup");
-        const closeButton = document.querySelector(".cookiesContent .close");
-        const acceptButton = document.querySelector(".cookiesContent .accept");
-        
-    
-        firstProfileImage.addEventListener("click", function() {
-            cookiePopup.style.display = "block"; 
+        const addProduct = document.getElementById("addbutton");
+        const modal = document.getElementById("modal");
+        const closeButton = document.querySelector(".right-container footer #back");
+
+        addProduct.addEventListener("click", function(event) {
+            event.preventDefault();
+            modal.style.display = "grid";
         });
     
         closeButton.addEventListener("click", function() {
-            cookiePopup.style.display = "none"; 
+            modal.style.display = "none";
         });
 
-        acceptButton.addEventListener("click", function() {
-            cookiePopup.style.display = "none"; 
-        });
     });
 
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const profileButton = document.querySelector("#profile");
+        const profilePopup = document.getElementById("profilePopup");
+        const logOutButton = document.querySelector(".profileContent .accept");
+
+        profileButton.addEventListener("click", function(event) {
+            profilePopup.style.display = "flex";
+        });
+
+        document.addEventListener("click", function(event) {
+            const clickInsideProfileButton = profileButton.contains(event.target);
+            const clickInsideProfilePopup = profilePopup.contains(event.target);
+
+            if (!clickInsideProfileButton && !clickInsideProfilePopup) {
+                profilePopup.style.display = "none";
+            }
+        });
+
+        logOutButton.addEventListener("click", function(event) {
+            redirectToLogin();
+        });
+
+        function redirectToLogin() {
+            window.location.href = "login.html";
+        }
+    });
 </script>
 
 
