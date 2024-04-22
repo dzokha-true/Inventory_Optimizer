@@ -1,0 +1,690 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/map.css" type = "text/css" />
+    <title>Inventory!</title>
+</head>
+<body>
+
+    <nav id="navbar">
+        <ul class="navbar-items flexbox-col">
+          <li class="navbar-logo flexbox-left">
+            <a class="navbar-item-inner flexbox">
+                <img src="../public/images/mini.png" id="LogoMenu" data-name="Layer 1" viewBox="0 0 1438.88 1819.54" />
+              <!-- <span class="link-text1">Electrix!</span> -->
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left" id = "dashboard">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="search-outline"></ion-icon>
+              </div>
+              <span class="link-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left" id = "inventory">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="home-outline"></ion-icon>
+              </div>
+              <span class="link-text">Inventory</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left" id = "orders">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="folder-open-outline"></ion-icon>
+              </div>
+              <span class="link-text">Orders</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left sales" id = "sales">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="pie-chart-outline"></ion-icon>
+              </div>
+              <span class="link-text">Sales</span>
+            </a>
+          </li>
+          <li class="navbar-item flexbox-left" id = "performance">
+            <a class="navbar-item-inner flexbox-left">
+              <div class="navbar-item-inner-icon-wrapper flexbox">
+                <ion-icon name="people-outline"></ion-icon>
+              </div>
+              <span class="link-text">Performance</span>
+            </a>
+          </li>
+        </ul>
+    </nav>
+
+    <div class="wrapper">
+  
+        <div class="top_navbar">
+          <div class="hamburger">
+             <div class="one"></div>
+             <div class="two"></div>
+             <div class="three"></div>
+             <div class="four"></div>
+          </div>
+          <div class="top_menu">
+            <div class="logo"></div>
+            <ul>
+            <li><a href="#" id = "setting">
+                    <i class="material-icons"></i>
+                    <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M511.9935 699.733c-102.4 0-187.733-85.333-187.733-187.733s85.333-187.733 187.733-187.733S699.7265 409.6 699.7265 512s-85.333 187.733-187.733 187.733z m472.177-250.311c-5.689-22.756-22.756-39.822-45.511-45.511l-11.378-5.689c-34.133-11.378-68.267-34.133-91.022-68.267s-22.756-73.956-17.067-113.778l5.689-11.378c5.689-17.067 0-45.511-17.067-62.578 0 0-17.067-11.378-56.889-34.133s-56.889-28.444-56.889-28.444c-22.756-5.689-45.511 0-62.578 17.067l-11.378 11.378c-28.444 22.756-68.267 39.822-108.089 39.822s-79.644-17.067-108.089-39.822l-5.689-17.067c-17.067-11.378-45.511-22.756-62.578-11.378 0 0-17.067 5.689-56.889 28.444s-56.889 34.133-56.889 34.133c-17.067 17.067-28.444 39.822-22.756 62.578l5.689 17.067c11.378 34.133 5.689 73.956-17.067 113.778-22.756 28.444-51.2 51.2-91.022 62.578l-11.378 5.689c-22.756 0-39.822 22.756-45.511 45.511 0 0-5.689 17.067-5.689 62.578s5.689 62.578 5.689 62.578c5.689 22.756 22.756 39.822 45.511 45.511l11.378 5.689c34.133 11.378 68.267 34.133 91.022 68.267s22.756 73.956 17.067 113.778l-5.689 11.378c-5.689 17.067 0 45.511 17.067 62.578 0 0 17.067 11.378 56.889 34.133s56.889 28.444 56.889 28.444c22.756 5.689 45.511 0 62.578-17.067l11.378-11.378c28.444-28.444 62.578-39.822 108.089-39.822 39.822 0 79.644 17.067 108.089 39.822l11.378 11.378c17.067 17.067 39.822 22.756 62.578 17.067 0 0 17.067-5.689 56.889-28.444s56.889-34.133 56.889-34.133 22.756-39.822 17.067-62.578l-5.689-17.067c-11.378-34.133-5.689-73.956 17.067-108.089s51.2-56.889 91.022-68.267l17.067-5.689c22.756-5.689 39.822-22.756 45.511-45.511 0 0 5.689-17.067 5.689-62.578-5.689-45.511-11.378-62.578-11.378-62.578z"  />
+                    </svg>
+                </a></li>
+
+            <li><a href="#" id = "download">
+                <i class="btn-circle-download">
+                    <svg id="arrow" width="14px" height="20px" viewBox="17 14 14 20">
+                    <path d="M24,15 L24,32"></path>
+                    <polyline points="30 27 24 33 18 27"></polyline>
+                    </svg>
+                    <svg id="check" width="21px" height="15px" viewBox="13 17 21 15">
+                    <polyline points="32.5 18.5 20 31 14.5 25.5"></polyline>
+                    </svg>
+                    <svg  id="border" width="48px" height="48px" viewBox="0 0 48 48">
+                    <path d="M24,1 L24,1 L24,1 C36.7025492,1 47,11.2974508 47,24 L47,24 L47,24 C47,36.7025492 36.7025492,47 24,47 L24,47 L24,47 C11.2974508,47 1,36.7025492 1,24 L1,24 L1,24 C1,11.2974508 11.2974508,1 24,1 L24,1 Z"></path>
+                    </svg>
+                </i>
+                </a></li>
+
+            <li><a href="#" id = "profile">
+                <i class="material-icons"></i>
+                <svg class="svg-icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M853.333333 938.666667H170.666667v-85.333334a213.333333 213.333333 0 0 1 213.333333-213.333333h256a213.333333 213.333333 0 0 1 213.333333 213.333333v85.333334z m-341.333333-384a256 256 0 1 1 0-512 256 256 0 0 1 0 512z"  />
+                </svg>
+                </a></li>
+
+            <li><a href="#" id = "notification">
+                <i class="notification-box">
+                    <span class="notification-count">1</span>
+                    <div class="notification-bell">
+                        <span class="bell-top"></span>
+                        <span class="bell-middle"></span>
+                        <span class="bell-bottom"></span>
+                        <span class="bell-rad"></span>
+                    </div>
+                </i>
+                </a></li>
+            </ul>
+          </div>
+        </div>
+        
+        
+        <div class="main_container"></div>
+    </div>
+    
+    <div class ="frame2">
+        <div class="button-container">
+            <a href="#" class="btn2" id = table >Table</a>
+        </div>
+    </div>
+
+    <div class ="frame3">
+        <div class="button-container">
+            <a href="#" class="btn3" id = graph >Graph</a>
+        </div>
+    </div>
+
+    <div class="table3">
+        <h2><small>Products</small></h2>
+        <div class="Card">
+            <div class="CardInner">
+                <div class="container">
+                    <div class="Icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#657789" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    </div>
+                    <div class="InputContainer">
+                    <input type = "text" id = "products" placeholder="Enter product's detail..."/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class ="frame">
+            <div class="button-container">
+            <span class="button-text">Record Sale</span>
+            <a href="#" class="btn" id = "addbutton" >+</a>
+            </div>
+        </div>
+
+
+
+        <ul class="responsive-table">
+          <li class="table-header">
+            <div class="col col-1">Date</div>
+            <div class="col col-2">SKU</div>
+            <div class="col col-3">Product <br>Name</div>
+            <div class="col col-4">Quantity</div>
+            <div class="col col-5">Unit <br> Price</div>
+            <div class="col col-6">Total<br>Value</div>
+
+          </li>
+          <ul class="responsive-row">
+          <li class="table-row">
+            <div class="col col-1" data-label="Date"><svg class="svg-icon productButton" id ="productButton1" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
+                </svg> 
+                01/01/24
+            </div>
+            <div class="col col-2" data-label="SKU">FRG-123-LG-2</div>
+            <div class="col col-3" data-label="Product">LG Smart Fridge</div>
+            <div class="col col-4" data-label="Quantity">2</div>
+            <div class="col col-5" data-label="UnitPrice">$9,000</div>
+            <div class="col col-6" data-label="TotalValue">$18,000</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="Date"><svg class="svg-icon productButton" id ="productButton1" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
+                </svg> 
+            01/04/24
+            </div>
+            <div class="col col-2" data-label="SKU">FRG-123-LG-2</div>
+            <div class="col col-3" data-label="Product">LG Smart Fridge</div>
+            <div class="col col-4" data-label="Quantity">1</div>
+            <div class="col col-5" data-label="UnitPrice">$9,000</div>
+            <div class="col col-6" data-label="TotalValue">$9,000</div>
+          </li>
+          <li class="table-row">
+            <div class="col col-1" data-label="Date">
+                <svg class="svg-icon productButton" id ="productButton1" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
+                </svg> 
+                01/05/24
+            </div>
+            <div class="col col-2" data-label="SKU">NDS-424-DS-1</div>
+            <div class="col col-3" data-label="Product">NintendoDS</div>
+            <div class="col col-4" data-label="Quantity">1</div>
+            <div class="col col-5" data-label="UnitPrice">$250</div>
+            <div class="col col-6" data-label="TotalValue">$250</div>
+          </li>
+          
+        </ul>
+        </ul>
+    </div>
+
+    <!-- <div class="container">
+        <div class="cookiesContent" id="cookiesPopup">
+        <span class="arrow"></span>
+        <button class="close">✖</button>
+        <img src="../public/images/mini.png" alt="cookies-img" />
+        <p>We use cookies for improving user experience, analytics and marketing.</p>
+        <button class="accept">That's fine!</button>
+        </div>
+    </div>  -->
+
+    <!-- <div class="container">
+    <div class="modal" id = "modal">
+        <span class="arrow"></span>
+        <div class="modal-header">
+            <div class="modal-logo">
+                <span class="logo-circle">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="419.116" viewBox="0 0 512 419.116">
+                        <defs>
+                            <clipPath id="clip-folder-new">
+                                <rect width="512" height="419.116" />
+                            </clipPath>
+                        </defs>
+                        <g id="folder-new" clip-path="url(#clip-folder-new)">
+                            <path id="Union_1" data-name="Union 1" d="M16.991,419.116A16.989,16.989,0,0,1,0,402.125V16.991A16.989,16.989,0,0,1,16.991,0H146.124a17,17,0,0,1,10.342,3.513L227.217,57.77H437.805A16.989,16.989,0,0,1,454.8,74.761v53.244h40.213A16.992,16.992,0,0,1,511.6,148.657L454.966,405.222a17,17,0,0,1-16.6,13.332H410.053v.562ZM63.06,384.573H424.722L473.86,161.988H112.2Z" fill="var(--c-action-primary)" stroke="" stroke-width="1" />
+                        </g>
+                    </svg>
+                </span>
+            </div>
+            <button class="btn-close">✖
+            </button>
+        </div>
+        <div class="modal-body">
+            <h2 class="modal-title">Upload a file</h2>
+            <p class="modal-description">Attach the file below</p>
+            <button class="upload-area">
+                <span class="upload-area-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="340.531" height="419.116" viewBox="0 0 340.531 419.116">
+      <g id="files-new" clip-path="url(#clip-files-new)">
+        <path id="Union_2" data-name="Union 2" d="M-2904.708-8.885A39.292,39.292,0,0,1-2944-48.177V-388.708A39.292,39.292,0,0,1-2904.708-428h209.558a13.1,13.1,0,0,1,9.3,3.8l78.584,78.584a13.1,13.1,0,0,1,3.8,9.3V-48.177a39.292,39.292,0,0,1-39.292,39.292Zm-13.1-379.823V-48.177a13.1,13.1,0,0,0,13.1,13.1h261.947a13.1,13.1,0,0,0,13.1-13.1V-323.221h-52.39a26.2,26.2,0,0,1-26.194-26.195v-52.39h-196.46A13.1,13.1,0,0,0-2917.805-388.708Zm146.5,241.621a14.269,14.269,0,0,1-7.883-12.758v-19.113h-68.841c-7.869,0-7.87-47.619,0-47.619h68.842v-18.8a14.271,14.271,0,0,1,7.882-12.758,14.239,14.239,0,0,1,14.925,1.354l57.019,42.764c.242.185.328.485.555.671a13.9,13.9,0,0,1,2.751,3.292,14.57,14.57,0,0,1,.984,1.454,14.114,14.114,0,0,1,1.411,5.987,14.006,14.006,0,0,1-1.411,5.973,14.653,14.653,0,0,1-.984,1.468,13.9,13.9,0,0,1-2.751,3.293c-.228.2-.313.485-.555.671l-57.019,42.764a14.26,14.26,0,0,1-8.558,2.847A14.326,14.326,0,0,1-2771.3-147.087Z" transform="translate(2944 428)" fill="var(--c-action-primary)"/>
+      </g>
+    </svg>
+                </span>
+                <span class="upload-area-title">Drag file(s) here to upload.</span>
+                <span class="upload-area-description">
+                    Alternatively, you can select a file by <br/><strong>clicking here</strong>
+                </span>
+            </button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary">Cancel</button>
+            <button class="btn-primary">Upload File</button>
+        </div>
+    </div>
+</div> -->
+
+
+
+<div class="container">
+    <div class="profileContent" id="profilePopup">
+    <span class="arrow"></span>
+    <img src="../public/images/mini.png" alt="cookies-img" />
+    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+    <button class="accept">Log out</button>
+    </div>
+</div>  
+
+<div class="container">
+    <div class="container notifications-container shadow" id = "notiPopup">
+        <div class = "realheader">
+        <div class="row header">
+        <div class="col-7">
+            <p class="title">
+            Notifications
+            <span class="unread-notifications-number">2</span>
+            </p>
+        </div>
+        </div>
+        </div>
+
+
+        <div class="row notifications">
+        <div class="col-12">
+
+            <div class="row single-notification-box unread">
+            <div class="col-11 notification-text">
+                <p>
+                <a href="#" class="link name">FRG-123-LG-2</a>
+                <span class="description">needed reorder</span>
+                <a class="link" href="order.html">Go to Orders Page!</a>
+                <span class="unread-symbol">•</span>
+                </p>
+                <p class="time">1m ago</p>
+            </div>
+            </div>
+
+            <div class="row single-notification-box unread">
+            <div class="col-11 notification-text">
+                <p>
+                <a href="#" class="link name">NDS-424-DS-1</a>
+                <span class="description">needed reorder</span>
+                <a class="link group" href="order.html">Go to Orders Page!</a>
+                <span class="unread-symbol">•</span>
+                </p>
+                <p class="time">1 day ago</p>
+            </div>
+            </div>
+
+            <div class="row single-notification-box read">
+            <div class="col-11 notification-text">
+                <p>
+                <a href="#" class="link name">Rizky Hasanuda</a>
+                <span class="description">sent you a private message</span>
+                <span class="unread-symbol">•</span>
+                </p>
+                <p class="time">5 days ago</p>
+                <div class="private-message">
+                Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
+                I'm already having lots of fun and improving my game.
+                </div> 
+            </div>
+            </div>
+
+            <div class="row single-notification-box read">
+            <div class="col-10 notification-text comment">
+                <p>
+                <a href="#" class="link name">Kimberly Smita</a>
+                <span class="description">commented on your picture</span>
+                <span class="unread-symbol">•</span>
+                </p>
+                <p class="time">1 week ago</p>
+            </div>
+            </div>
+
+            <div class="row single-notification-box read">
+            <div class="col-11 notification-text">
+                <p>
+                <a href="#" class="link name">Nathan Petersa</a>
+                <span class="description">reacted to your recent post</span>
+                <a class="link" href="http://">5 end-game strategies to increase your win rate</a>
+                <span class="unread-symbol">•</span>
+                </p>
+                <p class="time">2 weeks ago</p>
+            </div>
+            </div>
+
+            <div class="row single-notification-box read">
+            <div class="col-11 notification-text">
+                <p>
+                <a href="#" class="link name">Anna Kim</a>
+                <span class="description">left the group</span>
+                <a class="link" href="http://">Chess Club</a>
+                <span class="unread-symbol">•</span>
+                </p>
+                <p class="time">2 weeks ago</p>
+            </div>
+            </div>
+            
+        </div>
+        <div class="col-5 mark-as-read text-end">
+            <a href="#" id="markAllAsRead" class="mark-as-read-button align-middle">Mark all as read</a>
+        </div> 
+    </div>
+</div>
+
+
+
+
+
+<div class="container">
+    <div class="right-container" id = "modal">
+        <span class="arrow"></span>
+        <header>
+            <h1>Product Details</h1>
+            <div class="set">
+                <div class="SKU">
+                    <label id="SKU">SKU</label>
+                    <input id="SKU" type="text" placeholder="SKU">
+                </div>
+            </div>
+            <div class="set">
+                <div class="Name">
+                    <label id="Name">Name</label>
+                    <input id="Name" type="text" placeholder="Name">
+                </div>
+            </div>
+            <div class="set">
+                <div class="Amount">
+                    <label id="Amount">Amount</label>
+                    <input id="Amount" type="text" placeholder="Amount">
+                </div>
+            </div>
+            
+        </header>
+        <footer>
+            <div class="set">
+                <button id="back">Back</button>
+                <button id="next">Confirm</button>
+            </div>
+        </footer>
+
+    </div>
+
+    
+
+</div> 
+
+
+
+</body>
+
+<script>
+    const searchInput = document.getElementById('products');
+
+    searchInput.addEventListener('input', function() {
+        const searchText = this.value.toLowerCase().trim();
+
+        const rows = document.querySelectorAll('.table-row');
+
+        rows.forEach(row => {
+            const rowText = row.textContent.toLowerCase();
+            
+            if (rowText.includes(searchText)) {
+                row.style.display = 'flex';
+            } else {
+                row.style.display = 'none'; 
+            }
+        });
+    });
+
+</script>
+
+<script>
+    const downloadButton = document.querySelector('.btn-circle-download');
+    downloadButton.addEventListener('click', function() {
+    this.classList.add('load');
+    setTimeout(() => {
+        this.classList.add('done');
+    }, 1000);
+
+    setTimeout(() => {
+        this.classList.remove('load', 'done');
+    }, 5000);
+});
+
+</script>
+
+<script>
+    document.getElementById("LogoMenu").addEventListener("click", function() {
+    window.location.href = "map.html";
+    redirectToMainMenu();
+  });
+  
+    function redirectToMainMenu() {
+        window.location.href = "map.html";
+    }
+</script>
+
+<script>
+    document.getElementById("LogoMenu").addEventListener("click", () => {
+        remote.app.emit('login-successful-page');
+    });
+</script>
+
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", function() {
+    window.location.href = "dashboard.html";
+    redirectToDashboard();
+});
+
+    function redirectToDashboard() {
+        window.location.href = "dashboard.html";
+    }
+</script>
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", () => {
+        remote.app.emit('dashboard-page');
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const addProduct = document.getElementById("addbutton");
+        const modal = document.getElementById("modal");
+        const closeButton = document.querySelector(".right-container footer #back");
+    
+        addProduct.addEventListener("click", function(event) {
+            event.preventDefault();
+            modal.style.display = "grid"; 
+        });
+    
+        closeButton.addEventListener("click", function() {
+            modal.style.display = "none"; 
+        });
+
+    });
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const profileButton = document.querySelector("#profile");
+        const profilePopup = document.getElementById("profilePopup");
+        const logOutButton = document.querySelector(".profileContent .accept");
+    
+        profileButton.addEventListener("click", function(event) {
+            profilePopup.style.display = "flex"; 
+        });
+    
+        document.addEventListener("click", function(event) {
+            const clickInsideProfileButton = profileButton.contains(event.target);
+            const clickInsideProfilePopup = profilePopup.contains(event.target);
+
+            if (!clickInsideProfileButton && !clickInsideProfilePopup) {
+                profilePopup.style.display = "none"; 
+            }
+        });
+
+        logOutButton.addEventListener("click", function(event) {
+            redirectToLogin();
+        });
+
+        function redirectToLogin() {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const notiButton = document.querySelector("#notification");
+        const notiPopup = document.getElementById("notiPopup");
+    
+        notiButton.addEventListener("click", function(event) {
+            notiPopup.style.display = "flex"; 
+        });
+    
+        document.addEventListener("click", function(event) {
+            const clickInsideNotiButton = notiButton.contains(event.target);
+            const clickInsideNotiPopup = notiPopup.contains(event.target);
+
+            if (!clickInsideNotiButton && !clickInsideNotiPopup) {
+                notiPopup.style.display = "none"; 
+            }
+        });
+
+    });
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const productButtons = document.querySelectorAll(".productButton");
+        const productPopups = document.querySelectorAll(".productContent");
+    
+        productButtons.forEach(function(productButton, index) {
+            productButton.addEventListener("click", function(event) {
+                
+                productPopups.forEach(function(popup) {
+                    popup.style.display = "none";
+                });
+    
+                
+                const popup = productPopups[index];
+                popup.style.display = "flex";
+                popup.style.top = `${productButton.offsetTop + productButton.offsetHeight}px`;
+                popup.style.left = `${productButton.offsetLeft}px`;
+    
+                event.stopPropagation();
+            });
+        });
+    
+        document.addEventListener("click", function(event) {
+            productPopups.forEach(function(productPopup) {
+                if (!productPopup.contains(event.target)) {
+                    productPopup.style.display = "none"; 
+                }
+            });
+        });
+    });
+    
+</script>
+
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", function() {
+    window.location.href = "dashboard.html";
+    redirectToDashboard();
+});
+
+    function redirectToDashboard() {
+        window.location.href = "dashboard.html";
+    }
+</script>
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", () => {
+        remote.app.emit('dashboard-page');
+    });
+</script>
+
+<script>
+    document.getElementById("inventory").addEventListener("click", function() {
+    window.location.href = "inventory.html";
+    redirectToInventory();
+  });
+  
+    function redirectToInventory() {
+        window.location.href = "inventory.html";
+    }
+</script>
+  
+<script>
+document.getElementById("inventory").addEventListener("click", () => {
+    remote.app.emit('inventory-page');
+});
+</script>
+
+
+<script>
+    document.getElementById("orders").addEventListener("click", function() {
+    window.location.href = "orders.html";
+    redirectToOrders();
+});
+
+    function redirectToOrders() {
+        window.location.href = "orders.html";
+    }
+</script>
+
+<script>
+    document.getElementById("orders").addEventListener("click", () => {
+        remote.app.emit('orders-page');
+    });
+</script>
+
+
+<script>
+    document.getElementById("sales").addEventListener("click", function() {
+    window.location.href = "sales.html";
+    redirectToSales();
+});
+
+    function redirectToSales() {
+        window.location.href = "sales.html";
+    }
+</script>
+
+<script>
+    document.getElementById("sales").addEventListener("click", () => {
+        remote.app.emit('sales-page');
+    });
+</script>
+
+<script>
+    document.getElementById("performance").addEventListener("click", function() {
+    window.location.href = "performance.html";
+    redirectToPerformance();
+});
+
+    function redirectToPerformance() {
+        window.location.href = "performance.html";
+    }
+</script>
+
+<script>
+    document.getElementById("performance").addEventListener("click", () => {
+        remote.app.emit('performance-page');
+    });
+</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src = "../public/functions.js"></script>
+
+</html>

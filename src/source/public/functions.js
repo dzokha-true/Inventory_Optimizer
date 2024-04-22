@@ -1,10 +1,10 @@
 const { ipcRenderer } = require('electron');
 
 // document.getElementById('loginForm').addEventListener('submit', (event) => {
-//     event.preventDefault(); 
+//     event.preventDefault();
 //     const username = document.getElementById('username').value;
 //     const password = document.getElementById('password').value;
-  
+
 //     ipcRenderer.send('perform-login', { username, password });
 //   });
   
@@ -20,6 +20,37 @@ ipcRenderer.on('login-failure', (event, data) => {
         document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
     }
 });
+
+ const box = $(".single-notification-box");
+ const markAllAsRead = $("#markAllAsRead");
+ const unreadNotificationNumber = $(".unread-notifications-number");
+
+ markAllAsRead.click(function(e){
+
+     console.log("click !");
+
+     if(box.hasClass("unread")){
+         box.removeClass("unread");
+         box.addClass("read");
+         unreadNotificationNumber.text("0");
+     }
+ });
+
+// function runPythonScript(scriptPath: string = "../LoginSystem.py", username, password) {
+//     const python = spawn('python', [scriptPath, ...args]);
+
+//     python.stdout.on('data', (data) => {
+//         console.log(stdout: ${data});
+//     });
+
+//     python.stderr.on('data', (data) => {
+//         console.error(stderr: ${data});
+//     });
+
+//     python.on('close', (code) => {
+//         console.log(child process exited with code ${code});
+//     });
+// }
 
 ipcRenderer.on('login-attempt-exceeded', () => {
     document.getElementById('message').textContent = 'You have exceeded the number of login attempts.';
@@ -37,11 +68,11 @@ ipcRenderer.on('reset-login', (event,arg) => {
 });
 
 // document.getElementById('registerForm').addEventListener('submit', (event) => {
-//     event.preventDefault(); 
+//     event.preventDefault();
 //     const username = document.getElementById('username').value;
 //     const password = document.getElementById('password').value;
 //     const status = document.getElementById('status').value;
-  
+
 //     ipcRenderer.send('perform-register', { username, password, status });
 //   });
 
