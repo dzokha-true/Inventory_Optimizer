@@ -1,36 +1,6 @@
 const { spawn } = require('child_process');
 const {ipcRenderer} = require("electron");
 
-// function runPythonScript(scriptPath="../database/Product.py", args) {
-//     const python = spawn('python', [scriptPath, args]);
-
-
-// let dataString = '';
-// python.stdout.on('data', (data) => {
-//     dataString += data.toString();
-//     //console.log(dataString);
-// });
-
-// python.stdout.on('end', () => {
-//     //const dataconvert = JSON.parse(dataString);
-//     // app.get('/data', (req, res) => {
-//     //     res.json(dataconvert); // send data to front-end
-//     // });
-// });
-
-// python.stderr.on('data', (data) => {
-//     console.error(`stderr: ${data}`);
-// });
-
-// python.on('close', (code) => {
-//     console.log(`child process exited with code ${code}`);
-// });
-
-// }
-
-//
-// console.log(runPythonScript("../database/Product.py", ["printAll"])); // replace "argument1" with the actual argument you want to pass to the script
-
 function addHTMLrow(data) {
 var table = document.getElementById('inventory_table');
 
@@ -47,7 +17,6 @@ table.innerHTML += "<li class=\"table-row\">"
 document.getElementById('load').addEventListener('click', (event) => {
     event.preventDefault();
     const message = "printALL";
-  
     ipcRenderer.send('create-table', {message});
   });
 
