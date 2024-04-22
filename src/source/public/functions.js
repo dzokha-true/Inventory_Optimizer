@@ -52,7 +52,6 @@ ipcRenderer.on('register_success', (event,data) => {
 
 ipcRenderer.on('register-failure', (event, data) => {
     const our_data = data.response;
-    console.log(our_data);
     document.getElementById('message_register').textContent = our_data;
 });
 
