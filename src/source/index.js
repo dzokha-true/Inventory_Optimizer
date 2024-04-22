@@ -113,6 +113,7 @@ ipcMain.on('perform-login', (event, { username, password}) => {
     });
   });
 
+  // for performing registration
   ipcMain.on('perform-register', (event, { username, password, status }) => {
     operation = 'register';
     // change path to script for register
@@ -142,6 +143,32 @@ ipcMain.on('perform-login', (event, { username, password}) => {
     });
   });
 
+// for generating report for performance page
+ipcMain.on('get_report', (event, { message }) => {
+    const operation = message;
+    // change path to script
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, status, operation]);
+
+    pythonProcess.stdout.on('data', (data) => {
+      const performanceResponse = data.toString().trim();
+
+      let dataString = ''
+      dataString += performanceResponse;
+        
+      event.reply('performance-success', { username});
+
+    });  
+    pythonProcess.on('error', (error) => {
+      console.error(`An error occurred: ${error.message}`);
+      event.reply('performance-failure', 'An error occurred during loading report.');
+    });
+  
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      event.reply('performance-failure', 'An error occurred during loading report.');
+    });
+  });
+
 //renderer for each page
 ipcMain.on('main-page', () => {
 	mainWin.loadURL(url.format({
@@ -167,12 +194,35 @@ ipcMain.on('data-page', () => {
     }));
 });
 
-ipcMain.on('dashboard-page', () => {
+ipcMain.on('dashboard-page', (event, message) => {
     mainWin.loadURL(url.format({
         pathname: path.join(__dirname, "views/dashboard.html"),
         protocol: "file",
         slashes: true
     }));
+    
+    const operation = message;
+    // change path to script
+    const pythonProcess = spawn('python', ['src/database/Mathematics.py', username, status, operation]);
+
+    pythonProcess.stdout.on('data', (data) => {
+      const performanceResponse = data.toString().trim();
+
+      let dataString = ''
+      dataString += performanceResponse;
+        
+      event.reply('performance-success', { username});
+
+    });  
+    pythonProcess.on('error', (error) => {
+      console.error(`An error occurred: ${error.message}`);
+      event.reply('dashboard-failure', 'An error occurred during loading dashboard.');
+    });
+  
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      event.reply('dashboard-failure', 'An error occurred during loading dashboard.');
+    });
 });
 
 ipcMain.on('inventory-page', () => {
