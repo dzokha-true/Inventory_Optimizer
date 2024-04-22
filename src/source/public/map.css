@@ -540,6 +540,8 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+    height: 25%; 
+    overflow-y: scroll;
   }
 
 .table-header {
