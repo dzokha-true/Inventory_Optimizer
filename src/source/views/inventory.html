@@ -104,6 +104,7 @@
               </li>
 
               <li><a href="#" id = "notification">
+
                 <i class="notification-box">
                     <span class="notification-count">1</span>
                     <div class="notification-bell">
@@ -154,11 +155,11 @@
         <div class ="frame" id='load'>
           <button type="click">Load Table</button>
         </div>
-        
+
         <div class ="frame">
             <div class="button-container">
             <span class="button-text">Add Product</span>
-            <a href="#" class="btn" id = addbutton >+</a>
+            <a href="#" class="btn" id = "addbutton" >+</a>
             </div>
         </div>
 
@@ -378,7 +379,6 @@
     document.getElementById("LogoMenu").addEventListener("click", function() {
     window.location.href = "map.html";
     redirectToMainMenu();
-    remote.app.emit('map-page');
   });
   
     function redirectToMainMenu() {
@@ -402,7 +402,6 @@
       });
 
   });
-
 </script>
 
 
@@ -485,6 +484,8 @@ remote.app.emit('sales-page');
 });
 </script>
 
+
+
 <script>
 document.getElementById("performance").addEventListener("click", function() {
 window.location.href = "performance.html";
@@ -492,5 +493,98 @@ remote.app.emit('performance-page');
 });
 </script>
 
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", function() {
+    window.location.href = "dashboard.html";
+    redirectToDashboard();
+});
+
+    function redirectToDashboard() {
+        window.location.href = "dashboard.html";
+    }
+</script>
+
+<script>
+    document.getElementById("dashboard").addEventListener("click", () => {
+        remote.app.emit('dashboard-page');
+    });
+</script>
+
+<script>
+    document.getElementById("inventory").addEventListener("click", function() {
+    window.location.href = "inventory.html";
+    redirectToInventory();
+  });
+
+    function redirectToInventory() {
+        window.location.href = "inventory.html";
+    }
+</script>
+
+<script>
+document.getElementById("inventory").addEventListener("click", () => {
+    remote.app.emit('inventory-page');
+});
+</script>
+
+
+<script>
+    document.getElementById("orders").addEventListener("click", function() {
+    window.location.href = "orders.html";
+    redirectToOrders();
+});
+
+    function redirectToOrders() {
+        window.location.href = "orders.html";
+    }
+</script>
+
+<script>
+    document.getElementById("orders").addEventListener("click", () => {
+        remote.app.emit('orders-page');
+    });
+</script>
+
+
+<script>
+    document.getElementById("sales").addEventListener("click", function() {
+    window.location.href = "sales.html";
+    redirectToSales();
+});
+
+    function redirectToSales() {
+        window.location.href = "sales.html";
+    }
+</script>
+
+<script>
+    document.getElementById("sales").addEventListener("click", () => {
+        remote.app.emit('sales-page');
+    });
+</script>
+
+<script>
+    document.getElementById("performance").addEventListener("click", function() {
+    window.location.href = "performance.html";
+    redirectToPerformance();
+});
+
+    function redirectToPerformance() {
+        window.location.href = "performance.html";
+    }
+</script>
+
+<script>
+    document.getElementById("performance").addEventListener("click", () => {
+        remote.app.emit('performance-page');
+    });
+</script>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+<script src = "../public/functions.js"></script>
 
 </html>

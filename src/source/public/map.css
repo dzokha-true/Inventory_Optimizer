@@ -452,7 +452,7 @@ body {
     top: 0;
     z-index: 2;
 
-}
+
 .responsive-row {
     max-height: 390px; 
     overflow-y: auto;
@@ -540,7 +540,7 @@ body {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
-    height: 25%; 
+    height: 25%;
     overflow-y: scroll;
   }
 
@@ -554,14 +554,6 @@ body {
     top: 0;
     z-index: 2;
 
-}
-.responsive-row {
-    max-height: 390px; 
-    overflow-y: auto;
-    margin: 0;
-    padding-bottom: 0;
-    list-style: none;
-    position: relative;
 }
 
 .table-row {
@@ -580,13 +572,13 @@ body {
     text-align: center;
     border-radius: 5px;
     padding: 30px 30px 40px;
-    z-index: 4; 
+    z-index: 4;
     position: absolute;
     /* margin-top: -8%;
     margin-left: -92%; */
-    display: none; 
-    top: calc(100% + 10px); 
-    left: 0; 
+    display: none;
+    top: calc(100% + 10px);
+    left: 0;
 }
 
 .productContent::after{
@@ -610,13 +602,13 @@ body {
     text-align: center;
     border-radius: 5px;
     padding: 30px 30px 40px;
-    z-index: 4; 
+    z-index: 4;
     position: absolute;
     /* margin-top: -8%;
     margin-left: -92%; */
-    display: none; 
-    top: calc(100% + 10px); 
-    left: 0; 
+    display: none;
+    top: calc(100% + 10px);
+    left: 0;
 }
 
 .col-1 .productContent::after{
@@ -666,7 +658,7 @@ body {
 .col-9 {
     flex-basis: 10%;
     text-align: center;
-} 
+}
 
 
 @media all and (max-width: 767px) {
@@ -677,7 +669,6 @@ body {
     display: block;
     }
     .col {
-    
     flex-basis: 100%;
     display: flex;
     padding: 10px 0;
@@ -690,7 +681,7 @@ body {
         text-align: right;
     }
 
-} 
+}
 
 /* Table in Sales Page */
 
@@ -723,14 +714,6 @@ body {
     z-index: 2;
 
 }
-.responsive-row {
-    max-height: 390px; 
-    overflow-y: auto;
-    margin: 0;
-    padding-bottom: 0;
-    list-style: none;
-    position: relative;
-}
 
 .table-row {
     background-color: #ffffff;
@@ -748,13 +731,13 @@ body {
     text-align: center;
     border-radius: 5px;
     padding: 30px 30px 40px;
-    z-index: 4; 
+    z-index: 4;
     position: absolute;
     /* margin-top: -8%;
     margin-left: -92%; */
-    display: none; 
-    top: calc(100% + 10px); 
-    left: 0; 
+    display: none;
+    top: calc(100% + 10px);
+    left: 0;
 }
 
 .productContent::after{
@@ -778,13 +761,13 @@ body {
     text-align: center;
     border-radius: 5px;
     padding: 30px 30px 40px;
-    z-index: 4; 
+    z-index: 4;
     position: absolute;
     /* margin-top: -8%;
     margin-left: -92%; */
-    display: none; 
-    top: calc(100% + 10px); 
-    left: 0; 
+    display: none;
+    top: calc(100% + 10px);
+    left: 0;
 }
 
 .col-1 .productContent::after{
@@ -832,7 +815,6 @@ body {
     display: block;
     }
     .col {
-    
     flex-basis: 100%;
     display: flex;
     padding: 10px 0;
@@ -845,7 +827,7 @@ body {
         text-align: right;
     }
 
-} 
+}
 
 .table4 {
     max-width: 1200px;
@@ -1615,7 +1597,7 @@ select {
   }
   
   .wrapper.collapse .main_container{
-    width: (100% - 70px);
+    width:(100% - 70px);
     margin-left: 70px;
   }
 
@@ -1934,7 +1916,7 @@ input, button, select, textarea {
     border-radius: 1em;
     position: relative;
     margin-top: 20%;
-    margin-left: 43%; 
+    margin-left: 43%;
     padding: 20px;
     transform: translateY(-40px);
 
@@ -2029,7 +2011,6 @@ input, button, select, textarea {
   }
 
   
-
   .right-container .set .SKU, 
   .right-container .set .Name, 
   .right-container .set .Amount {
