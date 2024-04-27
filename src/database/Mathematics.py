@@ -12,6 +12,7 @@ from datetime import date
 import re
 from Received_Order import Received_Order
 from LoginSystem import LoginSystem
+import json
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -19,16 +20,26 @@ numbers = (1,2,3,4,5,6,7,8,9,0)
 
 class Mathematics(Received_Order):
     
-    # Initialise the object
     def __init__(self):
         super().__init__()
-        # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
-        
-        # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
         self.data_base = client['CompanyDetails']
-        self.place_order_DB = self.data_base['OrdersPlaced']
+        self.performance_DB = self.data_base['Performance']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     # calculate gross profit
     def gross_profit(self, product):
@@ -56,7 +67,7 @@ class Mathematics(Received_Order):
     def inventory_turnover_ratio(self):
         # range of dates
         # Tie to a date, per SKU
-        return self.COGS(product)/self.average_inventory()
+        return self.COGS(product)/self.average_inventory() 
         
     #COGS
     def COGS(self, product):
@@ -73,12 +84,5 @@ class Mathematics(Received_Order):
             for i in [number_stock,number_stock-number_sales+1]:
                 COGS += all_product[i].price
                 
-a = LoginSystem()
-if __name__ == "__main__":
-    # Check if username and password are provided as command-line arguments
-    if len(sys.argv) == 3:
-        _, username, password = sys.argv
-        a.login(username, password)
-    else:
-        print("Usage: LoginSystem.py <username> <password>")
-        sys.exit(1)
+
+
