@@ -2,11 +2,76 @@
 
 body {
     margin: 0;
+    padding: 0;
+    height: 100%;
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #f7f7f7;
+}
+
+
+.main_container {
+  position: relative; /* Changed from absolute to fixed */
+  bottom: 0;
+  width: 100%; /* Full width */
+  height: 50vh; /* Takes up half of the height of the viewport */
+  background-color: #ffffff;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+  overflow: auto; /* Ensures no overflow from the container itself */
+  padding: 20px;
+  box-sizing: border-box; /* Include padding in the width */
+  border-top: 1px solid #ccc; /* Optional: adds a dividing line between the top content and table */
+}
+
+#data-table {
+  height: calc(100% - 40px); /* Height minus padding */
+  overflow-y: auto; /* Enable vertical scroll */
+  margin: 0; /* Remove any margin if set */
+}
+
+/* Ensure the thead is properly styled for a sticky position */
+#data-table thead th {
+  background-color: #3498db;
+  color: white;
+  position: sticky;
+  top: -20; /* Stick to the top of the table within the scrollable area */
+  z-index: 0; /* Ensure it's above the tbody content */
+  padding: 12px 15px;
+}
+
+/* Ensure tbody cells have padding and proper text alignment */
+#data-table tbody td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+/* Additional styling for table rows */
+#data-table tr:nth-child(even), #data-table tr:nth-child(odd) {
+  background-color: #f9f9f9; /* You can adjust the colors for even and odd rows */
+}
+
+/* Highlight rows on hover */
+#data-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Styling the scrollbar for the table */
+#data-table::-webkit-scrollbar {
+  width: 10px;
+}
+
+#data-table::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+#data-table::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+#data-table::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 /* .app-container {
