@@ -42,22 +42,7 @@ class Product(LoginSystem):
         client = MongoClient(URI, server_api=ServerApi('1'))
         self.data_base = client['CompanyDetails']
         self.product_DB = self.data_base['ProductInformation']
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
     def get_product_everything(self):
         cursor = self.product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'stock': 1, 'cost': 1, 'inventory_value': 1, 'expected_sales': 1, 'SKU_class': 1})
         data = []
@@ -221,4 +206,5 @@ class Product(LoginSystem):
 
 
     
+
 
