@@ -233,7 +233,7 @@
     <div class="profileContent" id="profilePopup">
     <span class="arrow"></span>
     <img src="../public/images/mini.png" alt="cookies-img" />
-    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br id='usernamehere'><br></p> 
     <button class="accept">Log out</button>
     </div>
 </div>  
@@ -634,7 +634,13 @@ document.getElementById("inventory").addEventListener("click", () => {
     });
 </script>
 
-
+<script> 
+var username = localStorage.getItem('username');
+var usernamehere = document.getElementByID("usernamehere");
+usernamehere.innerHTML = ""
+username_add.innerHTML += localStorage.getItem('username');
+// Use the username as needed
+</script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
