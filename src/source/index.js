@@ -153,7 +153,8 @@ ipcMain.on('inventory-page', () => {
 
 ipcMain.on('create-sale-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	const python = spawn('python', ["src/database/Sales.py", pageNumber]);
+	operation = "create-sale-table";
+	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
     dataString += data.toString();
@@ -170,7 +171,8 @@ ipcMain.on('create-sale-table', (event, {abc}) => {
 
 ipcMain.on('create-order-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	const python = spawn('python', ["src/database/Sales.py", pageNumber]);
+	operation = "create-order-table";
+	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
     dataString += data.toString();
@@ -187,7 +189,8 @@ ipcMain.on('create-order-table', (event, {abc}) => {
 
 ipcMain.on('create-inventory-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	const python = spawn('python', ["src/database/Sales.py", pageNumber]);
+	operation = "create-inventory-table";
+	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
     dataString += data.toString();
