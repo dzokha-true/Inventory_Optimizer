@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/map.css" type = "text/css" />
-    <title>Inventory!</title>
+    <title>Orders</title>
 </head>
 <body>
 
@@ -60,7 +60,7 @@
     </nav>
 
     <div class="wrapper">
-  
+
         <div class="top_navbar">
           <div class="hamburger">
              <div class="one"></div>
@@ -114,11 +114,11 @@
             </ul>
           </div>
         </div>
-        
-        
+
+
         <div class="main_container"></div>
     </div>
-    
+
     <div class ="frame2">
         <div class="button-container">
             <a href="#" class="btn2" id = table >Table</a>
@@ -131,8 +131,8 @@
         </div>
     </div>
 
-    <div class="table2">
-        <h2><small>Orders</small></h2>
+    <div class="table3">
+        <h2><small>Incoming Orders</small></h2>
         <div class="Card">
             <div class="CardInner">
                 <div class="container">
@@ -146,92 +146,32 @@
             </div>
         </div>
 
-
-        <div class ="frame">
-            <div class="button-container">
-            <span class="button-text">Place Order</span>
-            <a href="#" class="btn" id = "addbutton" >+</a>
-            </div>
+        <div class = 'frame'>
+                <div class="button-container">
+                    <span class="button-text">Add an order</span>
+                    <a href="#" class="btn" id = "addbutton" >+</a>
+                </div>
         </div>
 
-
-
-        <ul class="responsive-table">
-          <li class="table-header">
-            <div class="col col-1">Order Number</div>
-            <div class="col col-2">Order Date</div>
-            <div class="col col-3">Expected Arrival Date</div>
-            <div class="col col-4">SKU</div>
-            <div class="col col-5">Product</div>
-            <div class="col col-6">Quantity</div>
-            <div class="col col-7">Unit <br> Price</div>
-            <div class="col col-8">Supplier</div>
-            <div class="col col-9">Status</div>
-          </li>
-          <ul class="responsive-row">
-          <li class="table-row">
-            <div class="col col-1" data-label="Number">
-                <svg class="svg-icon productButton" id ="productButton1" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
-                </svg> 
-                1</div>
-
-                <div class = "container">
-                    <div class="productContent" id="productPopup1"></div>
-                  </div>
-            <div class="col col-2" data-label="Date">01/01/24</div>
-            <div class="col col-3" data-label="Arrival">03/31/24</div>
-            <div class="col col-4" data-label="SKU">FRG-123-LG-2</div>
-            <div class="col col-5" data-label="Product">LG Smart Fridge</div>
-            <div class="col col-6" data-label="Quantity">3</div>
-            <div class="col col-7" data-label="Unit">$9,000</div>
-            <div class="col col-8" data-label="Supplier">LG</div>
-            <div class="col col-9" data-label="Status">In Transit</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="Number"> 
-                <svg class="svg-icon productButton" id ="productButton2" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
-            </svg> 2</div>
-
-             <div class = "container">
-                <div class="productContent" id="productPopup1"></div>
-              </div>
-
-            <div class="col col-2" data-label="Date">25/12/24</div>
-            <div class="col col-3" data-label="Arrival">04/12/24</div>
-            <div class="col col-4" data-label="SKU">NDS-424-DS-1</div>
-            <div class="col col-5" data-label="Product">Nintendo DS</div>
-            <div class="col col-6" data-label="Quantity">12</div>
-            <div class="col col-7" data-label="Unit">$250</div>
-            <div class="col col-8" data-label="Supplier">Nintendo</div>
-            <div class="col col-9" data-label="Status">In Transit</div>
-
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="Number">
-                <svg class="svg-icon productButton" id ="productButton3" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z"  />
-                </svg> 3
-            </div>
-            <div class = "container">
-                <div class="productContent" id="productPopup1"></div>
-              </div>
-            <div class="col col-2" data-label="Date">11/11/24</div>
-            <div class="col col-3" data-label="Arrival">11/12/24</div>
-            <div class="col col-4" data-label="SKU">APD-537-EB-4</div>
-            <div class="col col-5" data-label="Product">AirPods</div>
-            <div class="col col-6" data-label="Quantity">10</div>
-            <div class="col col-7" data-label="Unit">$75</div>
-            <div class="col col-8" data-label="Supplier">Apple</div>
-            <div class="col col-9" data-label="Status">Pending</div>
-            
-          </li>
-        </ul>
-        </ul>
+    <div id="main_container" class="main_container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>Date Order Placed</th>
+                    <th>Expected Arrival Date</th>
+		            <th>SKU</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Data rows will be dynamically inserted here -->
+            </tbody>
+        </table>
     </div>
 
-    
+    <script src="../../backend/orders.js"></script>
 
     <!-- <div class="container">
         <div class="cookiesContent" id="cookiesPopup">
@@ -294,10 +234,10 @@
     <div class="profileContent" id="profilePopup">
     <span class="arrow"></span>
     <img src="../public/images/mini.png" alt="cookies-img" />
-    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p>
     <button class="accept">Log out</button>
     </div>
-</div>  
+</div>
 
 <div class="container">
     <div class="container notifications-container shadow" id = "notiPopup">
@@ -349,9 +289,9 @@
                 </p>
                 <p class="time">5 days ago</p>
                 <div class="private-message">
-                Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
+                Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and
                 I'm already having lots of fun and improving my game.
-                </div> 
+                </div>
             </div>
             </div>
 
@@ -389,11 +329,11 @@
                 <p class="time">2 weeks ago</p>
             </div>
             </div>
-            
+
         </div>
         <div class="col-5 mark-as-read text-end">
             <a href="#" id="markAllAsRead" class="mark-as-read-button align-middle">Mark all as read</a>
-        </div> 
+        </div>
     </div>
 </div>
 
@@ -405,7 +345,7 @@
     <div class="right-container" id = "modal">
         <span class="arrow"></span>
         <header>
-            <h1>Order Details</h1>
+            <h1>Product Details</h1>
             <div class="set">
                 <div class="SKU">
                     <label id="SKU">SKU</label>
@@ -424,7 +364,7 @@
                     <input id="Amount" type="text" placeholder="Amount">
                 </div>
             </div>
-            
+
         </header>
         <footer>
             <div class="set">
@@ -435,9 +375,9 @@
 
     </div>
 
-    
 
-</div> 
+
+</div>
 
 
 
@@ -449,15 +389,15 @@
     searchInput.addEventListener('input', function() {
         const searchText = this.value.toLowerCase().trim();
 
-        const rows = document.querySelectorAll('.table-row');
+        const rows = document.querySelectorAll('tr');
 
         rows.forEach(row => {
             const rowText = row.textContent.toLowerCase();
-            
+
             if (rowText.includes(searchText)) {
                 row.style.display = 'flex';
             } else {
-                row.style.display = 'none'; 
+                row.style.display = 'none';
             }
         });
     });
@@ -479,16 +419,6 @@
 
 </script>
 
-<script>
-    document.getElementById("LogoMenu").addEventListener("click", function() {
-    window.location.href = "map.html";
-    redirectToMainMenu();
-  });
-  
-    function redirectToMainMenu() {
-        window.location.href = "map.html";
-    }
-</script>
 
 <script>
     document.getElementById("LogoMenu").addEventListener("click", () => {
@@ -500,7 +430,7 @@
 <script>
     document.getElementById("dashboard").addEventListener("click", function() {
     window.location.href = "dashboard.html";
-    redirectToDashboard();
+    redirectToDashboard(); //
 });
 
     function redirectToDashboard() {
@@ -519,14 +449,14 @@
         const addProduct = document.getElementById("addbutton");
         const modal = document.getElementById("modal");
         const closeButton = document.querySelector(".right-container footer #back");
-    
-        addProduct.addEventListener("click", function(event) {
+
+        addProduct.addEventListener("click", function() {
             event.preventDefault();
-            modal.style.display = "grid"; 
+            modal.style.display = "grid";
         });
-    
+
         closeButton.addEventListener("click", function() {
-            modal.style.display = "none"; 
+            modal.style.display = "none";
         });
 
     });
@@ -538,17 +468,17 @@
         const profileButton = document.querySelector("#profile");
         const profilePopup = document.getElementById("profilePopup");
         const logOutButton = document.querySelector(".profileContent .accept");
-    
+
         profileButton.addEventListener("click", function(event) {
-            profilePopup.style.display = "flex"; 
+            profilePopup.style.display = "flex";
         });
-    
+
         document.addEventListener("click", function(event) {
             const clickInsideProfileButton = profileButton.contains(event.target);
             const clickInsideProfilePopup = profilePopup.contains(event.target);
 
             if (!clickInsideProfileButton && !clickInsideProfilePopup) {
-                profilePopup.style.display = "none"; 
+                profilePopup.style.display = "none";
             }
         });
 
@@ -566,17 +496,17 @@
     document.addEventListener("DOMContentLoaded", function() {
         const notiButton = document.querySelector("#notification");
         const notiPopup = document.getElementById("notiPopup");
-    
+
         notiButton.addEventListener("click", function(event) {
-            notiPopup.style.display = "flex"; 
+            notiPopup.style.display = "flex";
         });
-    
+
         document.addEventListener("click", function(event) {
             const clickInsideNotiButton = notiButton.contains(event.target);
             const clickInsideNotiPopup = notiPopup.contains(event.target);
 
             if (!clickInsideNotiButton && !clickInsideNotiPopup) {
-                notiPopup.style.display = "none"; 
+                notiPopup.style.display = "none";
             }
         });
 
@@ -584,59 +514,37 @@
 
 </script>
 
- <!-- <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const productButtons = document.querySelectorAll(".productButton");
-        const productPopups = document.querySelectorAll(".productContent");
-    
-        productButtons.forEach(function(productButton, index) {
-            productButton.addEventListener("click", function(event) {
-                productPopups[index].style.display = "flex"; 
-                event.stopPropagation();
-            });
-        });
-    
-        document.addEventListener("click", function(event) {
-            productPopups.forEach(function(productPopup) {
-                if (!productPopup.contains(event.target)) {
-                    productPopup.style.display = "none"; 
-                }
-            });
-        });
-    });
-</script>  -->
-
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const productButtons = document.querySelectorAll(".productButton");
         const productPopups = document.querySelectorAll(".productContent");
-    
+
         productButtons.forEach(function(productButton, index) {
             productButton.addEventListener("click", function(event) {
-                
+
                 productPopups.forEach(function(popup) {
                     popup.style.display = "none";
                 });
-    
-                
+
+
                 const popup = productPopups[index];
                 popup.style.display = "flex";
                 popup.style.top = `${productButton.offsetTop + productButton.offsetHeight}px`;
                 popup.style.left = `${productButton.offsetLeft}px`;
-    
+
                 event.stopPropagation();
             });
         });
-    
+
         document.addEventListener("click", function(event) {
             productPopups.forEach(function(productPopup) {
                 if (!productPopup.contains(event.target)) {
-                    productPopup.style.display = "none"; 
+                    productPopup.style.display = "none";
                 }
             });
         });
     });
-    
+
 </script>
 
 
@@ -662,17 +570,18 @@
     window.location.href = "inventory.html";
     redirectToInventory();
   });
-  
+
     function redirectToInventory() {
         window.location.href = "inventory.html";
     }
 </script>
-  
+
 <script>
 document.getElementById("inventory").addEventListener("click", () => {
     remote.app.emit('inventory-page');
 });
 </script>
+
 
 <script>
     document.getElementById("orders").addEventListener("click", function() {
@@ -730,6 +639,5 @@ document.getElementById("inventory").addEventListener("click", () => {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-<script src = "../public/functions.js"></script>
 
 </html>

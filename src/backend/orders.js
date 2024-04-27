@@ -8,7 +8,7 @@ const pageSize = 50;
 let loading = false;
 const container = document.getElementById('table-body');
 
-ipcRenderer.on('inventory_table_success', (event, data) => {
+ipcRenderer.on('order_table_success', (event, data) => {
 	abc ++;
 	const our_data = JSON.parse(data.dataset);
 	if (loading) {
@@ -41,20 +41,20 @@ document.addEventListener('DOMContentLoaded', function() {
         if (nearBottom && !loading) {
             console.log('Approaching bottom: Loading more data...');
             loading = true;
-            ipcRenderer.send('create-inventory-table', { abc });
+            ipcRenderer.send('create-order-table', { abc });
         }
     });
 
     // Trigger initial data load
     if (!loading) {
         loading = true;
-        ipcRenderer.send('create-inventory-table', { abc });
+        ipcRenderer.send('create-order-table', { abc });
     }
 });
 
 if (!loading) {
     loading = true;
-    ipcRenderer.send('create-inventory-table', { abc });
+    ipcRenderer.send('create-order-table', { abc });
 }
 
 

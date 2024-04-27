@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/map.css" type = "text/css" />
-    <title>Inventory!</title>
+    <title>Inventory</title>
 </head>
 <body>
 
@@ -60,7 +60,7 @@
     </nav>
 
     <div class="wrapper">
-  
+
         <div class="top_navbar">
           <div class="hamburger">
              <div class="one"></div>
@@ -114,11 +114,11 @@
             </ul>
           </div>
         </div>
-        
-        
+
+
         <div class="main_container"></div>
     </div>
-    
+
     <div class ="frame2">
         <div class="button-container">
             <a href="#" class="btn2" id = table >Table</a>
@@ -131,8 +131,8 @@
         </div>
     </div>
 
-    <div class="table">
-        <h2><small>Products</small></h2>
+    <div class="table3">
+        <h2><small>Current inventory</small></h2>
         <div class="Card">
             <div class="CardInner">
                 <div class="container">
@@ -146,84 +146,32 @@
             </div>
         </div>
 
-
-        <div class ="frame">
-            <div class="button-container">
-            <span class="button-text">Add Product</span>
-            <a href="#" class="btn" id = "addbutton" >+</a>
-            </div>
+        <div class = 'frame'>
+                <div class="button-container">
+                    <span class="button-text">Add an order</span>
+                    <a href="#" class="btn" id = "addbutton" >+</a>
+                </div>
         </div>
 
-
-
-        <ul class="responsive-table">
-          <li class="table-header">
-            <div class="col col-1">SKU</div>
-            <div class="col col-2">Name</div>
-            <div class="col col-3">Number <br> in Stock</div>
-            <div class="col col-4">Number <br> on Order</div>
-            <div class="col col-5">Unit <br> Cost</div>
-            <div class="col col-6">Inventory <br> Value</div>
-            <div class="col col-7">Expected <br> Sales</div>
-          </li>
-          <ul class="responsive-row">
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">FRG-123-LG-2</div>
-            <div class="col col-2" data-label="Name">LG Smart Fridge</div>
-            <div class="col col-3" data-label="StockAmount">12</div>
-            <div class="col col-4" data-label="OrderAmount">3</div>
-            <div class="col col-5" data-label="UnitCost">$9,000</div>
-            <div class="col col-6" data-label="InventoryValue">$108,000</div>
-            <div class="col col-7" data-label="ExpectedSales">4</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">NDS-424-DS-1</div>
-            <div class="col col-2" data-label="Name">Nintendo DS</div>
-            <div class="col col-3" data-label="StockAmount">43</div>
-            <div class="col col-4" data-label="OrderAmount">12</div>
-            <div class="col col-5" data-label="UnitCost">$250</div>
-            <div class="col col-6" data-label="InventoryValue">$10,750</div>
-            <div class="col col-7" data-label="ExpectedSales">30</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">PREE</div>
-            <div class="col col-2" data-label="Name">John Smith</div>
-            <div class="col col-3" data-label="StockAmount">$341</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">42311</div>
-            <div class="col col-2" data-label="Name">John Carpenter</div>
-            <div class="col col-3" data-label="StockAmount">$115</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">42311</div>
-            <div class="col col-2" data-label="Name">John Carpenter</div>
-            <div class="col col-3" data-label="StockAmount">$115</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-          <li class="table-row">
-            <div class="col col-1" data-label="SKU">42311</div>
-            <div class="col col-2" data-label="Name">John Carpenter</div>
-            <div class="col col-3" data-label="StockAmount">$115</div>
-            <div class="col col-4" data-label="OrderAmount">Pending</div>
-            <div class="col col-5" data-label="UnitCost">John Doe</div>
-            <div class="col col-6" data-label="InventoryValue">$350</div>
-            <div class="col col-7" data-label="ExpectedSales">Pending</div>
-          </li>
-        </ul>
-        </ul>
+    <div id="main_container" class="main_container">
+        <table id="data-table">
+            <thead>
+                <tr>
+                    <th>SKU</th>
+                    <th>Name</th>
+		            <th>Number in stock</th>
+                    <th>Number on order</th>
+                    <th>Unit cost</th>
+                    <th>Inventory value</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Data rows will be dynamically inserted here -->
+            </tbody>
+        </table>
     </div>
+
+    <script src="../../backend/inventory.js"></script>
 
     <!-- <div class="container">
         <div class="cookiesContent" id="cookiesPopup">
@@ -286,10 +234,10 @@
     <div class="profileContent" id="profilePopup">
     <span class="arrow"></span>
     <img src="../public/images/mini.png" alt="cookies-img" />
-    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p>
     <button class="accept">Log out</button>
     </div>
-</div>  
+</div>
 
 <div class="container">
     <div class="container notifications-container shadow" id = "notiPopup">
@@ -341,9 +289,9 @@
                 </p>
                 <p class="time">5 days ago</p>
                 <div class="private-message">
-                Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and 
+                Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and
                 I'm already having lots of fun and improving my game.
-                </div> 
+                </div>
             </div>
             </div>
 
@@ -381,11 +329,11 @@
                 <p class="time">2 weeks ago</p>
             </div>
             </div>
-            
+
         </div>
         <div class="col-5 mark-as-read text-end">
             <a href="#" id="markAllAsRead" class="mark-as-read-button align-middle">Mark all as read</a>
-        </div> 
+        </div>
     </div>
 </div>
 
@@ -416,7 +364,7 @@
                     <input id="Amount" type="text" placeholder="Amount">
                 </div>
             </div>
-            
+
         </header>
         <footer>
             <div class="set">
@@ -427,9 +375,9 @@
 
     </div>
 
-    
 
-</div> 
+
+</div>
 
 
 
@@ -441,15 +389,15 @@
     searchInput.addEventListener('input', function() {
         const searchText = this.value.toLowerCase().trim();
 
-        const rows = document.querySelectorAll('.table-row');
+        const rows = document.querySelectorAll('tr');
 
         rows.forEach(row => {
             const rowText = row.textContent.toLowerCase();
-            
+
             if (rowText.includes(searchText)) {
                 row.style.display = 'flex';
             } else {
-                row.style.display = 'none'; 
+                row.style.display = 'none';
             }
         });
     });
@@ -471,16 +419,6 @@
 
 </script>
 
-<script>
-    document.getElementById("LogoMenu").addEventListener("click", function() {
-    window.location.href = "map.html";
-    redirectToMainMenu();
-  });
-  
-    function redirectToMainMenu() {
-        window.location.href = "map.html";
-    }
-</script>
 
 <script>
     document.getElementById("LogoMenu").addEventListener("click", () => {
@@ -492,7 +430,7 @@
 <script>
     document.getElementById("dashboard").addEventListener("click", function() {
     window.location.href = "dashboard.html";
-    redirectToDashboard();
+    redirectToDashboard(); //
 });
 
     function redirectToDashboard() {
@@ -511,14 +449,14 @@
         const addProduct = document.getElementById("addbutton");
         const modal = document.getElementById("modal");
         const closeButton = document.querySelector(".right-container footer #back");
-    
-        addProduct.addEventListener("click", function(event) {
+
+        addProduct.addEventListener("click", function() {
             event.preventDefault();
-            modal.style.display = "grid"; 
+            modal.style.display = "grid";
         });
-    
+
         closeButton.addEventListener("click", function() {
-            modal.style.display = "none"; 
+            modal.style.display = "none";
         });
 
     });
@@ -530,17 +468,17 @@
         const profileButton = document.querySelector("#profile");
         const profilePopup = document.getElementById("profilePopup");
         const logOutButton = document.querySelector(".profileContent .accept");
-    
+
         profileButton.addEventListener("click", function(event) {
-            profilePopup.style.display = "flex"; 
+            profilePopup.style.display = "flex";
         });
-    
+
         document.addEventListener("click", function(event) {
             const clickInsideProfileButton = profileButton.contains(event.target);
             const clickInsideProfilePopup = profilePopup.contains(event.target);
 
             if (!clickInsideProfileButton && !clickInsideProfilePopup) {
-                profilePopup.style.display = "none"; 
+                profilePopup.style.display = "none";
             }
         });
 
@@ -558,20 +496,53 @@
     document.addEventListener("DOMContentLoaded", function() {
         const notiButton = document.querySelector("#notification");
         const notiPopup = document.getElementById("notiPopup");
-    
+
         notiButton.addEventListener("click", function(event) {
-            notiPopup.style.display = "flex"; 
+            notiPopup.style.display = "flex";
         });
-    
+
         document.addEventListener("click", function(event) {
             const clickInsideNotiButton = notiButton.contains(event.target);
             const clickInsideNotiPopup = notiPopup.contains(event.target);
 
             if (!clickInsideNotiButton && !clickInsideNotiPopup) {
-                notiPopup.style.display = "none"; 
+                notiPopup.style.display = "none";
             }
         });
 
+    });
+
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const productButtons = document.querySelectorAll(".productButton");
+        const productPopups = document.querySelectorAll(".productContent");
+
+        productButtons.forEach(function(productButton, index) {
+            productButton.addEventListener("click", function(event) {
+
+                productPopups.forEach(function(popup) {
+                    popup.style.display = "none";
+                });
+
+
+                const popup = productPopups[index];
+                popup.style.display = "flex";
+                popup.style.top = `${productButton.offsetTop + productButton.offsetHeight}px`;
+                popup.style.left = `${productButton.offsetLeft}px`;
+
+                event.stopPropagation();
+            });
+        });
+
+        document.addEventListener("click", function(event) {
+            productPopups.forEach(function(productPopup) {
+                if (!productPopup.contains(event.target)) {
+                    productPopup.style.display = "none";
+                }
+            });
+        });
     });
 
 </script>
@@ -599,12 +570,12 @@
     window.location.href = "inventory.html";
     redirectToInventory();
   });
-  
+
     function redirectToInventory() {
         window.location.href = "inventory.html";
     }
 </script>
-  
+
 <script>
 document.getElementById("inventory").addEventListener("click", () => {
     remote.app.emit('inventory-page');
@@ -668,6 +639,5 @@ document.getElementById("inventory").addEventListener("click", () => {
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-<script src = "../public/functions.js"></script>
 
 </html>
