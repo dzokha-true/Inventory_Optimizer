@@ -287,7 +287,16 @@
           <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
           <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
         </svg>
-        <img id="kpi" src= "../public/images/mini.png" />
+        <ul class="responsive-table">
+          <li class="table-header">
+              <div class="col col-1">gross</div>
+              <div class="col col-2">cogs</div>
+              <div class="col col-3">ITR</div>
+          </li>
+          <ul class="responsive-row" id="kpi_dash">
+
+          </ul>
+        </ul>
       </div>
     </div>
     <div class="row column">
@@ -297,7 +306,22 @@
           <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
           <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
         </svg>
-        <img id="order" src= "../public/images/mini.png" />
+        <ul class="responsive-table">
+          <li class="table-header">
+              <div class="col col-1">Order Number</div>
+              <div class="col col-2">Order Date</div>
+              <div class="col col-3">Expected Arrival</div>
+              <div class="col col-4">SKU</div>
+              <div class="col col-5">Product</div>
+              <div class="col col-6">Quantity</div>
+              <div class="col col-7">Unit</div>
+              <div class="col col-8">Supplier</div>
+              <div class="col col-9">Status</div>
+          </li>
+          <ul class="responsive-row" id="order_dash">
+
+          </ul>
+        </ul>
       </div>
 
     </div>
@@ -326,6 +350,10 @@
 </div>
 
 </body>
+
+<script src="../../backend/dashboard.js"></script>
+
+<!-- all setting and functions -->
 
 <script>
   const downloadButton = document.querySelector('.btn-circle-download');
