@@ -252,6 +252,50 @@ ipcMain.on('get_dashboard', (event, {message, message2}) => {
   });
 });
 
+// for generating report for performance page
+ipcMain.on('get_report', (event, { message }) => {
+    const operation = message;
+    // change path to script
+    const pythonProcess = spawn('python', ['src/database/Main.py', operation]);
+
+    pythonProcess.stdout.on('data', (data) => {
+      const performanceResponse = data.toString().trim();
+
+      let dataString = ''
+      dataString += performanceResponse;
+        
+      event.reply('performance-success', {dataset: dataString});
+
+    });  
+    pythonProcess.on('error', (error) => {
+      console.error(`An error occurred: ${error.message}`);
+      event.reply('performance-failure', 'An error occurred during loading report.');
+    });
+  
+    pythonProcess.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+      event.reply('performance-failure', 'An error occurred during loading report.');
+    });
+});
+
+///////// add product from inventory // add field
+ipcMain.on('add_product', (event, {field,message}) => {
+
+  const python = spawn('python', ["src/database/Main.py", field, message]);
+
+  python.stdout.on('data', (data) => {
+    console.log("Success");
+  });
+  
+  python.stderr.on('data', (data) => {
+      console.error(`stderr: ${data}`);
+  });
+  
+  python.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+  });
+});
+
 ipcMain.on('order-page', () => {
     mainWin.loadURL(url.format({
         pathname: path.join(__dirname, "views/order.html"),
