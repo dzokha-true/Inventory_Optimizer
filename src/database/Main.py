@@ -20,10 +20,28 @@ numbers = (1,2,3,4,5,6,7,8,9,0)
 
 if __name__ == "__main__":
     db = Mathematics()
-    
+            
     if len(sys.argv) == 2:
         if sys.argv[-1] == "get product":
             db.get_product_everything()
+        
+        if sys.argv[-1] == "get_report":
+            cogs = db.COGS()
+            gross = db.gross_margin()
+            ITR = db.inventory_turnover_ratio()
+            data = {"gross": gross,"cogs": cogs, "ITR": ITR}
+            print(json.dump(data))
+
+        if sys.argv[-1] == "generate_dashboard":
+            # SHOW all orders database 
+            db.pareto_chart()
+
+        if sys.argv[-1] == "kpi_dash":
+            cogs = db.COGS()
+            gross = db.gross_margin()
+            ITR = db.inventory_turnover_ratio()
+            data = {"gross": gross,"cogs": cogs, "ITR": ITR}
+            print(json.dump(data))
             
     elif len(sys.argv) == 3:
         if sys.argv[-1] == "get product by name":
@@ -82,14 +100,15 @@ if __name__ == "__main__":
         sys.exit(1)
         
         
+s
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
