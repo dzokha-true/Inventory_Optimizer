@@ -1,0 +1,35 @@
+const { spawn } = require('child_process');
+const {ipcRenderer} = require("electron");
+
+// check id later
+document.getElementById('settingPopup').addEventListener('click', (event) => {
+    event.preventDefault();
+    const start = document.getElementById('startdate').value;
+    const end = document.getElementById('enddate').value;
+    const message = "change_date";
+    // discuss with groups
+    ipcRenderer.send('send date', {start,end,message});
+    // or set date in local storage and send them along with other info for function we need
+    localStorage.setItem('start', start);
+    localStorage.setItem('end', end); 
+  });
+
+function addHTMLNoti(data) {
+    var notibar = document.getElementById('notiPopup');
+
+    // return produt name from back end
+    const product = data.response;
+    
+    notibar.innerHTML += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
+    + "<a href=\"#\" class=\"link name\">"+product+"</a><span class=\"description\">needed reorder</span>"
+    + "<a class=\"link\" href=\"order.html\">Go to Orders Page!</a><span class=\"unread-symbol\">•</span> </p>"
+    + "<p class=\"time\">1m ago</p></div> </div>";
+}
+
+ipcRenderer.on('get noti', (event, data) => {
+
+    const our_data = data.response;
+    addHTMLNoti(our_data);
+});
+
+
