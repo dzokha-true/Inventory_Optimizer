@@ -151,35 +151,56 @@ ipcMain.on('inventory-page', () => {
     }));
 });
 
-///////// create table
-ipcMain.on('create-table', (event, {message}) => {
-
-    const python = spawn('python', ["src/database/Product.py", message]);
-
-    let dataString = '';
-    python.stdout.on('data', (data) => {
-        dataString += data.toString();
-        event.reply('table_success', {dataset: dataString});
-        //console.log(dataString);
-    });
-    
-    python.stdout.on('end', () => {
-        //const dataconvert = JSON.parse(dataString);
-        // app.get('/data', (req, res) => {
-        //     res.json(dataconvert); // send data to front-end
-        // });
-    });
-    
-    python.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
-    
-    python.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-    });
+ipcMain.on('create-sale-table', (event, {abc}) => {
+	const pageNumber = abc; // Make sure this is the correct page number
+	const python = spawn('python', ["src/database/Sales.py", pageNumber]);
+	let dataString = '';
+	python.stdout.on('data', (data) => {
+    dataString += data.toString();
+		event.reply('sale_table_success', {dataset: dataString});
+	});
+  python.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
   });
 
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+});
 
+ipcMain.on('create-order-table', (event, {abc}) => {
+	const pageNumber = abc; // Make sure this is the correct page number
+	const python = spawn('python', ["src/database/Sales.py", pageNumber]);
+	let dataString = '';
+	python.stdout.on('data', (data) => {
+    dataString += data.toString();
+		event.reply('sale_table_success', {dataset: dataString});
+	});
+  python.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+});
+
+ipcMain.on('create-inventory-table', (event, {abc}) => {
+	const pageNumber = abc; // Make sure this is the correct page number
+	const python = spawn('python', ["src/database/Sales.py", pageNumber]);
+	let dataString = '';
+	python.stdout.on('data', (data) => {
+    dataString += data.toString();
+		event.reply('sale_table_success', {dataset: dataString});
+	});
+  python.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+  });
+
+  python.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+});
 
 ipcMain.on('order-page', () => {
     mainWin.loadURL(url.format({
