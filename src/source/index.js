@@ -205,6 +205,53 @@ ipcMain.on('create-product-table', (event, {abc}) => {
   });
 });
 
+// for generating dashboard page
+ipcMain.on('get_dashboard', (event, {message, message2}) => {
+  const operation = message;
+  const operation2 = message2;
+  // change path to script
+  const pythonProcess = spawn('python', ['src/database/Main.py', operation]);
+  const pythonProcess2 = spawn('python', ['src/database/Main.py', operation2]);
+
+  pythonProcess.stdout.on('data', (data) => {
+  const Response = data.toString().trim();
+
+    let dataString = ''
+    dataString += Response;
+      
+    event.reply('dashboard-success', {dataset: dataString});
+
+  });  
+  pythonProcess.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+
+  pythonProcess2.stdout.on('data', (data) => {
+    const Response = data.toString().trim();
+  
+    let dataString = ''
+    dataString += Response;
+
+    event.reply('dashboard-success2', {dataset: dataString});
+  
+  });  
+  pythonProcess2.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+
+  pythonProcess2.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+});
+
 ipcMain.on('order-page', () => {
     mainWin.loadURL(url.format({
         pathname: path.join(__dirname, "views/order.html"),
