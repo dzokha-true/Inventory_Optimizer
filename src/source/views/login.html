@@ -10,7 +10,7 @@
     <div class="container">
         <main>
             <p> <strong> Welcome </strong> </p>
-            <form id="loginForm">
+            <form id="loginForm" onsubmit="saveUsername()">
                 <input type="text" id ="username" placeholder="Username" required>
                 <br> <br>
                 <input type="password" id ="password" placeholder="Password" required>
@@ -24,6 +24,12 @@
     
     <script src="../public/functions.js"></script>
 
+<script>
+    function saveUsername() {
+        var username = document.getElementById('username').value;
+        localStorage.setItem('username', username);
+    }
+    </script>
 
 
 </body>
