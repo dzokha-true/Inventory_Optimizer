@@ -11,79 +11,136 @@ from pymongo.errors import ConnectionFailure
 from datetime import date
 import re
 from Product import Product
+import pandas as pd
+from abc_analysis import abc_analysis, abc_plot
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+from matplotlib.ticker import PercentFormatter
+from abc_classification.abc_classifier import ABCClassifier
+from abc_classification.abc_visualiser import pareto_chart
+import csv
+import bcrypt
+import json
+from datetime import datetime
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
 
+# ==================================
+# NEEDS ADDING REMOVING AND UPDATING
+# ==================================
+
 class Sales(Product):
     
-    # Initialise the object
     def __init__(self):
         super().__init__()
-        # Connects to the BusinessInventoryChecker database
-        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker"
+        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
         client = MongoClient(URI, server_api=ServerApi('1'))
-        
-        # Assign the AccessDetails collection from LoginSystem database to variable called login_DB 
         self.data_base = client['CompanyDetails']
         self.sales_DB = self.data_base['SalesDone']
         
-    def revenue_calculator(self, num, cost):
-        # range of dates
-        # add a date
-        document = self.performance_DB.find_one({'num': 1})
-        new_revenue = document.get('revenue', 0) + num * cost
-        self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': new_revenue}})
         
-    def reset_revenue(self):
-        document = self.performance_DB.find_one({'num': 1})
-        self.performance_DB.update_one({'num': 1}, {'$set': {'revenue': 0}})
         
-    def ABC_revenue(self):
-        return True
-        #range of dates
-        # tied to date
-        #num * cost per SKU per item
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    def total_revenue_calculator(self, start_date, end_date):
+        start_date = normal_date_checker(start_date)
+        end_date = normal_date_checker(end_date)
+        cursor = sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
+        if start_date != False and end_date != False:
+            if cursor:
+                for document in cursor:
+                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue += num * cost
+                print(revenue)
+        else:
+            return False
+                    
+    def SKU_revenue_calculator(self, SKU, start_date, end_date):
+        start_date = normal_date_checker(start_date)
+        end_date = normal_date_checker(end_date)
+        cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
+        if start_date != False and end_date != False:
+            if cursor:
+                for document in cursor:
+                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue += num * cost
+                print(revenue)
+        else:
+            return False
+        
+    def name_revenue_calculator(self, product_name, start_date, end_date):
+        start_date = normal_date_checker(start_date)
+        end_date = normal_date_checker(end_date)
+        cursor = sales_DB.find({'product_name': product_name}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
+        if start_date != False and end_date != False:
+            if cursor:
+                for document in cursor:
+                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue += num * cost
+                print(revenue)
+        else:
+            return False    
         
     def SKU_class(self):
-        return True
+        start_date = '2019-11-01'
+        end_date = '2023-01-10'
+        revenue = 0
+        cursor = self.sales_DB.find({}, {'_id': 1, 'date': 1, 'SKU': 1, 'product_name': 1, 'num': 1, 'cost': 1})
+        if start_date != False and end_date != False:
+            if cursor:
+                for document in cursor:
+                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue += num * cost
+        df = pd.DataFrame(columns=['SKU', 'product_name', 'revenue', 'cum'])
+        cursor = self.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'num': 1, 'cost': 1})
+        total = revenue
+        if cursor:
+            for document in cursor:
+                if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                    if document.get('SKU', 'N/A') not in df['SKU'].values:
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue = num * cost
+                        cum = revenue / total * 100
+                        new_row = {'SKU': document.get('SKU', 'N/A'), 'product_name': document.get('product_name', 'N/A'), 'revenue': revenue, 'cum': cum}
+                        df.loc[len(df)] = new_row
+                    else:
+                        row_index = df[df['SKU'] == document.get('SKU', 'N/A')].index
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue = num * cost
+                        df.at[row_index[0], 'revenue'] += revenue
+                        cum = df.at[row_index[0], 'revenue'] / total * 100
+                        df.at[row_index[0], 'cum'] = cum
+        df = df.sort_values('cum', ascending=False)
+        abc_clf = ABCClassifier(df)
+        abc_df = abc_clf.classify('SKU', 'cum')
+        for index, row in abc_df.iterrows():
+            self.product_DB.update_one({'SKU': row['SKU']}, {'$set': {'SKU_class': row['class']}})
         
-    def sales_to_csv(self):
-        with open('sales.csv', 'w', newline='') as csvfile:
-            fieldnames = ['date', 'SKU', 'product_name', 'num', 'cost']
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
 
-            for row in self.place_order_DB.find():
-                date = row.get('date')
-                SKU = row.get('SKU')
-                product_name = row.get('product_name')
-                num = row.get('num')
-                cost = row.get('cost')
-                
-            writer.writerow({'date': date, 'SKU': SKU, 'product_name': product_name, 'num': num, 'cost': cost})
-        csvfile.close()
 
-    def csv_to_sales(self):
-        if self.status != "Admin":
-            print("You dont have access to this feature")
-        else:
-            with open('sales.csv', newline='') as csvfile:
-                myreader = csv.reader(csvfile)
-            for row in myreader:  
-                self.place_order_DB.insert_one({'date': row[0], 'SKU': row[1], 'product_name': row[2], 'num': row[3], 'cost': row[4]})
-            filename.close()
-        
-    def add_sale(self):
-        ...
-        
-    def delete_sale(self):
-        ...
-
-    def update_sale(self):
-        ...
         
 
 
@@ -92,3 +149,4 @@ class Sales(Product):
         
         
         
+
