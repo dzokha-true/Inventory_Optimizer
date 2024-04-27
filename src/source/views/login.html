@@ -15,7 +15,8 @@
                 <br> <br>
                 <input type="password" id ="password" placeholder="Password" required>
                 <br> <br>
-                <button type="submit">Login</button>
+		<button type="submit">Login</button>
+		<button type="button" id="goToRegister">Register</button>
             </form>
             <div class="message" id="message"></div>
         </main>
@@ -23,29 +24,6 @@
     
     <script src="../public/functions.js"></script>
 
-    <!-- <script>
-        const { ipcRenderer } = require('electron');
-
-        document.getElementById("loginForm").addEventListener("submit", function() {
-            event.preventDefault();
-
-        var username = document.getElementById("username").value;
-        var password = document.getElementById("password").value;
-
-        if (runLoginScript(scriptPath="src/database/login.py",args=[username,password])=="True"){
-            window.location.href = "map.html";
-            postSubmit = true;
-        } else {
-            alert("Invalid username or password");
-        }
-    });
-    </script> -->
-
-    <!-- <script>
-        document.getElementById('postSubmit').addEventListener('click', () => {
-            remote.app.emit('open-map-page');
-        });
-    </script> -->
 
 
 </body>
