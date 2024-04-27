@@ -124,3 +124,10 @@ class LoginSystem:
         self.login_DB.update_many({}, {"$set": {"lifo_fifo": lifo_fifo}})
         return True
 
+
+
+
+
+
+
+
