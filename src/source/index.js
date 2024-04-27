@@ -90,7 +90,7 @@ ipcMain.on('perform-login', (event, { username, password}) => {
 	pythonProcess.stdout.on('data', (data) => {
       		const loginResponse = data.toString().trim(); 
 		if (loginResponse === 'Success') { 
-			mainWin.loadFile('src/source/views/map.html');	
+			mainWin.loadFile('src/source/views/dashboard.html');	
 		} else {
         		event.reply('login-failure', { attemptsLeft: 5 - loginAttempts });
       		}
@@ -103,7 +103,7 @@ ipcMain.on('perform-register', (event, { username, password, status }) => {
     	pythonProcess.stdout.on('data', (data) => {
       		const registerResponse = data.toString().trim();
 		if (registerResponse === 'Success') { 
-	    		mainWin.loadFile('src/source/views/login.html');
+	    		mainWin.loadFile('src/source/views/dashboard.html');
       		} else {
           		event.reply('register-failure', {registerResponse});
       		}
