@@ -176,7 +176,7 @@ ipcMain.on('create-order-table', (event, {abc}) => {
 	let dataString = '';
 	python.stdout.on('data', (data) => {
     dataString += data.toString();
-		event.reply('sale_table_success', {dataset: dataString});
+		event.reply('order_table_success', {dataset: dataString});
 	});
   python.on('error', (error) => {
     console.error(`An error occurred: ${error.message}`);
@@ -187,14 +187,14 @@ ipcMain.on('create-order-table', (event, {abc}) => {
   });
 });
 
-ipcMain.on('create-inventory-table', (event, {abc}) => {
+ipcMain.on('create-product-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	operation = "create-inventory-table";
+	operation = "create-product-table";
 	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
     dataString += data.toString();
-		event.reply('sale_table_success', {dataset: dataString});
+		event.reply('product_table_success', {dataset: dataString});
 	});
   python.on('error', (error) => {
     console.error(`An error occurred: ${error.message}`);
