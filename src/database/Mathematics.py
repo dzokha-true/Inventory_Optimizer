@@ -35,24 +35,63 @@ class Mathematics(Received_Order):
 
 
 
+    def gross_profit(self):
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d') 
+        if date > now:
+            start = datetime(current_year-1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year+1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
 
+        start_date = fiscal_year_start_str
+        end_date = fiscal_year_end_str
+        cursor = sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
+        if start_date != False and end_date != False:
+            if cursor:
+                for document in cursor:
+                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                        num = float(document.get('num', 0))
+                        cost = float(document.get('cost', 0))
+                        revenue += num * cost
 
-
-
-
-
-    # calculate gross profit
-    def gross_profit(self, product):
-        # range of dates
-        # Tie to a date, per SKU
-        revenue = self.revenue_calculator()
+        
         COGS = self.COGS(product)
         return revenue - COGS
-        
+       
+       
+       
+       
+       
+       
+       
+       
     #calculate gross margin
     def gross_margin(self):
-        # range of dates
-        # Tie to a date, per SKU
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d') 
+        if date > now:
+            start = datetime(current_year-1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year+1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+
         return self.gross_profit() / self.revenue_calculator() * 100
 
     #calculate average inventory
@@ -84,5 +123,6 @@ class Mathematics(Received_Order):
             for i in [number_stock,number_stock-number_sales+1]:
                 COGS += all_product[i].price
                 
+
 
 
