@@ -41,20 +41,6 @@ class Sales(Product):
         self.data_base = client['CompanyDetails']
         self.sales_DB = self.data_base['SalesDone']
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
     def total_revenue_calculator(self, start_date, end_date):
         start_date = normal_date_checker(start_date)
         end_date = normal_date_checker(end_date)
@@ -149,4 +135,5 @@ class Sales(Product):
         
         
         
+
 
