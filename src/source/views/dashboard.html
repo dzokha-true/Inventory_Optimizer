@@ -332,7 +332,7 @@
   <div class="profileContent2" id="profilePopup">
   <span class="arrow"></span>
   <img src="../public/images/mini.png" alt="cookies-img" />
-  <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+  <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br id='usernamehere'><br></p> 
   <button class="accept">Log out</button>
   </div>
 </div>  
@@ -550,6 +550,14 @@
   document.getElementById("performance").addEventListener("click", () => {
       remote.app.emit('performance-page');
   });
+</script>
+
+<script> 
+var username = localStorage.getItem('username');
+var usernamehere = document.getElementByID("usernamehere");
+usernamehere.innerHTML = ""
+username_add.innerHTML += localStorage.getItem('username');
+// Use the username as needed
 </script>
 
 </html>
