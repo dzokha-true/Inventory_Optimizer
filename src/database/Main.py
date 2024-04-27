@@ -10,7 +10,6 @@ from pymongo.server_api import ServerApi
 from pymongo.errors import ConnectionFailure
 from datetime import date
 import re
-from Received_Order import Received_Order
 from Mathematics import Mathematics
 import json
 import HelperFunctions 
@@ -38,7 +37,7 @@ if __name__ == "__main__":
                 
         elif sys.argv[-1] == "get product by SKU class":
             _, SKU_class, operation = sys.argv
-            if choice == 'A' or choice == 'B' or choice == 'C':
+            if SKU_class == 'A' or SKU_class == 'B' or SKU_class == 'C':
                 db.get_product_SKU_class(SKU_class)
             else:
                 print("Please enter a valid SKU class (e.i., 'A', 'B' or 'C'")
@@ -55,7 +54,7 @@ if __name__ == "__main__":
         elif sys.argv[-1] == "change fiscal year":
             _, date, username, operation = sys.argv
             status = HelperFunctions.status_check(db, username)
-            new_date = check_fiscal_year(date)
+            new_date = db.check_fiscal_year(date)
             if new_date != False:
                 db.change_fiscal_year(new_date, status)
                 
