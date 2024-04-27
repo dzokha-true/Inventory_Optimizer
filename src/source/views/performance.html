@@ -118,6 +118,25 @@
         <div class="main_container"></div>
     </div>
 
+    <div class = "table4">
+        <h2><small>Performance Report</small><br><small> FY 2024, Q1</small></h2>
+    </div>
+
+    <div class ="frame4">
+        <div class="button-container">
+        <span class="button-text">Generate Report</span>
+        <a href="#" class="btn" id = "addbutton" >+</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profileContent" id="profilePopup">
+        <span class="arrow"></span>
+        <img src="../public/images/mini.png" alt="cookies-img" />
+        <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
+        <button class="accept">Log out</button>
+        </div>
+    </div>  
     
     <div class="container">
       <div class="container notifications-container shadow" id = "notiPopup">
@@ -252,72 +271,35 @@
       </div>
     </div> 
     
-    <div class="center2">
-      <div class="right">
-        <div class="title">Performance Report <br> FY 2024, Q1</div>
-        <div class="description"></div>
-        <div class="row">
-          <div class="half">
-            <div class="sub-title"><strong>Primary Revenue Drivers</strong></div>
-          <div class="graph4">
-            <svg viewBox="0 0 250 60" width="250" height="90">
-              <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
-              <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
-            </svg>
-            <img id="trend" src= "../public/images/mini.png" />
-          </div>
+    <div class="right">
+      <div class="title"> Performance </div>
+      <div class="description"></div>
+      <div class="row">
+        <div class="graph">
+          <svg viewBox="0 0 250 60" width="250" height="90">
+            <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
+            <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
+          </svg>
+          <img id="PRD" src= "../public/images/PRD.png" />
         </div>
-        <div class="half">
-          <div class="sub-title"><strong>KPIs</strong></div>
-          <div class="graph5">
-            <svg viewBox="0 0 250 60" width="250" height="90">
-              <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
-              <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
-            </svg>
-            <img id="kpi" src= "../public/images/mini.png" />
-          </div>
-          <div class="sub-title"><br><strong>Net Sales</strong></div>
-          <div class="graph6">
-            <svg viewBox="0 0 250 60" width="250" height="90">
-              <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
-              <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
-            </svg>
-            <img id="order" src= "../public/images/mini.png" />
-          </div>
-        </div>
+        <div class="graph2">
+          <svg viewBox="0 0 250 60" width="250" height="90">
+            <path d="M 209.328 17.34 C 221.956 17.588 235.264 32.599 250 22.328" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="rgb(243,243,250)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
+            <path d=" M 0 43.634 C 5.934 43.634 11.318 51.209 17.462 51.342 C 33.219 51.683 30.603 59.567 39.187 59.868 C 46.963 60.141 50.44 44.192 60.537 43.77 C 69.126 43.77 72.129 52.461 79.739 52.433 C 90.904 52.433 94.93 38.455 106.648 39.78 C 129.082 42.317 124.556 27.606 139.157 27.177 C 153.758 26.747 158.235 44.485 171.96 44.725 C 196.438 45.155 189.782 17.1 208.248 17.1" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" stroke="url(#_lgradient_1)" stroke-linejoin="miter" stroke-linecap="round" stroke-miterlimit="3"></path>
+          </svg>
+          <ul class="responsive-table">
+            <li class="table-header">
+                <div class="col col-1">gross</div>
+                <div class="col col-2">cogs</div>
+                <div class="col col-3">ITR</div>
+            </li>
+            <ul class="responsive-row" id="kpi">
+  
+            </ul>
         </div>
       </div>
     </div>
-
-    <div class="container">
-      <div class="profileContent2" id="profilePopup">
-      <span class="arrow"></span>
-      <img src="../public/images/mini.png" alt="cookies-img" />
-      <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br> Alfredo Linguini<br><small>lepasta@elecrix.co</small></p> 
-      <button class="accept">Log out</button>
-      </div>
-    </div>  
     
-    <div class="container">
-    <div class="settingContent2" id="settingPopup">
-      <label for="startdate">Start Date
-      </label>
-      <input type="date" name="startdate" id="startdate">
-      <label for="enddate">End Date
-      </label>
-      <input type="date" name="enddate" id="enddate">
-      <button class="confirm">Confirm</button>
-      </div>
-    </div>
-    
-    <div class ="frame4">
-      <div class="button-container">
-      <span class="button-text">Generate Report</span>
-      <a href="#" class="btn4" id = "generate" >+</a>
-      </div>
-  </div>
-
-
 
 </body>
 
@@ -336,32 +318,12 @@
 
 </script>
 
-   
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const addProduct = document.getElementById("addbutton");
-        const modal = document.getElementById("modal");
-        const closeButton = document.querySelector(".right-container footer #back");
-    
-        addProduct.addEventListener("click", function(event) {
-            event.preventDefault();
-            modal.style.display = "grid"; 
-        });
-    
-        closeButton.addEventListener("click", function() {
-            modal.style.display = "none"; 
-        });
-
-    });
-
-</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const profileButton = document.querySelector("#profile");
         const profilePopup = document.getElementById("profilePopup");
-        const logOutButton = document.querySelector(".profileContent2 .accept");
+        const logOutButton = document.querySelector(".profileContent .accept");
     
         profileButton.addEventListener("click", function(event) {
             profilePopup.style.display = "flex"; 
@@ -409,26 +371,92 @@
 </script>
 
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-      const settingButton = document.querySelector("#setting");
-      const settingPopup = document.getElementById("settingPopup");
-  
-      settingButton.addEventListener("click", function(event) {
-        settingPopup.style.display = "flex"; 
-      });
-  
-      document.addEventListener("click", function(event) {
-          const clickInsidesettingButton = settingButton.contains(event.target);
-          const clickInsidesettingPopup = settingPopup.contains(event.target);
+    document.addEventListener("DOMContentLoaded", function() {
+        const addProduct = document.getElementById("addbutton");
+        const modal = document.getElementById("modal");
+        const closeButton = document.querySelector(".right-container footer #back");
+    
+        addProduct.addEventListener("click", function(event) {
+            event.preventDefault();
+            modal.style.display = "grid"; 
+        });
+    
+        closeButton.addEventListener("click", function() {
+            modal.style.display = "none"; 
+        });
 
-          if (!clickInsidesettingButton && !clickInsidesettingPopup) {
-            settingPopup.style.display = "none"; 
-          }
-      });
+    });
 
-  });
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const profileButton = document.querySelector("#profile");
+        const profilePopup = document.getElementById("profilePopup");
+        const logOutButton = document.querySelector(".profileContent .accept");
+    
+        profileButton.addEventListener("click", function(event) {
+            profilePopup.style.display = "flex"; 
+        });
+    
+        document.addEventListener("click", function(event) {
+            const clickInsideProfileButton = profileButton.contains(event.target);
+            const clickInsideProfilePopup = profilePopup.contains(event.target);
+
+            if (!clickInsideProfileButton && !clickInsideProfilePopup) {
+                profilePopup.style.display = "none"; 
+            }
+        });
+
+        logOutButton.addEventListener("click", function(event) {
+            redirectToLogin();
+        });
+
+        function redirectToLogin() {
+            window.location.href = "login.html";
+        }
+    });
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const notiButton = document.querySelector("#notification");
+        const notiPopup = document.getElementById("notiPopup");
+    
+        notiButton.addEventListener("click", function(event) {
+            notiPopup.style.display = "flex"; 
+        });
+    
+        document.addEventListener("click", function(event) {
+            const clickInsideNotiButton = notiButton.contains(event.target);
+            const clickInsideNotiPopup = notiPopup.contains(event.target);
+
+            if (!clickInsideNotiButton && !clickInsideNotiPopup) {
+                notiPopup.style.display = "none"; 
+            }
+        });
+
+    });
+
+</script>
+
+
+<script>
+  document.getElementById("LogoMenu").addEventListener("click", function() {
+  window.location.href = "map.html";
+  redirectToMainMenu();
+});
+
+  function redirectToMainMenu() {
+      window.location.href = "map.html";
+  }
+</script>
+
+<script>
+  document.getElementById("LogoMenu").addEventListener("click", () => {
+      remote.app.emit('login-successful-page');
+  });
+</script>
 
 <script>
   document.getElementById("dashboard").addEventListener("click", function() {
