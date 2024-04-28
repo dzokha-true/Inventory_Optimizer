@@ -1,15 +1,5 @@
 import sys
-import os
-import bcrypt
-import random
-from urllib.parse import quote_plus
-from time import ctime
-import subprocess
-from pymongo import MongoClient
-from pymongo.server_api import ServerApi
-from pymongo.errors import ConnectionFailure
 from datetime import date
-import re
 from Mathematics import Mathematics
 import json
 import HelperFunctions 
@@ -22,47 +12,102 @@ if __name__ == "__main__":
     db = Mathematics()
             
     if len(sys.argv) == 2:
-        if sys.argv[-1] == "get product":
-            db.get_product_everything()
-        
         if sys.argv[-1] == "get_report":
+            _, operation = sys.argv
             cogs = db.COGS()
+            expected_inv = db.expected_inventory()
+            actual_inv = db.actual_inventory()
+            shrinkage = db.shrinkage()
+            shrinkage_perc = db.shrinkage_percent()
             gross = db.gross_margin()
+            gross_profit = db.gross_profit()
+            average_inventory = db.average_inventory()
             ITR = db.inventory_turnover_ratio()
-            data = {"gross": gross,"cogs": cogs, "ITR": ITR}
+            revenue = db.total_revenue_calculator()
+            data = {'revenue': revenue, "gross": gross,"cogs": cogs, "ITR": ITR, "gross_profit": gross_profit, "average_inventory": average_inventory, "expected_inventory": expected_inv, "actual_inventory": actual_inv, "shrinkage": shrinkage, "shrinkage_percent": shrinkage_perc}
             print(json.dump(data))
 
-        if sys.argv[-1] == "generate_dashboard":
-            # SHOW all orders database 
+        elif sys.argv[-1] == "generate_dashboard":
+            _, operation = sys.argv
             db.pareto_chart()
+            page_number = 1
+            cursor = list(db.received_order_DB.aggregate([{"$unionWith": db.place_order_DB}, {"$sort": {"date": 1}}]))
+            length = len(cursor)
+            data = []
+            start = (int(page_number_str) - 1) * 50
+            for x in range(50):
+                if start > length:
+                    break
+                else:
+                    data.append(cursor[start])
+                    start += 1
+            print(json.dumps(data))
 
-        if sys.argv[-1] == "kpi_dash":
+        elif sys.argv[-1] == "kpi_dash":
+            _, operation = sys.argv
             cogs = db.COGS()
             gross = db.gross_margin()
+            average_inventory = db.average_inventory()
+            gross_profit = db.gross_profit()
             ITR = db.inventory_turnover_ratio()
-            data = {"gross": gross,"cogs": cogs, "ITR": ITR}
+            expected_inv = db.expected_inventory()
+            actual_inv = db.actual_inventory()
+            shrinkage = db.shrinkage()
+            revenue = db.total_revenue_calculator()
+            shrinkage_perc = db.shrinkage_percent()
+            data = {'revenue': revenue, "gross": gross,"cogs": cogs, "ITR": ITR, "gross_profit": gross_profit, "average_inventory": average_inventory, "expected_inventory": expected_inv, "actual_inventory": actual_inv, "shrinkage": shrinkage, "shrinkage_percent": shrinkage_perc}
             print(json.dump(data))
-            
+
     elif len(sys.argv) == 3:
-        if sys.argv[-1] == "get product by name":
-            _, name, operation = sys.argv
-            db.get_product_name(name)
-        
-        elif sys.argv[-1] == "get product by SKU":
-            _, SKU, operation = sys.argv
-            if HelperFunctions.SKU_Checker(SKU):
-                db.get_product_SKU(SKU)
-                
-        elif sys.argv[-1] == "get product by SKU class":
-            _, SKU_class, operation = sys.argv
-            if SKU_class == 'A' or SKU_class == 'B' or SKU_class == 'C':
-                db.get_product_SKU_class(SKU_class)
-            else:
-                print("Please enter a valid SKU class (e.i., 'A', 'B' or 'C'")
-                
-        elif sys.argv[-1] == "get total revenue":
-            _, start_date, end_date = sys.argv
-            revenue = db.total_revenue_calculator(start_date, end_date)
+        if sys.argv[-1] == "received":
+            _, data, operation = sys.argv
+            db.received(data)
+
+        elif sys.argv[-1] == "get sales":
+            _, page_number_str, operation = sys.argv
+            page_number = int(page_number_str)
+            cursor = list(
+                db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", 1))
+            length = len(cursor)
+            data = []
+            start = (int(page_number_str) - 1) * 50
+            for x in range(50):
+                if start > length:
+                    break
+                else:
+                    data.append(cursor[start])
+                    start += 1
+            print(json.dumps(data))
+
+        if sys.argv[-1] == "get product":
+            _, page_number_str, operation = sys.argv
+            page_number = int(page_number_str)
+            cursor = list(db.product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", 1))
+            length = len(cursor)
+            data = []
+            start = (int(page_number_str) - 1) * 50
+            for x in range(50):
+                if start > length:
+                    break
+                else:
+                    data.append(cursor[start])
+                    start += 1
+            print(json.dumps(data))
+
+        elif sys.argv[-1] == "get orders":
+            _, page_number_str, operation = sys.argv
+            page_number = int(page_number_str)
+            cursor = list(db.received_order_DB.aggregate([{"$unionWith": db.place_order_DB}, {"$sort": {"date": 1}}]))
+            length = len(cursor)
+            data = []
+            start = (int(page_number_str) - 1) * 50
+            for x in range(50):
+                if start > length:
+                    break
+                else:
+                    data.append(cursor[start])
+                    start += 1
+            print(json.dumps(data))
                 
     elif len(sys.argv) == 4:
         if sys.argv[-1] == "login":
@@ -73,34 +118,49 @@ if __name__ == "__main__":
             _, date, username, operation = sys.argv
             status = HelperFunctions.status_check(db, username)
             new_date = db.check_fiscal_year(date)
-            if new_date != False:
+            if new_date != False and status == "Admin":
                 db.change_fiscal_year(new_date, status)
+            else:
+                print("You dont have the rights to change the fiscal year")
                 
         elif sys.argv[-1] == "change lifo_fifo":
             _, lifo_fifo, username, operation = sys.argv
             status = HelperFunctions.status_check(db, username)
-            if lifo_fifo == 'lifo' or lifo_fifo == 'fifo':
+            if lifo_fifo == 'lifo' or lifo_fifo == 'fifo' and status == "Admin":
                 db.change_fiscal_year(lifo_fifo, status)
-        
-        elif sys.argv[-1] == "get SKU revenue":
-            _, SKU, start_date, end_date = sys.argv
-            revenue = db.SKU_revenue_calculator(SKU, start_date, end_date)
-             
-        elif sys.argv[-1] == "get name revenue":
-            _, product_name, start_date, end_date = sys.argv
-            revenue = db.name_revenue_calculator(product_name, start_date, end_date)
+            else:
+                print("You dont have the rights to change to lifo or fifo")
             
     elif len(sys.argv) == 5:
         if sys.argv[-1] == "register":
             _, username, password, status, operation = sys.argv
             db.register(username, password, status)
+
+    elif len(sys.argv) == 7:
+        if sys.argv[-1] == "place order":
+            _, date, SKU, product_name, quantity, price, operation = sys.argv
+            date_checker = HelperFunctions.normal_date_checker(date)
+            SKU_checker = db,SKU_Checker(SKU)
+            db.place_order(date, SKU, product_name, quantity, price)
+
+        elif sys.argv[-1] == "add sale":
+            _, date, SKU, product_name, quantity, price, operation = sys.argv
+            date_checker = HelperFunctions.normal_date_checker(date)
+            SKU_checker = db,SKU_Checker(SKU)
+            if quantity > 0 and price > 0 and SKU_checker != False and date_checker != False:
+                db.add_sale(date, SKU, product_name, quantity, price)
+            else:
+                if quantity <= 0:
+                    print("Please enter correct number of items!")
+                if price <= 0:
+                    print("Please enter correct price!")
             
     else:
         print("Usage: LoginSystem.py <username> <password>")
         sys.exit(1)
         
         
-s
+
         
         
         
@@ -110,5 +170,6 @@ s
         
         
         
+
 
 
