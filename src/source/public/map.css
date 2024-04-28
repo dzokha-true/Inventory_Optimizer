@@ -502,7 +502,7 @@ body {
          transition:box-shadow 0.6s cubic-bezier(.79,.21,.06,.81);
          border-radius: 10px;
          left: 30%;
-         margin-bottom: 610px;
+         margin-bottom: 590px;
       }
       
       .btn4{
@@ -3364,6 +3364,7 @@ p {
     font-size: 25px;
     font-weight: bold;
     margin-left: 30px;
+    margin-top: 20px;
   }
   
   .right .description {
@@ -3388,6 +3389,7 @@ p {
   .right .sub-title {
     margin-left: 30px;
     margin-bottom: 10px;
+    margin-top: 30px;
     color: rgb(10, 10, 42);
     font-size: 18px;
   }
@@ -3485,8 +3487,8 @@ p {
   .right .graph5 {
     display: inline-block;
     position: relative;
-    width: 500px;
-    height: 300px;
+    width: 550px;
+    height: 550px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 0px 22px -8px #808080;
@@ -3496,28 +3498,8 @@ p {
     position: absolute;
     margin-top: 10px;
     margin-left: -240px;
-    width: 480px;
-    height: 280px;
-  }
-
-
-
-  .right .graph6 {
-    display: inline-block;
-    position: relative;
-    width: 500px;
-    height: 300px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 22px -8px #808080;
-  }
-
-  .right .graph6 img {
-    position: absolute;
-    margin-top: 10px;
-    margin-left: -240px;
-    width: 480px;
-    height: 280px;
+    width: 530px;
+    height: 530px;
   }
 
   .right .half::after {
