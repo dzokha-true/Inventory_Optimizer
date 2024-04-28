@@ -1,37 +1,16 @@
-import sys
 import os
-import bcrypt
-import random
-from urllib.parse import quote_plus
-from time import ctime
-import subprocess
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-from pymongo.errors import ConnectionFailure
-from datetime import date
-import re
-import json
-import HelperFunctions
 from LoginSystem import LoginSystem
 from plotly.graph_objects import Figure, Scatter, Bar
 import pandas as pd
-from abc_analysis import abc_analysis, abc_plot
 import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
 from abc_classification.abc_classifier import ABCClassifier
-from abc_classification.abc_visualiser import pareto_chart
-import csv
 from datetime import datetime
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
-
-# =====================================
-# ADDING, UPDATING AND REMOVING IS LEFT
-# =====================================
 
 class Product(LoginSystem):
     
@@ -43,78 +22,54 @@ class Product(LoginSystem):
         self.data_base = client['CompanyDetails']
         self.product_DB = self.data_base['ProductInformation']
 
-    def get_product_everything(self):
-        cursor = self.product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'stock': 1, 'cost': 1, 'inventory_value': 1, 'expected_sales': 1, 'SKU_class': 1})
-        data = []
-        if cursor:
-            for document in cursor:
-                data.append(document)
-            print(json.dumps(data))
-        else:
-            print("There are no products")
-         
-    def get_product_name(self, name):
-        cursor = self.product_DB.find({'product_name': name}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'stock': 1, 'cost': 1, 'inventory_value': 1, 'expected_sales': 1, 'SKU_class': 1})
-        data = []
-        if cursor:
-            for document in cursor:
-                data.append(document)
-            print(json.dumps(data))
-        else:
-            print("There is no such product with the specified name")
-      
-    def get_product_SKU(self, SKU):
-        cursor = self.product_DB.find({'SKU': SKU}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'stock': 1, 'cost': 1, 'inventory_value': 1, 'expected_sales': 1, 'SKU_class': 1})
-        if cursor:
-            for document in cursor:
-                data.append(document)
-            print(json.dumps(data))
-        else:
-            print("There is no such product with the specified SKU")
-            
-    def get_product_SKU_class(self, SKU_class):                
-        cursor = self.product_DB.find({'SKU_class': choice}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'stock': 1, 'cost': 1, 'inventory_value': 1, 'expected_sales': 1, 'SKU_class': 1})
-        if cursor:
-            for document in cursor:
-                data.append(document)
-            print(json.dumps(data))
-        else:
-            print("There is no product with the specified SKU class!")
-        
     def pareto_chart(self):
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        if date > now:
+            start = datetime(current_year - 1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year + 1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
         revenue = 0
-        start_date = '2017-11-01'
-        end_date = '2023-01-10'
-        cursor = self.sales_DB.find({}, {'_id': 1, 'date': 1, 'SKU': 1, 'product_name': 1, 'num': 1, 'cost': 1})
+        start_date = fiscal_year_start_str
+        end_date = fiscal_year_end_str
+        cursor = self.sales_DB.find({}, {'_id': 1, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
         if start_date != False and end_date != False:
             if cursor:
                 for document in cursor:
                     if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
+                        num = float(document.get('quantity', 0))
+                        cost = float(document.get('price', 0))
                         revenue += num * cost
         df = pd.DataFrame(columns=['SKU', 'product_name', 'revenue', 'cum'])
-        cursor = self.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'num': 1, 'cost': 1})
+        cursor = self.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
         total = revenue
         if cursor:
             for document in cursor:
                 if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
                     if document.get('SKU', 'N/A') not in df['SKU'].values:
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
+                        num = float(document.get('quantity', 0))
+                        cost = float(document.get('price', 0))
                         revenue = num * cost
                         cum = revenue / total * 100
                         new_row = {'SKU': document.get('SKU', 'N/A'), 'product_name': document.get('product_name', 'N/A'), 'revenue': revenue, 'cum': cum}
                         df.loc[len(df)] = new_row
                     else:
                         row_index = df[df['SKU'] == document.get('SKU', 'N/A')].index
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
+                        num = float(document.get('quantity', 0))
+                        cost = float(document.get('price', 0))
                         revenue = num * cost
                         df.at[row_index[0], 'revenue'] += revenue
                         cum = df.at[row_index[0], 'revenue'] / total * 100
                         df.at[row_index[0], 'cum'] = cum
-        #df = df.sort_values('cum', ascending=False)
         abc_clf = ABCClassifier(df)
         abc_df = abc_clf.classify('SKU', 'cum')
         pareto_df = pd.DataFrame(columns=['SKU_class', 'cum', 'revenue'])
@@ -200,11 +155,4 @@ class Product(LoginSystem):
         fig = Figure(data=data, layout=layout)
         if not os.path.exists("Downloads"):
             os.mkdir("Downloads")
-        fig.write_image("fig2.png")
-        
-
-
-
-    
-
-
+        fig.write_image("pareto_chart.png")
