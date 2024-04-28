@@ -2,7 +2,8 @@ import sys
 from datetime import date
 from Mathematics import Mathematics
 import json
-import HelperFunctions 
+import HelperFunctions
+from bson.json_util import dumps
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -10,7 +11,7 @@ numbers = (1,2,3,4,5,6,7,8,9,0)
 
 if __name__ == "__main__":
     db = Mathematics()
-            
+
     if len(sys.argv) == 2:
         if sys.argv[-1] == "get_report":
             _, operation = sys.argv
@@ -29,14 +30,13 @@ if __name__ == "__main__":
 
         elif sys.argv[-1] == "generate_dashboard":
             _, operation = sys.argv
-            db.pareto_chart()
-            page_number = 1
-            cursor = list(db.received_order_DB.aggregate([{"$unionWith": db.place_order_DB}, {"$sort": {"date": 1}}]))
+            page_number = int(page_number_str)
+            cursor = list(db.place_order_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1,'price': 1, 'isReceived': 1}).sort("date", -1))
             length = len(cursor)
             data = []
             start = (int(page_number_str) - 1) * 50
             for x in range(50):
-                if start > length:
+                if start >= length:
                     break
                 else:
                     data.append(cursor[start])
@@ -67,27 +67,38 @@ if __name__ == "__main__":
             _, page_number_str, operation = sys.argv
             page_number = int(page_number_str)
             cursor = list(
-                db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", 1))
+                db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", -1))
+            length = len(cursor)
+            data = []
+            start = (int(page_number_str) - 1) * 50
+            if cursor:
+                for x in range(50):
+                    if start > length:
+                        break
+                    else:
+                        data.append(cursor[start])
+                        start += 1
+            print(json.dumps(data))
+
+        elif sys.argv[-1] == "get orders":
+            _, page_number_str, operation = sys.argv
+            page_number = int(page_number_str)
+            cursor = list(db.place_order_DB.find({},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, 'isReceived': 1}).sort("date", -1))
             length = len(cursor)
             data = []
             start = (int(page_number_str) - 1) * 50
             for x in range(50):
-                if start > length:
+                if start >= length:
                     break
                 else:
                     data.append(cursor[start])
                     start += 1
-            print(json.dumps(data))
-
-        if sys.argv[-1] == "get product":
-            _, page_number_str, operation = sys.argv
             page_number = int(page_number_str)
-            cursor = list(db.product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", 1))
+            cursor = list(db.received_order_DB.find({},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'price': 1}).sort("date", -1))
             length = len(cursor)
-            data = []
             start = (int(page_number_str) - 1) * 50
             for x in range(50):
-                if start > length:
+                if start >= length:
                     break
                 else:
                     data.append(cursor[start])
@@ -97,7 +108,7 @@ if __name__ == "__main__":
         elif sys.argv[-1] == "get orders":
             _, page_number_str, operation = sys.argv
             page_number = int(page_number_str)
-            cursor = list(db.received_order_DB.aggregate([{"$unionWith": db.place_order_DB}, {"$sort": {"date": 1}}]))
+            cursor = list(db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1}))
             length = len(cursor)
             data = []
             start = (int(page_number_str) - 1) * 50
@@ -140,13 +151,13 @@ if __name__ == "__main__":
         if sys.argv[-1] == "place order":
             _, date, SKU, product_name, quantity, price, operation = sys.argv
             date_checker = HelperFunctions.normal_date_checker(date)
-            SKU_checker = db,SKU_Checker(SKU)
+            SKU_checker = db.SKU_Checker(SKU)
             db.place_order(date, SKU, product_name, quantity, price)
 
         elif sys.argv[-1] == "add sale":
             _, date, SKU, product_name, quantity, price, operation = sys.argv
             date_checker = HelperFunctions.normal_date_checker(date)
-            SKU_checker = db,SKU_Checker(SKU)
+            SKU_checker = db.SKU_Checker(SKU)
             if quantity > 0 and price > 0 and SKU_checker != False and date_checker != False:
                 db.add_sale(date, SKU, product_name, quantity, price)
             else:
