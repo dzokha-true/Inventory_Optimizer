@@ -177,7 +177,7 @@
     <div class="profileContent" id="profilePopup">
     <span class="arrow"></span>
     <img src="../public/images/mini.png" alt="cookies-img" />
-    <p><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br id='usernamehere'><br></p>
+    <p  id='usernamehere'><strong>Electrix <br>Company</strong><br><small>- managed by -</small><br><br></p>
     <button class="accept">Log out</button>
     </div>
 </div>
@@ -578,9 +578,9 @@ document.getElementById("inventory").addEventListener("click", () => {
     });
 </script>
 	
-<script> 
+<script>
 var username = localStorage.getItem('username');
-var usernamehere = document.getElementByID("usernamehere");
+var usernamehere = document.getElementById("usernamehere");
 usernamehere.innerHTML = ""
 usernamehere.innerHTML += localStorage.getItem('username');
 // Use the username as needed
