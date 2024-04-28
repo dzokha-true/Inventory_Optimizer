@@ -3371,12 +3371,13 @@ p {
     box-shadow: 0px 0px 22px -8px #808080;
   }
 
-  .right .graph5 img {
+  .right .graph5 .responsive-table {
     position: absolute;
-    margin-top: 10px;
-    margin-left: -240px;
-    width: 530px;
-    height: 530px;
+    margin-top: -110px;
+    margin-left: 10px;
+    width: 520px;
+    height: 520px;
+    overflow-y: hidden; 
   }
 
   .right .half::after {
