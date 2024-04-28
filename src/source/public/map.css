@@ -3124,8 +3124,8 @@ p {
     display: block;
     top: 60%;
     left: 50%;
-    transform: translate(-47.1%, -45.4%);
-    width: 1385px;
+    transform: translate(-47.1%, -56%);
+    width: 1353px;
     display: flex;
   }
   
@@ -3157,7 +3157,7 @@ p {
     position: relative;
     margin: 10px auto;
     width: 100px;
-    height: 665px;
+    height: 650px;
     font-size: 12px;
   }
   
@@ -3523,11 +3523,3 @@ p {
   .right .half::after {
     margin-left: 100px;
   }
-
-
-
-
-  
-  
-  
-  
