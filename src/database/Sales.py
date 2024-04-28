@@ -1,36 +1,14 @@
-import sys
-import os
-import bcrypt
-import random
-from urllib.parse import quote_plus
-from time import ctime
-import subprocess
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-from pymongo.errors import ConnectionFailure
-from datetime import date
-import re
+import HelperFunctions
 from Product import Product
 import pandas as pd
-from abc_analysis import abc_analysis, abc_plot
-import numpy as np
-import seaborn as sns
-import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
 from abc_classification.abc_classifier import ABCClassifier
-from abc_classification.abc_visualiser import pareto_chart
-import csv
-import bcrypt
-import json
 from datetime import datetime
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
-
-# ==================================
-# NEEDS ADDING REMOVING AND UPDATING
-# ==================================
 
 class Sales(Product):
     
@@ -40,66 +18,82 @@ class Sales(Product):
         client = MongoClient(URI, server_api=ServerApi('1'))
         self.data_base = client['CompanyDetails']
         self.sales_DB = self.data_base['SalesDone']
-        
-    def total_revenue_calculator(self, start_date, end_date):
-        start_date = normal_date_checker(start_date)
-        end_date = normal_date_checker(end_date)
-        cursor = sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
+
+    def add_sale(self, date, SKU, product_name, quantity, price):
+        self.sales_DB.insert_one({
+            "date": date,
+            "SKU": SKU,
+            "product_name": product_name,
+            "quantity": quantity,
+            "price": price
+        })
+        result = self.product_DB.update_one({'SKU': SKU}, {'$inc': {"quanity": -1}})
+        self.SKU_class()
+        if result.matched_count != 0:
+            print("Success")
+        else:
+            print("Unsuccessful")
+
+    def total_revenue_calculator(self):
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        if date > now:
+            start = datetime(current_year - 1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year + 1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        start_date = fiscal_year_start_str
+        end_date = fiscal_year_end_str
+        cursor = self.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'quantity': 1, 'price': 1})
         if start_date != False and end_date != False:
             if cursor:
                 for document in cursor:
                     if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
+                        num = float(document.get('quantity', 0))
+                        cost = float(document.get('price', 0))
                         revenue += num * cost
                 print(revenue)
+                return True
         else:
             return False
-                    
-    def SKU_revenue_calculator(self, SKU, start_date, end_date):
-        start_date = normal_date_checker(start_date)
-        end_date = normal_date_checker(end_date)
-        cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
-        if start_date != False and end_date != False:
-            if cursor:
-                for document in cursor:
-                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
-                        revenue += num * cost
-                print(revenue)
-        else:
-            return False
-        
-    def name_revenue_calculator(self, product_name, start_date, end_date):
-        start_date = normal_date_checker(start_date)
-        end_date = normal_date_checker(end_date)
-        cursor = sales_DB.find({'product_name': product_name}, {'_id': 0, 'date': 1, 'SKU': 0, 'product_name': 0, 'num': 1, 'cost': 1})
-        if start_date != False and end_date != False:
-            if cursor:
-                for document in cursor:
-                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
-                        revenue += num * cost
-                print(revenue)
-        else:
-            return False    
         
     def SKU_class(self):
-        start_date = '2019-11-01'
-        end_date = '2023-01-10'
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        if date > now:
+            start = datetime(current_year - 1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year + 1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        start_date = fiscal_year_start_str
+        end_date = fiscal_year_end_str
         revenue = 0
-        cursor = self.sales_DB.find({}, {'_id': 1, 'date': 1, 'SKU': 1, 'product_name': 1, 'num': 1, 'cost': 1})
+        cursor = self.sales_DB.find({}, {'_id': 1, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
         if start_date != False and end_date != False:
             if cursor:
                 for document in cursor:
                     if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
+                        num = float(document.get('quantity', 0))
+                        cost = float(document.get('price', 0))
                         revenue += num * cost
         df = pd.DataFrame(columns=['SKU', 'product_name', 'revenue', 'cum'])
-        cursor = self.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'num': 1, 'cost': 1})
+        cursor = self.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
         total = revenue
         if cursor:
             for document in cursor:
@@ -113,8 +107,8 @@ class Sales(Product):
                         df.loc[len(df)] = new_row
                     else:
                         row_index = df[df['SKU'] == document.get('SKU', 'N/A')].index
-                        num = float(document.get('num', 0))
-                        cost = float(document.get('cost', 0))
+                        num = float(document.get('quantity', 0))
+                        cost = float(document.get('price', 0))
                         revenue = num * cost
                         df.at[row_index[0], 'revenue'] += revenue
                         cum = df.at[row_index[0], 'revenue'] / total * 100
@@ -124,16 +118,3 @@ class Sales(Product):
         abc_df = abc_clf.classify('SKU', 'cum')
         for index, row in abc_df.iterrows():
             self.product_DB.update_one({'SKU': row['SKU']}, {'$set': {'SKU_class': row['class']}})
-        
-
-
-        
-
-
-        
-        
-        
-        
-        
-
-
