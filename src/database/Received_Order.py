@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from Place_Order import Place_Order
+from datetime import datetime
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
@@ -17,18 +18,31 @@ class Received_Order(Place_Order):
 
     def received(self, data):
         split_data = data.split(',')
-        quantity = data[3]
+        quantity = int(data[3])
         now = datetime.now()
         date = datetime.strptime(f'{now.year}-{now.month}-{now.day}', '%Y-%m-%d')
+        new_date = (str(date.year))
+        if len(str(date.month)) == 1:
+            new_date = "-0" + str(date.month)
+        else:
+            new_date = "-" + str(date.month)
+        if len(str(date.day)) == 1:
+            new_date = "-0" + str(date.day)
+        else:
+            new_date = "-" + str(date.day)
         for x in range(quantity):
             self.received_order_DB.insert_one({
-                "date": date,
+                "date": new_date,
                 "SKU": data[1],
                 "product_name": data[2],
                 "price": data[4]
             })
-        result = self.product_DB.update_one({'SKU': SKU}, {'$inc': {"quanity": data[3]}})
-        if result.matched_count == 0:
+        if self.product_DB.find_one({'SKU': data[1]}):
+            item = self.product_DB.find_one({'SKU': data[1]})
+            quantity = int(item.get("quantity"))
+            quantity += int(data[3])
+            self.product_DB.update_one({'SKU': data[1]}, {"quanity": str(quantity)})
+        else:
             self.product_DB.insert_one({
                 "SKU": data[1],
                 "product_name": data[2],
