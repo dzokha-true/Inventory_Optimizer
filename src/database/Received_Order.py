@@ -1,15 +1,5 @@
-import sys
-import os
-import bcrypt
-import random
-from urllib.parse import quote_plus
-from time import ctime
-import subprocess
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-from pymongo.errors import ConnectionFailure
-from datetime import date
-import re
 from Place_Order import Place_Order
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
@@ -25,82 +15,79 @@ class Received_Order(Place_Order):
         self.data_base = client['CompanyDetails']
         self.received_order_DB = self.data_base['OrdersReceived']
 
+    def received(self, data):
+        split_data = data.split(',')
+        quantity = data[3]
+        now = datetime.now()
+        date = datetime.strptime(f'{now.year}-{now.month}-{now.day}', '%Y-%m-%d')
+        for x in range(quantity):
+            self.received_order_DB.insert_one({
+                "date": date,
+                "SKU": data[1],
+                "product_name": data[2],
+                "price": data[4]
+            })
+        result = self.product_DB.update_one({'SKU': SKU}, {'$inc': {"quanity": data[3]}})
+        if result.matched_count == 0:
+            self.product_DB.insert_one({
+                "SKU": data[1],
+                "product_name": data[2],
+                "quantity": data[3],
+                "price": data[4],
+                "SKU_class": 'C'
+            })
+        result = self.place_order_DB.update_one({'date': data[0], 'SKU': data[1], "product_name": data[2], "quantity": data[3], "price": data[4]}, {'$set': {"isReceived": True}})
+        self.SKU_class()
+        print("Success")
 
+    def expected_inventory(self):
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        if date > now:
+            start = datetime(current_year - 1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year + 1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        expected = 0
+        cursor = self.place_order_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+        for document in cursor:
+            if document.get('date', 0) >= fiscal_year_start_str and document.get('date', 0) <= fiscal_year_end_str:
+                expected += document.get('price', 0) * document.get('quantity', 0)
+        print(expected)
 
+    def actual_inventory(self):
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year')
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        if date > now:
+            start = datetime(current_year - 1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year + 1, date.month, date.day)
+            fiscal_year_start_str = start.strftime('%Y-%m-%d')
+            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        actual = 0
+        cursor = self.received_order_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'price': 1})
+        for document in cursor:
+            if document.get('date', 0) >= fiscal_year_start_str and document.get('date', 0) <= fiscal_year_end_str:
+                expected += document.get('price', 0)
+        print(actual)
 
+    def shrinkage(self):
+        print(self.expected_inventory() - self.actual_inventory())
 
-
-
-
-
-
-
-
-
-
-
-
-    
-    def expected_inventory(num, cost):
-        # range of dates
-        # add a date
-        document = self.performance_DB.find_one({'num': 1})
-        new_expected_inventory = document.get('expected_inventory', 0) + num * cost
-        self.performance_DB.update_one({'num': 1}, {'$set': {'expected_inventory': new_expected_inventory}})
-        
-        
-        
-        
-        
-        
-    def actual_inventory(num, cost):
-        # range of dates
-        #add a date
-        document = self.performance_DB.find_one({'num': 1})
-        new_actual_inventory = document.get('actual_inventory', 0) + num * cost
-        self.performance_DB.update_one({'num': 1}, {'$set': {'actual_inventory': new_actual_inventory}})
-        
-        
-        
-        
-        
-        
-    def shrinkage():
-        # range of dates
-        # add a date
-        document = self.performance_DB.find_one({'num': 1})
-        expected_inventory = document.get('expected_inventory', 0)
-        actual_inventory = document.get('actual_inventory', 0)
-        return expected_inventory - actual_inventory
-        
-        
-        
-        
-        
-        
-    def shrinkage_percent():
-        # range of dates
-        # Add a date
-        document = self.performance_DB.find_one({'num': 1})
-        expected_inventory = document.get('expected_inventory', 0)
-        actual_inventory = document.get('actual_inventory', 0)
-        return ((expected_inventory - actual_inventory) / expected_inventory) * 100
-        
-        
-        
-        
-        
-        
-    def writeoff(items, cost):
-        # range of dates
-        # Add a date
-        document = self.performance_DB.find_one({'num': 1})
-        new_writeoff = document.get('writeoff', 0) + num * cost
-        self.performance_DB.update_one({'num': 1}, {'$set': {'writeoff': new_writeoff}})
-        
-
-   
-        
-        
-
-
+    def shrinkage_percent(self):
+        print((self.expected_inventory() - self.actual_inventory()) / self.expected_inventory()) * 100
