@@ -3350,7 +3350,7 @@ p {
   }
   
   
-  .right {
+  .center2 .right {
     flex: 1 1 auto;
     background-color: #f6f6fc;
     padding: 30px;
@@ -3360,7 +3360,7 @@ p {
     
   }
   
-  .right .title {
+  .center2 .right .title {
     font-size: 25px;
     font-weight: bold;
     margin-left: 30px;
@@ -3386,7 +3386,7 @@ p {
     flex-direction: column;
   }
 
-  .right .sub-title {
+  .center2 .right .sub-title {
     margin-left: 30px;
     margin-bottom: 10px;
     margin-top: 30px;
@@ -3394,72 +3394,10 @@ p {
     font-size: 18px;
   }
 
-  .right .half {
+  .center2 .right .half {
     flex: 1;
   }
-  
-  .right .graph {
-    display: inline-block;
-    position: relative;
-    width: 500px;
-    height: 300px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 22px -8px #808080;
-  }
 
-  .right .graph img {
-    position: absolute;
-    margin-top: 10px;
-    margin-left: -240px;
-    width: 480px;
-    height: 280px;
-  }
-
-
-  .right .graph2 {
-    display: inline-block;
-    position: relative;
-    width: 330px;
-    height: 300px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 22px -8px #808080;
-  }
-
-  .right .graph2 img {
-    position: absolute;
-    margin-top: 10px;
-    margin-left: -240px;
-    width: 310px;
-    height: 280px;
-  }
-
-  .right .graph3 {
-    display: inline-block;
-    position: relative;
-    width: 900px;
-    height: 350px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 22px -8px #808080;
-  }
-
-  .right .graph3 img {
-    position: absolute;
-    margin-top: 10px;
-    margin-left: -240px;
-    width: 880px;
-    height: 330px;
-  }
-  
-  .right .graph + .graph3{
-    margin-left: 10px;
-  }
-
-  .right .graph2 {
-    margin-left: 70px;
-  }
 
   .right .graph4 {
     display: inline-block;
