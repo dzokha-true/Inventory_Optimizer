@@ -155,4 +155,11 @@ class Product(LoginSystem):
         fig = Figure(data=data, layout=layout)
         # if not os.path.exists("Downloads"):
         #     os.mkdir("Downloads")
-        fig.write_image("Inventory_Optimizer/src/source/public/images/pareto_chart.png")
+        # Get the directory of the current script (chart.py)
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # Construct the path to the images directory
+        images_dir = os.path.join(current_dir, '..', 'source', 'public', 'images')
+
+        # Save the figure as an image file in the images directory
+        fig.write_image(os.path.join(images_dir, 'pareto_chart.png'))
