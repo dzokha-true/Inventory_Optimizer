@@ -80,10 +80,10 @@ app.on("open-login-page", () => {
 });
 
 ipcMain.on('processitem', (event, {itemData}) => {
-    const args = [itemData.date, itemData.SKU, itemData.product_name, itemData.cost, itemData.num]
+    const args = [itemData.date, itemData.SKU, itemData.product_name, itemData.quantity, itemData.price, itemData.isReceived]
     const operation = "received";
     console.log("called python");
-    console.log(itemData);
+    console.log(args);
     const pythonProcess = spawn('python', ['src/database/Main.py', args, operation]);
     console.log("finished python");
     pythonProcess.stdout.on('data', (data) => {
@@ -238,7 +238,10 @@ ipcMain.on('get_dashboard', (event, {message, message2}) => {
   const pythonProcess2 = spawn('python', ['src/database/Main.py', operation2]);
 
   pythonProcess.stdout.on('data', (data) => {
+    console.log("got the first date");
   const Response = data.toString().trim();
+  console.log(Response);
+
 
     let dataString = ''
     dataString += Response;
@@ -257,7 +260,10 @@ ipcMain.on('get_dashboard', (event, {message, message2}) => {
   });
 
   pythonProcess2.stdout.on('data', (data) => {
+    console.log("got the second date");
     const Response = data.toString().trim();
+    console.log(Response);
+
   
     let dataString = ''
     dataString += Response;
@@ -275,6 +281,7 @@ ipcMain.on('get_dashboard', (event, {message, message2}) => {
     event.reply('performance-failure', 'An error occurred during loading report.');
   });
 });
+
 
 // for generating report for performance page
 ipcMain.on('get_report', (event, { message }) => {
