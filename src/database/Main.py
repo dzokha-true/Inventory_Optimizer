@@ -58,6 +58,13 @@ if __name__ == "__main__":
             data = {'revenue': revenue, "gross": gross,"cogs": cogs, "ITR": ITR, "gross_profit": gross_profit, "average_inventory": average_inventory, "expected_inventory": expected_inv, "actual_inventory": actual_inv, "shrinkage": shrinkage, "shrinkage_percent": shrinkage_perc}
             print(json.dump(data))
 
+        elif sys.argv[-1] == "algorithm":
+            _, operation = sys.argv
+            cursor = db.product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+            for document in cursor:
+                SKU = document.get("SKU")
+                # ADD THE DEMAND PREDICTION CALL
+
     elif len(sys.argv) == 3:
         if sys.argv[-1] == "received":
             _, data, operation = sys.argv
@@ -105,10 +112,10 @@ if __name__ == "__main__":
                     start += 1
             print(json.dumps(data))
 
-        elif sys.argv[-1] == "get orders":
+        elif sys.argv[-1] == "get product":
             _, page_number_str, operation = sys.argv
             page_number = int(page_number_str)
-            cursor = list(db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1}))
+            cursor = list(db.product_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1}))
             length = len(cursor)
             data = []
             start = (int(page_number_str) - 1) * 50
@@ -116,8 +123,12 @@ if __name__ == "__main__":
                 if start > length:
                     break
                 else:
-                    data.append(cursor[start])
-                    start += 1
+                    try:
+                        data.append(cursor[start])
+                        start += 1
+                    except IndexError:
+                        break
+                    
             print(json.dumps(data))
                 
     elif len(sys.argv) == 4:
