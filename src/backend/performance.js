@@ -38,16 +38,16 @@ function addHTMLKPI(data) {
     shrink.innerHTML = "";
     shrink_per.innerHTML = "";
 
-    rev.innerHTML += our_data.revenue;
-    gro.innerHTML += our_data.gross;
-    COGS.innerHTML += our_data.cogs;
-    itr.innerHTML += our_data.ITR;
-    profit.innerHTML += our_data.gross_profit;
-    avg_int.innerHTML += our_data.average_inventory;
-    exp_int.innerHTML += our_data.expected_inventory;
-    act_int.innerHTML += our_data.actual_inventory;
-    shrink.innerHTML += our_data.shrinkage;
-    shrink_per.innerHTML += our_data.shrinkage_percent;
+    rev.innerHTML += Math.round(our_data.revenue);
+    gro.innerHTML += Math.round(our_data.gross);
+    COGS.innerHTML += Math.round(our_data.cogs);
+    itr.innerHTML += Math.round(our_data.ITR);
+    profit.innerHTML += Math.round(our_data.gross_profit);
+    avg_int.innerHTML += Math.round(our_data.average_inventory);
+    exp_int.innerHTML += Math.round(our_data.expected_inventory);
+    act_int.innerHTML += Math.round(our_data.actual_inventory);
+    shrink.innerHTML += Math.round(our_data.shrinkage);
+    shrink_per.innerHTML = Math.round(our_data.shrinkage_percent);
 }
 
 function addHTMLPerformance(){

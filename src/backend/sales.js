@@ -8,6 +8,18 @@ const pageSize = 50;
 let loading = false;
 const container = document.getElementById('table-body');
 
+function addHTMLNoti(data) {
+    var notibar = document.getElementById('notiPopup');
+
+    // return produt name from back end
+    const noti = data.response;
+    
+    notibar.innerHTML += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
+    + noti+
+    + "<a class=\"link\" href=\"order.html\">Go to Orders Page!</a><span class=\"unread-symbol\">•</span> </p>"
+    + "<p class=\"time\">1m ago</p></div> </div>";
+}
+
 ipcRenderer.on('sale_table_success', (event, data) => {
 	abc ++;
 	const our_data = JSON.parse(data.dataset);
@@ -27,6 +39,11 @@ ipcRenderer.on('sale_table_success', (event, data) => {
 		page++;
 		loading = false;
 	}
+});
+
+ipcRenderer.on('get noti', (event, data) => {
+    const our_data = data.response;
+    addHTMLNoti(our_data);
 });
 
 
