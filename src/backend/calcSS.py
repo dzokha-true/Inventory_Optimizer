@@ -1,4 +1,5 @@
 from scipy.stats import norm
+from math import sqrt
 
 def calcSS(service_level, T1, sigma_LT, sigma_D, D_avg, PC):
     alpha = 1 - service_level
