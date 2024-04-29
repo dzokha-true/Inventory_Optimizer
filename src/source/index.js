@@ -287,7 +287,7 @@ ipcMain.on('add sale', (event, {date_input, price_input, SKU_input, name_input, 
     alert("Success");
     const messageResponse = data.toString().trim();
     if( messageResponse != "no update"){
-	event.reply('get noti', {response: messageResponse);
+	event.reply('get noti', {response: messageResponse});
     }
   });
   
