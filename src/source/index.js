@@ -310,49 +310,54 @@ ipcMain.on('get_report', (event, { message }) => {
 });
 
 ///////// add product from sales page (+ check reorder)
-ipcMain.on('add sale', (event, {date_input, price_input, SKU_input, name_input, amount_input, message}) => {
-
-  const python = spawn('python', ["src/database/Main.py", date_input, price_input, SKU_input, name_input, amount_input, message]);
-
-  python.stdout.on('data', (data) => {
-    console.log("Success");
-    const messageResponse = data.toString().trim();
-    if( messageResponse != "no update"){
-	event.reply('get noti', {response: messageResponse});
-    }
-  });
-  
-  python.stderr.on('data', (data) => {
-      console.log("fail");
-      console.error(`stderr: ${data}`);
-  });
+// ipcMain.on('add sale', (event, {date_input, price_input, SKU_input, name_input, amount_input, message}) => {
+//
+//   const python = spawn('python', ["src/database/Main.py", date_input, price_input, SKU_input, name_input, amount_input, message]);
+//
+//   python.stdout.on('data', (data) => {
+//     console.log("Success");
+//     const messageResponse = data.toString().trim();
+//     if( messageResponse != "no update"){
+// 	event.reply('get noti', {response: messageResponse});
+//     }
+//   });
+//
+//   python.stderr.on('data', (data) => {
+//       console.log("fail");
+//       console.error(`stderr: ${data}`);
+//   });
   
   python.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
   });
 });
 
-ipcMain.on('place order', (event, {date_ordered_input, SKU_input, name_input, amount_input, price_input, message}) => {
-    const python = spawn('python', ["src/database/Main.py", date_ordered_input, SKU_input, name_input, amount_input, price_input, message]);
-
-    python.stdout.on('data', (data) => {
-        console.log("Success");
-    });
-
-    python.stderr.on('data', (data) => {
-        console.error(`stderr: ${data}`);
-    });
-
-    python.on('close', (code) => {
-        console.log(`child process exited with code ${code}`);
-    });
-});
+// ipcMain.on('place order', (event, {date_ordered_input, SKU_input, name_input, amount_input, price_input, message}) => {
+//     const python = spawn('python', ["src/database/Main.py", date_ordered_input, SKU_input, name_input, amount_input, price_input, message]);
+//
+//     python.stdout.on('data', (data) => {
+//         console.log("Success");
+//     });
+//
+//     python.stderr.on('data', (data) => {
+//         console.error(`stderr: ${data}`);
+//     });
+//
+//     python.on('close', (code) => {
+//         console.log(`child process exited with code ${code}`);
+//     });
+// });
 
 ipcMain.on('add sale', (event, {date_input, price_input, SKU_input, name_input, amount_input, message}) => {
     const python = spawn('python', ["src/database/Main.py", date_input, price_input, SKU_input, name_input, amount_input, message]);
 
     python.stdout.on('data', (data) => {
-        console.log("Success"); });
+        console.log("Success");
+        const performanceResponse = data.toString().trim();
+    if (performanceResponse == "Success") {
+        BrowserWindow.getAllWindows()[0].webContents.reload()
+    }
+    });
 
     python.stderr.on('data', (data) => {
         console.error(`stderr: ${data}`);
@@ -372,6 +377,10 @@ ipcMain.on('place order', (event, {date_ordered_input, SKU_input, name_input, am
 
   python.stdout.on('data', (data) => {
     console.log("Success");
+    const performanceResponse = data.toString().trim();
+    if (performanceResponse == "Success") {
+        BrowserWindow.getAllWindows()[0].webContents.reload()
+    }
   });
   
   python.stderr.on('data', (data) => {
