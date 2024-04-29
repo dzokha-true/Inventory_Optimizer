@@ -54,7 +54,7 @@ class Mathematics(Received_Order):
                 for entry in cursor:
                     if entry.get("SKU", 0) == document.get("SKU", 0):
                         cogs += entry.get("price", 0)
-        return revenue - COGS
+        return revenue - cogs
 
     def gross_margin(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
@@ -94,7 +94,7 @@ class Mathematics(Received_Order):
                 for entry in cursor:
                     if entry.get("SKU", 0) == document.get("SKU", 0):
                         cogs += entry.get("price", 0)
-        gross_profit = revenue - COGS
+        gross_profit = revenue - cogs
         return gross_profit / revenue * 100
 
     def average_inventory(self):
@@ -118,7 +118,7 @@ class Mathematics(Received_Order):
             initial += document.get("quantity", 0) * document.get("price", 0)
         for document in cursor2:
             final += document.get("quantity", 0) * document.get("price", 0)
-        return (intial + final)/2
+        return (initial + final)/2
         
     def inventory_turnover_ratio(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
@@ -168,7 +168,7 @@ class Mathematics(Received_Order):
             initial += document.get("quantity", 0) * document.get("price", 0)
         for document in cursor2:
             final += document.get("quantity", 0) * document.get("price", 0)
-        average = (intial + final)/2
+        average = (initial + final)/2
         return cogs/average
 
     def COGS(self):
