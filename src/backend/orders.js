@@ -45,6 +45,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // adding a listener event to the add_product button
+document.getElementById('next').addEventListener('click', (event) => {
+    event.preventDefault();
+    const date_ordered_input = document.getElementById('Date_order').value;
+    const price_input = document.getElementById('Price').value;
+    const SKU_input = document.getElementById('SKU').value;
+    const name_input = document.getElementById('Name').value;
+    const amount_input = document.getElementById('Amount').value;
+    const message = "place order";
+    ipcRenderer.send('place order', {date_ordered_input, SKU_input, name_input, amount_input, price_input, message});
+
+});
+
+
     container.addEventListener('click', function(e) {
 		if (e.target.classList.contains('received-btn')) {
 			const itemData = JSON.parse(e.target.getAttribute('data-item'));
