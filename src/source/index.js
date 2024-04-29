@@ -296,6 +296,46 @@ ipcMain.on('add_product', (event, {field,message}) => {
   });
 });
 
+// for changing fiscal year
+ipcMain.on('send date', (event, { end,username,message }) => {
+  const operation = message;
+  // change path to script
+  const pythonProcess = spawn('python', ['src/database/Main.py', end, username,operation]);
+
+  pythonProcess.stdout.on('data', (data) => {
+    alert("change fiscal year successfully!");
+  });  
+  pythonProcess.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+});
+
+// for changing fifo lifo
+ipcMain.on('change lifo fifo', (event, { status,username,message }) => {
+  const operation = message;
+  // change path to script
+  const pythonProcess = spawn('python', ['src/database/Main.py', status, username,operation]);
+
+  pythonProcess.stdout.on('data', (data) => {
+    alert("change fifo lifo successfully!");
+  });  
+  pythonProcess.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+    event.reply('performance-failure', 'An error occurred during loading report.');
+  });
+});
+
 ipcMain.on('order-page', () => {
     mainWin.loadURL(url.format({
         pathname: path.join(__dirname, "views/order.html"),
