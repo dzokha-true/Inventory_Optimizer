@@ -330,7 +330,6 @@ ipcMain.on('get_report', (event, { message }) => {
   python.on('close', (code) => {
       console.log(`child process exited with code ${code}`);
   });
-});
 
 // ipcMain.on('place order', (event, {date_ordered_input, SKU_input, name_input, amount_input, price_input, message}) => {
 //     const python = spawn('python', ["src/database/Main.py", date_ordered_input, SKU_input, name_input, amount_input, price_input, message]);
