@@ -27,10 +27,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>${item.quantity}</td>
                     <td><button id = "button" class="received-btn" data-item='${JSON.stringify(item)}'>Received?</button></td>
                     `;
-                } else if (item.isReceived == true) {
-                    a = 1;
-                }
-                else{
+                    tbody.appendChild(tr);
+                }else{
                     tr.innerHTML = `
                     <td>${item.date}</td>
                     <td>${item.SKU}</td>
@@ -39,8 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>N/A</td>
                     <td>Recevied</td>
                     `;
+                    tbody.appendChild(tr);
                 }
-                tbody.appendChild(tr);
             });
             page++;
             loading = false;
