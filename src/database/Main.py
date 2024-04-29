@@ -30,11 +30,11 @@ if __name__ == "__main__":
 
         elif sys.argv[-1] == "generate_dashboard":
             _, operation = sys.argv
-            page_number = int(page_number_str)
+            page_number = 1
             cursor = list(db.place_order_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1,'price': 1, 'isReceived': 1}).sort("date", -1))
             length = len(cursor)
             data = []
-            start = (int(page_number_str) - 1) * 50
+            start = 0
             for x in range(50):
                 if start >= length:
                     break
@@ -55,8 +55,23 @@ if __name__ == "__main__":
             shrinkage = db.shrinkage()
             revenue = db.total_revenue_calculator()
             shrinkage_perc = db.shrinkage_percent()
-            data = {'revenue': revenue, "gross": gross,"cogs": cogs, "ITR": ITR, "gross_profit": gross_profit, "average_inventory": average_inventory, "expected_inventory": expected_inv, "actual_inventory": actual_inv, "shrinkage": shrinkage, "shrinkage_percent": shrinkage_perc}
-            print(json.dump(data))
+
+            # Assemble data into a dictionary
+            data = {
+                'revenue': revenue, 
+                "gross": gross,
+                "cogs": cogs, 
+                "ITR": ITR, 
+                "gross_profit": gross_profit, 
+                "average_inventory": average_inventory, 
+                "expected_inventory": expected_inv, 
+                "actual_inventory": actual_inv, 
+                "shrinkage": shrinkage, 
+                "shrinkage_percent": shrinkage_perc
+            }
+
+            # Print JSON string
+            print(json.dumps(data))
 
         elif sys.argv[-1] == "algorithm":
             _, operation = sys.argv
