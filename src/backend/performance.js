@@ -58,5 +58,5 @@ function addHTMLPerformance(){
     image1.src = "../public/images/pareto_chart.png";
 }
 
-const message = "generate_report"; // to be changed later
+const message = "get_report"; // to be changed later
 ipcRenderer.send('get_report', {message});
