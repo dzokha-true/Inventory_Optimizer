@@ -55,7 +55,7 @@ function addHTMLPerformance(){
     var image1 = document.getElementById('PRD');
 
     // Change the src attribute of the images to reload them
-    image1.src = "PRD.png";
+    image1.src = "fig2.png";
 }
 
 const message = "generate_report"; // to be changed later
