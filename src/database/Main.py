@@ -26,6 +26,7 @@ if __name__ == "__main__":
             ITR = db.inventory_turnover_ratio()
             revenue = db.total_revenue_calculator()
             data = {'revenue': revenue, "gross": gross,"cogs": cogs, "ITR": ITR, "gross_profit": gross_profit, "average_inventory": average_inventory, "expected_inventory": expected_inv, "actual_inventory": actual_inv, "shrinkage": shrinkage, "shrinkage_percent": shrinkage_perc}
+            db.pareto_chart()
             print(json.dump(data))
 
         elif sys.argv[-1] == "generate_dashboard":
@@ -41,6 +42,7 @@ if __name__ == "__main__":
                 else:
                     data.append(cursor[start])
                     start += 1
+            db.pareto_chart()
             print(json.dumps(data))
 
         elif sys.argv[-1] == "kpi_dash":
