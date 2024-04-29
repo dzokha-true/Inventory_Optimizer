@@ -2,8 +2,6 @@ from datetime import datetime
 from datetime import date
 import re
 import statistics
-from pymongo import MongoClient
-from pymongo.server_api import ServerApi
 
 # Checks if a format of the fiscal year entered by the user is correct
 # If it is valid, it returns the date in datetime obkect, else returns false
