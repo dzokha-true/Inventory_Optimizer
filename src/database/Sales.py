@@ -27,12 +27,13 @@ class Sales(Product):
             "quantity": quantity,
             "price": price
         })
-        result = self.product_DB.update_one({'SKU': SKU}, {'$inc': {"quanity": -1}})
-        self.SKU_class()
-        if result.matched_count != 0:
-            print("Success")
-        else:
+        item = self.product_DB.find_one({'SKU': 'SKU'})
+        if item.get("quantity") == 0:
             print("Unsuccessful")
+        else:
+            temp = int(item.get("quantity")) - 1
+            self.product_DB.update_one({'SKU': SKU}, {'$set': {"quantity": str(temp)}})
+            print("Success")
 
     def total_revenue_calculator(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
