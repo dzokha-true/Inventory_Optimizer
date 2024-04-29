@@ -33,24 +33,24 @@ class Received_Order(Place_Order):
         for x in range(quantity):
             self.received_order_DB.insert_one({
                 "date": new_date,
-                "SKU": data[1],
-                "product_name": data[2],
-                "price": data[4]
+                "SKU": split_data[1],
+                "product_name": data[28],
+                "price": data[27]
             })
         if self.product_DB.find_one({'SKU': data[1]}):
             item = self.product_DB.find_one({'SKU': data[1]})
             quantity = int(item.get("quantity"))
             quantity += int(data[3])
-            self.product_DB.update_one({'SKU': data[1]}, {"quanity": str(quantity)})
+            self.product_DB.update_one({'SKU': split_data[1]}, {"$set": {"quantity": str(quantity)}})
+
         else:
             self.product_DB.insert_one({
-                "SKU": data[1],
-                "product_name": data[2],
+                "SKU": split_data[1],
+                "product_name": split_data[2],
                 "quantity": data[3],
-                "price": data[4],
-                "SKU_class": 'C'
+                "price": data,
             })
-        result = self.place_order_DB.update_one({'date': data[0], 'SKU': data[1], "product_name": data[2], "quantity": data[3], "price": data[4]}, {'$set': {"isReceived": True}})
+        self.place_order_DB.update_one({'date': split_data[0], 'SKU': split_data[1], "product_name": split_data[2], "quantity": data[3], "price": data[4]}, {'$set': {"isReceived": True}})
         self.SKU_class()
         print("Success")
 
