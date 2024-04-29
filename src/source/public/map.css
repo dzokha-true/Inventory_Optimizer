@@ -580,7 +580,7 @@ body {
 
 }
 .responsive-row {
-    max-height: 390px; 
+    max-height: 390px;
     overflow-y: auto;
     margin: 0;
     padding-bottom: 0;
@@ -848,7 +848,7 @@ body {
 
 }
 .responsive-row {
-    max-height: 390px; 
+    max-height: 150px;
     overflow-y: auto;
     margin: 0;
     padding-bottom: 0;
