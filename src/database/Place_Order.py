@@ -24,3 +24,4 @@ class Place_Order(Sales):
             "price": price,
             "isReceived": False
         })
+        print("Success")
