@@ -55,7 +55,7 @@ function addHTMLPerformance(){
     var image1 = document.getElementById('PRD');
 
     // Change the src attribute of the images to reload them
-    image1.src = "../public/images/fig2.png";
+    image1.src = "../public/images/pareto_chart.png";
 }
 
 const message = "generate_report"; // to be changed later
