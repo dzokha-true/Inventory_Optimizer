@@ -313,12 +313,17 @@ ipcMain.on('get_report', (event, { message }) => {
 
 ipcMain.on('add sale', (event, {date_input, price_input, SKU_input, name_input, amount_input, message}) => {
     const python = spawn('python', ["src/database/Main.py", date_input, price_input, SKU_input, name_input, amount_input, message]);
-
+    const message15 = "noti"
     python.stdout.on('data', (data) => {
         console.log("Success");
         const performanceResponse = data.toString().trim();
     if (performanceResponse == "Success") {
         BrowserWindow.getAllWindows()[0].webContents.reload()
+        const python2 = spawn('python', ["src/database/Main.py", message15]);
+        python2.stdout.on('data', (data) => {
+        const notiResponse = data.toString().trim();
+        event.reply('get noti',{notiResponse})
+        });
     }
     });
 
