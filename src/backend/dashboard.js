@@ -64,18 +64,11 @@ function adddashboardtable(data,i){
     var table = document.getElementById('order_dash');
 
     table.innerHTML += "<li class=\"table-row\">"
-    + "<div class=\"col col-1\" data-label=\"Number\"> <svg class=\"svg-icon productButton\" style=\"width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\">"
-    + "<path d=\"M512.197498 752.238526 158.499897 398.540925c-18.73776-18.73776-18.73776-49.092092 0-67.828828s49.092092-18.73776 67.828828 0l285.868773 285.868773 285.868773-285.868773c18.73776-18.73776 49.092092-18.73776 67.828828 0s18.73776 49.092092 0 67.828828L512.197498 752.238526z\"/>"
-    + "</svg>" + i + "</div>"
-    + "<div class = \"container\"><div class=\"productContent\" id=\"productPopup1\"></div> </div>"
-    + "<div class=\"col col-2\" data-label=\"Date\">" + data.date + "</div>"
-    + "<div class=\"col col-3\" data-label=\"Arrival\">" + data.arrival + "</div>"
-    + "<div class=\"col col-4\" data-label=\"SKU\">" + data.sku + "</div>"
-    + "<div class=\"col col-5\" data-label=\"Product\">" + data.product + "</div>"
-    + "<div class=\"col col-6\" data-label=\"Quantity\">" + data.quantity + "</div>"
-    + "<div class=\"col col-7\" data-label=\"Unit\">" + data.unit + "</div>"
-    + "<div class=\"col col-8\" data-label=\"Supplier\">" + data.supplier + "</div> " 
-    + "<div class=\"col col-9\" data-label=\"Status\">" + data.status + "</div> "+ "</li>";
+    + "<div class=\"col col-1\" data-label=\"Date\">" + data.date + "</div>"
+    + "<div class=\"col col-2\" data-label=\"Arrival\">" + data.SKU + "</div>"
+    + "<div class=\"col col-3\" data-label=\"SKU\">" + data.product_name + "</div>"
+    + "<div class=\"col col-4\" data-label=\"Product\">" + data.quantity + "</div>"
+    + "<div class=\"col col-5\" data-label=\"Quantity\">" + data.price + "</div>";
 }
 
 const message = "generate_dashboard"; // to be changed later
