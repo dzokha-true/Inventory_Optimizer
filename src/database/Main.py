@@ -208,15 +208,15 @@ if __name__ == "__main__":
 
         elif sys.argv[-1] == "add sale":
             _, date, SKU, product_name, quantity, price, operation = sys.argv
-            date_checker = HelperFunctions.normal_date_checker(date)
+            #date_checker = HelperFunctions.normal_date_checker(date)
             # SKU_checker = db.SKU_Checker(SKU)
             # if quantity > 0 and price > 0 and SKU_checker != False and date_checker != False:
             db.add_sale(date, SKU, product_name, quantity, price)
             # else:
-            if quantity <= 0:
-                print("Please enter correct number of items!")
-            if price <= 0:
-                print("Please enter correct price!")
+            #if quantity <= 0:
+            #    print("Please enter correct number of items!")
+            #if price <= 0:
+            #    print("Please enter correct price!")
             
     else:
         print("Usage: LoginSystem.py <username> <password>")

@@ -82,14 +82,9 @@ app.on("open-login-page", () => {
 ipcMain.on('processitem', (event, {itemData}) => {
     const args = [itemData.date, itemData.SKU, itemData.product_name, itemData.quantity, itemData.price, itemData.isReceived]
     const operation = "received";
-    console.log("called python");
-    console.log(args);
     const pythonProcess = spawn('python', ['src/database/Main.py', args, operation]);
-    console.log("finished python");
     pythonProcess.stdout.on('data', (data) => {
         const loginResponse = data.toString().trim();
-        console.log("got data");
-        console.log(loginResponse);
         if (loginResponse == "Success"){
             BrowserWindow.getAllWindows()[0].webContents.reload()
         }
@@ -238,9 +233,7 @@ ipcMain.on('get_dashboard', (event, {message, message2}) => {
   const pythonProcess2 = spawn('python', ['src/database/Main.py', operation2]);
 
   pythonProcess.stdout.on('data', (data) => {
-    console.log("got the first date");
   const Response = data.toString().trim();
-  console.log(Response);
 
 
     let dataString = ''
@@ -260,9 +253,7 @@ ipcMain.on('get_dashboard', (event, {message, message2}) => {
   });
 
   pythonProcess2.stdout.on('data', (data) => {
-    console.log("got the second date");
     const Response = data.toString().trim();
-    console.log(Response);
 
   
     let dataString = ''
@@ -311,11 +302,10 @@ ipcMain.on('get_report', (event, { message }) => {
 
 ///////// add product from sales page (+ check reorder)
 
-ipcMain.on('add sale', (event, {date_input, price_input, SKU_input, name_input, amount_input, message}) => {
-    const python = spawn('python', ["src/database/Main.py", date_input, price_input, SKU_input, name_input, amount_input, message]);
+ipcMain.on('add sale', (event, {date_input, SKU_input, name_input, amount_input, price_input, message}) => {
+    const python = spawn('python', ["src/database/Main.py", date_input, SKU_input, name_input, amount_input, price_input, message]);
     const message15 = "noti"
     python.stdout.on('data', (data) => {
-        console.log("Success");
         const performanceResponse = data.toString().trim();
     if (performanceResponse == "Success") {
         BrowserWindow.getAllWindows()[0].webContents.reload()
@@ -344,7 +334,6 @@ ipcMain.on('place order', (event, {date_ordered_input, SKU_input, name_input, am
   const python = spawn('python', ["src/database/Main.py", date_ordered_input, SKU_input, name_input, amount_input, price_input, message]);
 
   python.stdout.on('data', (data) => {
-    console.log("Success");
     const performanceResponse = data.toString().trim();
     if (performanceResponse == "Success") {
         BrowserWindow.getAllWindows()[0].webContents.reload()

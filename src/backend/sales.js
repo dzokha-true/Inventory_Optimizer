@@ -30,18 +30,10 @@ ipcRenderer.on('sale_table_success', (event, data) => {
 });
 
 
-document.getElementById('next').addEventListener('click', (event) => {
-    event.preventDefault();
-    const date_input = document.getElementById('date_sale').value;
-    const price_input = document.getElementById('price').value;
-    const SKU_input = document.getElementById('SKU').value;
-    const name_input = document.getElementById('Name').value;
-    const amount_input = document.getElementById('Amount').value;
-    const message = "add sale";
-    ipcRenderer.send('add sale', {date_input, price_input, SKU_input, name_input, amount_input, message});
-});
+
 
 document.addEventListener('DOMContentLoaded', function() {
+    console.log("called to get data");
     const tableBody = document.getElementById('main_container');
 
     tableBody.addEventListener('scroll', () => {
@@ -56,8 +48,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Trigger initial data load
     if (!loading) {
         loading = true;
+        console.log("called to get data");
         ipcRenderer.send('create-sale-table', { abc });
     }
+
+    document.getElementById('next').addEventListener('click', (event) => {
+        event.preventDefault();
+        const date_input = document.getElementById('date_sale').value;
+        const SKU_input = document.getElementById('SKU').value;
+        const name_input = document.getElementById('Name').value;
+        const amount_input = document.getElementById('Amount').value;
+        const price_input = document.getElementById('price').value;
+        const message = "add sale";
+        ipcRenderer.send('add sale', {date_input, SKU_input, name_input, amount_input, price_input, message});
+    });
 });
 
 

@@ -27,11 +27,11 @@ class Sales(Product):
             "quantity": quantity,
             "price": price
         })
-        item = self.product_DB.find_one({'SKU': 'SKU'})
-        if item.get("quantity") == 0:
+        item = self.product_DB.find_one({'SKU': SKU})
+        if int(float(item.get("quantity"))) == 0:
             print("Unsuccessful")
         else:
-            temp = int(item.get("quantity")) - 1
+            temp = int(float(int(item.get("quantity")))) - 1
             self.product_DB.update_one({'SKU': SKU}, {'$set': {"quantity": str(temp)}})
             print("Success")
     
