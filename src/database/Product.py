@@ -153,6 +153,6 @@ class Product(LoginSystem):
                 },
             }
         fig = Figure(data=data, layout=layout)
-        if not os.path.exists("Downloads"):
-            os.mkdir("Downloads")
-        fig.write_image("pareto_chart.png")
+        # if not os.path.exists("Downloads"):
+        #     os.mkdir("Downloads")
+        fig.write_image("Inventory_Optimizer/src/source/public/images/pareto_chart.png")
