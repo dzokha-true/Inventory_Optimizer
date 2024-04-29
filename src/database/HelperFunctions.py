@@ -1,6 +1,7 @@
 from datetime import datetime
 from datetime import date
 import re
+import statistics
 
 # Checks if a format of the fiscal year entered by the user is correct
 # If it is valid, it returns the date in datetime obkect, else returns false
@@ -46,3 +47,110 @@ def normal_date_checker(date_input):
         except ValueError:
             print("Invalid date. Please make sure the date is correct format (YYYY-MM-DD).")
             return False
+
+def stock(SKU):
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    product_DB = data_base['ProductInformation']
+    cursor = product_DB.find({'SKU': SKU}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    for document in cursor:
+        return document.get("quantity")
+
+def mean_daily(SKU):
+    now = datetime.now()
+    end = datetime(now.year, now.month, now.day)
+    start = datetime(now.year - 1, now.month, now.day)
+    start_date = start.strftime('%Y-%m-%d')
+    end_date = end.strftime('%Y-%m-%d')
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    sales_DB = data_base['SalesDone']
+    total = 0
+    cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    for document in cursor:
+        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d"):
+            total += int(document.get("quantity"))
+    return total / 730
+
+def mean_weekly(SKU):
+    now = datetime.now()
+    end = datetime(now.year, now.month, now.day)
+    start = datetime(now.year - 1, now.month, now.day)
+    start_date = start.strftime('%Y-%m-%d')
+    end_date = end.strftime('%Y-%m-%d')
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    sales_DB = data_base['SalesDone']
+    total = 0
+    cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    for document in cursor:
+        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
+            total += int(document.get("quantity"))
+    return total / 104
+
+def sd_daily(SKU):
+    now = datetime.now()
+    end = datetime(now.year, now.month, now.day)
+    start = datetime(now.year - 1, now.month, now.day)
+    start_date = start.strftime('%Y-%m-%d')
+    end_date = end.strftime('%Y-%m-%d')
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    sales_DB = data_base['SalesDone']
+    data = []
+    cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    for document in cursor:
+        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
+            data += [int(document.get("quantity"))]
+    return statistics.stdev(data)
+
+def sd_weekly(SKU):
+    now = datetime.now()
+    end = datetime(now.year, now.month, now.day)
+    start = datetime(now.year -1, now.month, now.day)
+    start_date = start.strftime('%Y-%m-%d')
+    end_date = end.strftime('%Y-%m-%d')
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    sales_DB = data_base['SalesDone']
+    data = []
+    cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    for document in cursor:
+        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
+            data += [int(document.get("quantity"))]
+    return statistics.stdev(data)
+
+
+def total_demand(SKU):
+    now = datetime.now()
+    end = datetime(now.year, now.month, now.day)
+    start = datetime(now.year -1, now.month, now.day)
+    start_date = start.strftime('%Y-%m-%d')
+    end_date = end.strftime('%Y-%m-%d')
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    sales_DB = data_base['SalesDone']
+    total = 0
+    cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    for document in cursor:
+        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
+            total += int(document.get("quantity"))
+    return total
+
+def sku_on_order(SKU):
+    URI = "mongodb+srv://" + "Admin" + ":" + "Admin" + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+    client = MongoClient(URI, server_api=ServerApi('1'))
+    data_base = client['CompanyDetails']
+    orders_DB = data_base['OrdersPlaced']
+    total = 0
+    cursor = orders_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, 'isReceived': 1})
+    for document in cursor:
+        if document.get("isReceived") == False:
+            total += int(document.get("quantity"))
+    return total
