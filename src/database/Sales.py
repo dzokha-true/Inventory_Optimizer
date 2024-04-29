@@ -34,7 +34,40 @@ class Sales(Product):
             temp = int(item.get("quantity")) - 1
             self.product_DB.update_one({'SKU': SKU}, {'$set': {"quantity": str(temp)}})
             print("Success")
+    
+    def total_revenue_calculator(self):
+        admin_user = self.login_DB.find_one({'status': 'Admin'})
+        date_str = admin_user.get('fiscal_year', '01-01')  # Assume 'MM-DD' format if not specified
+        now = datetime.now()
+        current_year = now.year
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
 
+        if date > now:
+            start = datetime(current_year - 1, date.month, date.day)
+            end = datetime(current_year, date.month, date.day)
+        else:
+            start = datetime(current_year, date.month, date.day)
+            end = datetime(current_year + 1, date.month, date.day)
+
+        fiscal_year_start_str = start.strftime('%Y-%m-%d')
+        fiscal_year_end_str = end.strftime('%Y-%m-%d')
+
+        # Fetch sales within the fiscal year
+        cursor = self.sales_DB.find({'date': {'$gte': fiscal_year_start_str, '$lte': fiscal_year_end_str}},
+                                    {'_id': 0, 'date': 1, 'quantity': 1, 'price': 1})
+
+        revenue = 0  # Initialize revenue
+        for document in cursor:
+            num = float(document.get('quantity', 0))
+            cost = float(document.get('price', 0))
+            revenue += num * cost
+
+        if revenue > 0:
+            return revenue
+        else:
+            return 0
+    
+    """
     def total_revenue_calculator(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
         date_str = admin_user.get('fiscal_year')
@@ -65,6 +98,7 @@ class Sales(Product):
                 return True
         else:
             return False
+    """
         
     def SKU_class(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
