@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>${item.SKU}</td>
                     <td>${item.product_name}</td>
                     <td>${item.quantity || 'N/A'}</td>
-                    <td>${item.price}</td>
                     `;
                 tbody.appendChild(tr);
             });
