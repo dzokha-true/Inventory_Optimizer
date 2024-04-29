@@ -1,11 +1,11 @@
 const { spawn } = require('child_process');
 const {ipcRenderer} = require("electron");
 
-document.getElementById('addbutton').addEventListener('click', (event) => {
-    event.preventDefault();
-    const message = "generate_report"; // to be changed later
-    ipcRenderer.send('get_report', {message});
-  });
+// document.getElementById('addbutton').addEventListener('click', (event) => {
+//     event.preventDefault();
+//     const message = "generate_report"; // to be changed later
+//     ipcRenderer.send('get_report', {message});
+//   });
 
 ipcRenderer.on('performance-success', (event, data) => {
     addHTMLPerformance();
@@ -47,7 +47,7 @@ function addHTMLKPI(data) {
     exp_int.innerHTML += our_data.expected_inventory;
     act_int.innerHTML += our_data.actual_inventory;
     shrink.innerHTML += our_data.shrinkage;
-    shrink_per.innerHTML = our_data.shrinkage_percent;
+    shrink_per.innerHTML += our_data.shrinkage_percent;
 }
 
 function addHTMLPerformance(){

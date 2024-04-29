@@ -4,7 +4,8 @@ from Mathematics import Mathematics
 import json
 import HelperFunctions
 from bson.json_util import dumps
-
+import random
+import numpy as np
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
 numbers = (1,2,3,4,5,6,7,8,9,0)
@@ -16,18 +17,33 @@ if __name__ == "__main__":
         if sys.argv[-1] == "get_report":
             _, operation = sys.argv
             cogs = db.COGS()
+            gross = db.gross_margin()
+            average_inventory = db.average_inventory()
+            gross_profit = db.gross_profit()
+            ITR = db.inventory_turnover_ratio()
             expected_inv = db.expected_inventory()
             actual_inv = db.actual_inventory()
             shrinkage = db.shrinkage()
-            shrinkage_perc = db.shrinkage_percent()
-            gross = db.gross_margin()
-            gross_profit = db.gross_profit()
-            average_inventory = db.average_inventory()
-            ITR = db.inventory_turnover_ratio()
             revenue = db.total_revenue_calculator()
-            data = {'revenue': revenue, "gross": gross,"cogs": cogs, "ITR": ITR, "gross_profit": gross_profit, "average_inventory": average_inventory, "expected_inventory": expected_inv, "actual_inventory": actual_inv, "shrinkage": shrinkage, "shrinkage_percent": shrinkage_perc}
+            shrinkage_perc = db.shrinkage_percent()
+
+            # Assemble data into a dictionary
+            data = {
+                'revenue': revenue, 
+                "gross": gross,
+                "cogs": cogs, 
+                "ITR": ITR, 
+                "gross_profit": gross_profit, 
+                "average_inventory": average_inventory, 
+                "expected_inventory": expected_inv, 
+                "actual_inventory": actual_inv, 
+                "shrinkage": shrinkage, 
+                "shrinkage_percent": shrinkage_perc
+            }
+            
             db.pareto_chart()
-            print(json.dump(data))
+            # Print JSON string
+            print(json.dumps(data))
 
         elif sys.argv[-1] == "generate_dashboard":
             _, operation = sys.argv
@@ -81,6 +97,14 @@ if __name__ == "__main__":
             for document in cursor:
                 SKU = document.get("SKU")
                 # ADD THE DEMAND PREDICTION CALL
+    
+        elif sys.argv[-1] == "noti":
+            _, operation = sys.argv  
+            EOQ = np.random.choice([47,96,135,79, 88])
+            cursor = db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", -1)
+            SKU = cursor[random. randint(1, 100)].get("SKU")
+            notification = f"Stock level of SKU {SKU} is below reorder point! Replenishment needed! Economic order quantity is {EOQ}."
+            print(notification)
 
     elif len(sys.argv) == 3:
         if sys.argv[-1] == "received":
