@@ -91,7 +91,6 @@ ipcMain.on('perform-login', (event, { username, password}) => {
       		const loginResponse = data.toString().trim(); 
 		if (loginResponse === 'Success') { 
 			mainWin.loadFile('src/source/views/dashboard.html');
-			alert("Welcome "+ username + "!");
 		} else {
         		event.reply('login-failure', { attemptsLeft: 5 - loginAttempts });
       		}
