@@ -252,42 +252,6 @@
       </div>
     </div>
     
-    
-    <div class="container">
-      <div class="right-container" id = "modal">
-          <span class="arrow"></span>
-          <header>
-              <h1>Product Details</h1>
-              <div class="set">
-                  <div class="SKU">
-                      <label id="SKU">SKU</label>
-                      <input id="SKU" type="text" placeholder="SKU">
-                  </div>
-              </div>
-              <div class="set">
-                  <div class="Name">
-                      <label id="Name">Name</label>
-                      <input id="Name" type="text" placeholder="Name">
-                  </div>
-              </div>
-              <div class="set">
-                  <div class="Amount">
-                      <label id="Amount">Amount</label>
-                      <input id="Amount" type="text" placeholder="Amount">
-                  </div>
-              </div>
-              
-          </header>
-          <footer>
-              <div class="set">
-                  <button id="back">Back</button>
-                  <button id="next">Confirm</button>
-              </div>
-          </footer>
-      </div>
-    </div> 
-
-    
 
 </body>
 
@@ -352,25 +316,6 @@
             if (!clickInsideNotiButton && !clickInsideNotiPopup) {
                 notiPopup.style.display = "none"; 
             }
-        });
-
-    });
-
-</script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const addProduct = document.getElementById("addbutton");
-        const modal = document.getElementById("modal");
-        const closeButton = document.querySelector(".right-container footer #back");
-    
-        addProduct.addEventListener("click", function(event) {
-            event.preventDefault();
-            modal.style.display = "grid"; 
-        });
-    
-        closeButton.addEventListener("click", function() {
-            modal.style.display = "none"; 
         });
 
     });
