@@ -56,7 +56,7 @@ function addHTMLPerformance(){
     var image1 = document.getElementById('trend');
 
     // Change the src attribute of the images to reload them
-    image1.src = "../public/images/fig2.png";
+    image1.src = "../public/images/pareto_chart.png";
 }
 
 // fix and change format to order table
