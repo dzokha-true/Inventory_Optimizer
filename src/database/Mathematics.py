@@ -199,7 +199,7 @@ class Mathematics(Received_Order):
                 for entry in cursor:
                     if entry.get("SKU", 0) == document.get("SKU", 0):
                         cogs += entry.get("price", 0)
-        return COGS
+        return cogs
                 
 
 
