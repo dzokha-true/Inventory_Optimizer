@@ -24,4 +24,3 @@ class Place_Order(Sales):
             "price": price,
             "isReceived": False
         })
-        self.SKU_class()
