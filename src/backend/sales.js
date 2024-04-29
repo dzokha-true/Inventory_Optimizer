@@ -19,8 +19,8 @@ ipcRenderer.on('sale_table_success', (event, data) => {
 				<td>${item.date}</td>
 				<td>${item.SKU}</td>
 				<td>${item.product_name}</td>
-				<td>${item.cost}</td>
-				<td>${item.num || 'N/A'}</td>
+                <td>${item.quantity || 'N/A'}</td>
+				<td>${item.price}</td>
 				`;
 			tbody.appendChild(tr);
 		});
@@ -30,28 +30,13 @@ ipcRenderer.on('sale_table_success', (event, data) => {
 });
 
 
-document.getElementById('next').addEventListener('click', (event) => {
-    event.preventDefault();
-    const date_input = document.getElementById('date_sale').value;
-    const price_input = document.getElementById('price').value;
-    const SKU_input = document.getElementById('SKU').value;
-    const name_input = document.getElementById('Name').value;
-    const amount_input = document.getElementById('Amount').value;
-    const message = "add sale";
-    ipcRenderer.send('add sale', {date_input, price_input, SKU_input, name_input, amount_input, message});
-});
-
-
 document.addEventListener('DOMContentLoaded', function() {
     const tableBody = document.getElementById('main_container');
-    console.log("DOMContentLoaded - the script is running");
 
     tableBody.addEventListener('scroll', () => {
         const nearBottom = tableBody.scrollHeight - tableBody.scrollTop <= (tableBody.clientHeight + 20);
-        console.log(`Scrolled to: ${tableBody.scrollTop}, Near bottom: ${nearBottom}`);
 
         if (nearBottom && !loading) {
-            console.log('Approaching bottom: Loading more data...');
             loading = true;
             ipcRenderer.send('create-sale-table', { abc });
         }
@@ -63,10 +48,5 @@ document.addEventListener('DOMContentLoaded', function() {
         ipcRenderer.send('create-sale-table', { abc });
     }
 });
-
-if (!loading) {
-    loading = true;
-    ipcRenderer.send('create-sale-table', { abc });
-}
 
 
