@@ -79,6 +79,30 @@ app.on("open-login-page", () => {
     	}));
 });
 
+ipcMain.on('processitem', (event, {itemData}) => {
+    const args = [itemData.date, itemData.SKU, itemData.product_name, itemData.cost, itemData.num]
+    const operation = "received";
+    console.log("called python");
+    console.log(itemData);
+    const pythonProcess = spawn('python', ['src/database/Main.py', args, operation]);
+    console.log("finished python");
+    pythonProcess.stdout.on('data', (data) => {
+        const loginResponse = data.toString().trim();
+        console.log("got data");
+        console.log(loginResponse);
+        if (loginResponse == "Success"){
+            BrowserWindow.getAllWindows()[0].webContents.reload()
+        }
+      });
+    pythonProcess.on('error', (error) => {
+    console.error(`An error occurred: ${error.message}`);
+  });
+
+  pythonProcess.stderr.on('data', (data) => {
+    console.error(`stderr: ${data}`);
+  });
+});
+
 ipcMain.on('perform-login', (event, { username, password}) => {
 	loginAttempts++;
     	operation = 'login';
@@ -153,7 +177,7 @@ ipcMain.on('inventory-page', () => {
 
 ipcMain.on('create-sale-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	operation = "create-sale-table";
+	operation = "get sales";
 	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
@@ -171,7 +195,7 @@ ipcMain.on('create-sale-table', (event, {abc}) => {
 
 ipcMain.on('create-order-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	operation = "create-order-table";
+	operation = "get orders";
 	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
@@ -189,7 +213,7 @@ ipcMain.on('create-order-table', (event, {abc}) => {
 
 ipcMain.on('create-product-table', (event, {abc}) => {
 	const pageNumber = abc; // Make sure this is the correct page number
-	operation = "create-product-table";
+	operation = "get product";
 	const python = spawn('python', ["src/database/Main.py", pageNumber, operation]);
 	let dataString = '';
 	python.stdout.on('data', (data) => {
