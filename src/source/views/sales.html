@@ -559,7 +559,7 @@ document.getElementById("inventory").addEventListener("click", () => {
 
 <script> 
 var username = localStorage.getItem('username');
-var usernamehere = document.getElementByID("usernamehere");
+var usernamehere = document.getElementById("usernamehere");
 usernamehere.innerHTML = ""
 usernamehere.innerHTML += localStorage.getItem('username');
 // Use the username as needed
