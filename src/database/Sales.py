@@ -31,7 +31,7 @@ class Sales(Product):
         if int(float(item.get("quantity"))) == 0:
             print("Unsuccessful")
         else:
-            temp = int(float(int(item.get("quantity")))) - 1
+            temp = int(float(int(item.get("quantity")))) - int(float(quantity))
             self.product_DB.update_one({'SKU': SKU}, {'$set': {"quantity": str(temp)}})
             print("Success")
     
