@@ -301,21 +301,29 @@ ipcMain.on('get_report', (event, { message }) => {
 });
 
 ///////// add product from sales page (+ check reorder)
+let saleCounter = 0;
 
 ipcMain.on('add sale', (event, {date_input, SKU_input, name_input, amount_input, price_input, message}) => {
     const python = spawn('python', ["src/database/Main.py", date_input, SKU_input, name_input, amount_input, price_input, message]);
     const message15 = "noti"
     python.stdout.on('data', (data) => {
         const performanceResponse = data.toString().trim();
-    if (performanceResponse == "Success") {
+    if (performanceResponse === "Success") {
+        saleCounter++;
+        if (saleCounter % 3 === 0) {
+            const python2 = spawn('python', ["src/database/Main.py", message15]);
+            python2.stdout.on('data', (data) => {
+            const notiResponse = data.toString().trim();
+            event.reply('get noti',{notiResponse})
+            });
+        }
         BrowserWindow.getAllWindows()[0].webContents.reload()
-        const python2 = spawn('python', ["src/database/Main.py", message15]);
-        python2.stdout.on('data', (data) => {
-        const notiResponse = data.toString().trim();
-        event.reply('get noti',{notiResponse})
-        });
+
     }
     });
+
+
+
 
     python.stderr.on('data', (data) => {
         console.error(`stderr: ${data}`);

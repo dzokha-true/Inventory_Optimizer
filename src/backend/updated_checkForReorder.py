@@ -2,9 +2,17 @@
 
 import numpy as np
 import pandas as pd
-import datetime
+from datetime import date, timedelta
+
+import statsmodels
+from matplotlib import pyplot as plt
 from scipy.stats import norm
-from math import sqrt, ceil
+import statsmodels.api as sm
+from math import sqrt, ceil, pi
+
+from Inventory_Optimizer.src.backend.predictDemand import getData
+from src.database.HelperFunctions import sku_on_order, mean_daily, mean_weekly, total_demand, sd_weekly
+
 
 def getEOQ(D, S, H):
     EOQ = ceil(sqrt(2*D*S/H))
@@ -122,7 +130,7 @@ def predictDemand(SKU):
     plt.title(f"Predicted Demand for SKU {SKU}")
     
     if generate_confidence_interval:
-        Qinv = t.ppf(0.005, prediction_date_range-1)
+        Qinv = norm.ppf(0.005, prediction_date_range-1)
         epsilon = -sqrt(np.var(data['Quantity']))*Qinv*(1/sqrt(prediction_date_range))
         plt.fill_between(predicted_demand['Date'],(wls_predictions - epsilon), (wls_predictions + epsilon), color = 'b', alpha = 0.2)
         plt.legend(["Predicted Demand", "99% Confidence Interval"])
@@ -134,7 +142,9 @@ def predictDemand(SKU):
     
     return predicted_demand
 
-def checkForReorder(SKU):
+import statsmodels.api as smock
+
+def checkForReorder(SKU, sd_weekly_demand_predicted=None):
     
     # 1. Call predictor module to generate predicted demand
     
@@ -156,7 +166,7 @@ def checkForReorder(SKU):
     
     # call helper functions to find quantity on hand and quantity on order
     quantity_on_order = sku_on_order(SKU)
-    quantity_on_hand = stock(SKU)
+    quantity_on_hand = stimport statsmodels.api as smock(SKU)
     quantity_available = quantity_on_hand + quantity_on_order
     
     mean_daily_demand_past = mean_daily(SKU)
@@ -195,6 +205,6 @@ def checkForReorder(SKU):
     if reorder_needed:
         EOQ = getEOQ(mean_annual_demand, fixed_order_cost, fixed_holding_cost)
         notification = notification = f"Stock level of SKU {SKU} is below reorder point! Replenishment needed! Economic order quantity is {EOQ}."
-        print notification
+        print(notification)
     else:
-        print ""
+        print("")
