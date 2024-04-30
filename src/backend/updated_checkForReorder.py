@@ -11,7 +11,7 @@ import statsmodels.api as sm
 from math import sqrt, ceil, pi
 
 from Inventory_Optimizer.src.backend.predictDemand import getData
-from src.database.HelperFunctions import sku_on_order, mean_daily, mean_weekly, total_demand, sd_weekly
+from src.database.HelperFunctions import sku_on_order, mean_daily, mean_weekly, total_demand, sd_weekly, stock
 
 
 def getEOQ(D, S, H):
@@ -166,7 +166,8 @@ def checkForReorder(SKU, sd_weekly_demand_predicted=None):
     
     # call helper functions to find quantity on hand and quantity on order
     quantity_on_order = sku_on_order(SKU)
-    quantity_on_hand = stimport statsmodels.api as smock(SKU)
+    import statsmodels.api as sm
+    quantity_on_hand = stock(SKU)
     quantity_available = quantity_on_hand + quantity_on_order
     
     mean_daily_demand_past = mean_daily(SKU)
@@ -203,6 +204,7 @@ def checkForReorder(SKU, sd_weekly_demand_predicted=None):
     reorder_needed = reorderNeeded(quantity_available, ROP)
     
     if reorder_needed:
+        mean_annual_demand = annual_demand / num_years
         EOQ = getEOQ(mean_annual_demand, fixed_order_cost, fixed_holding_cost)
         notification = notification = f"Stock level of SKU {SKU} is below reorder point! Replenishment needed! Economic order quantity is {EOQ}."
         print(notification)
