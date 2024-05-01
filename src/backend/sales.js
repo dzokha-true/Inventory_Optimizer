@@ -12,12 +12,15 @@ function addHTMLNoti(data) {
     var notibar = document.getElementById('notiPopup');
 
     // return produt name from back end
-    const noti = data.response;
-    
-    notibar.innerHTML += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
+    const noti = data;
+    var ourstring = localStorage.getItem('notification')
+    var notinum = localStorage.getItem('noti number');
+
+    ourstring += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
     + noti+
-    + "<a class=\"link\" href=\"order.html\">Go to Orders Page!</a><span class=\"unread-symbol\">•</span> </p>"
-    + "<p class=\"time\">1m ago</p></div> </div>";
+    + "<a class=\"link\" href=\"order.html\">Go to Orders Page!</a><span class=\"unread-symbol\">•</span> </p></div> </div>";
+    localStorage.setItem('notification',ourstring);
+    localStorage.setItem('noti number',notinum+1);
 }
 
 ipcRenderer.on('sale_table_success', (event, data) => {
