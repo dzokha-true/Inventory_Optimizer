@@ -311,7 +311,7 @@
       <label for="enddate">fifo
       </label>
       <input type="checkbox" id="checkbox_fifo" name="checkbox">
-      <button class="confirm">Confirm</button>
+      <button type="button">Confirm</button>
       </div>
 </div> 
 
@@ -323,7 +323,7 @@
   <label for="enddate">End Date
   </label>
   <input type="date" name="enddate" id="enddate">
-  <button class="confirm">Confirm</button>
+  <button type="button">Confirm</button>
   </div>
 </div>
 
@@ -566,39 +566,6 @@ var count2 = document.getElementById("noticount2");
 count1.innerHTML = notinum;
 count2.innerHTML = notinum;
 notibar.innerHTML += noti;
-</script>
-
-<script>
-document.getElementById('settingPopup').addEventListener('click', (event) => {
-    event.preventDefault();
-    const start = document.getElementById('startdate').value;
-    const end = document.getElementById('enddate').value;
-    const message = "change fiscal year";
-    var username = localStorage.getItem('username');
-    ipcRenderer.send('send date', {end,username,message});
-    // or set date in local storage and send them along with other info for function we need
-    localStorage.setItem('start', start);
-    localStorage.setItem('end', end); 
-  });
-</script>
-
-<script>
-document.getElementById('fifolifoPopup').addEventListener('click', (event) => {
-    event.preventDefault();
-    const fifo = document.getElementById('fifo');
-    const lifo = document.getElementById('lifo');
-    var username = localStorage.getItem('username');
-    const message = "change lifo fifo";
-    if(lifo.checked == true && fifo.checked == true){
-        alert("choose one of two options");
-    }else if(lifo.checked == false && fifo.checked == false){
-        alert("choose one");
-    }else{
-        const status = lifo.checked ? "lifo": "fifo" ;
-        ipcRenderer.send('change lifo fifo', {status,username,message});
-        localStorage.setItem('lifo-fifo', status);
-    }
-  });
 </script>
 
 </html>
