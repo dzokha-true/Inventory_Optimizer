@@ -122,7 +122,7 @@ def predictDemand(SKU):
     
     # Step 5: plot predictions
     
-    generate_confidence_interval = True    # set to True to generate a confidence interval alongside the plot
+    generate_confidence_interval = False    # set to False to not generate a confidence interval alongside the plot
     plt.plot(predicted_demand['Date'], predicted_demand['Quantity'], color = 'b')
     plt.xticks(rotation=12, ha="right")
     plt.xlabel("Date")
@@ -172,17 +172,17 @@ def checkForReorder(SKU, sd_weekly_demand_predicted=None):
     
     mean_daily_demand_past = mean_daily(SKU)
     mean_daily_demand_predicted = np.sum(predicted_demand['Quantity'])/num_days
-    mean_daily_demand = np.mean(mean_daily_demand_past, mean_daily_demand_predicted)
+    mean_daily_demand = np.mean([mean_daily_demand_past, mean_daily_demand_predicted])
     
     mean_weekly_demand_past = mean_weekly(SKU)
     mean_weekly_demand_predicted = np.sum(predicted_demand['Quantity'])/num_weeks
-    mean_weekly_demand = np.mean(mean_weekly_demand_past, mean_weekly_demand_predicted)
+    mean_weekly_demand = np.mean([mean_weekly_demand_past, mean_weekly_demand_predicted])
     
     # call total_demand helper function
     annual_demand = total_demand(SKU)
     
     sd_weekly_demand_past = sd_weekly(SKU)
-    sd_demand_predicted = np.std(predicted_demand)
+    sd_demand_predicted = np.std(predicted_demand['Quantity'])
     sd_weekly_demand = np.mean(sd_weekly_demand_past, sd_weekly_demand_predicted)
     
     mean_lead_time = 14 #days
@@ -196,17 +196,15 @@ def checkForReorder(SKU, sd_weekly_demand_predicted=None):
     safety_stock = calcSS(service_level, T1, sd_lead_time, sd_weekly_demand, mean_weekly_demand, performance_cycle)
     
     # 5. Compute reorder point
-    
+
     ROP = calcROP(mean_daily_demand, mean_lead_time, safety_stock)
-    
+    print("ROP IS: " + str(ROP))
     # 6. Check if reorder is needed
-    
     reorder_needed = reorderNeeded(quantity_available, ROP)
-    
     if reorder_needed:
         mean_annual_demand = annual_demand / num_years
         EOQ = getEOQ(mean_annual_demand, fixed_order_cost, fixed_holding_cost)
         notification = notification = f"Stock level of SKU {SKU} is below reorder point! Replenishment needed! Economic order quantity is {EOQ}."
         print(notification)
     else:
-        print("")
+        print("Failed")
