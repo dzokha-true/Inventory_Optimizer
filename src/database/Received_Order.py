@@ -50,7 +50,6 @@ class Received_Order(Place_Order):
                 "price": split_data[4],
             })
         self.place_order_DB.update_one({'date': split_data[0], 'SKU': split_data[1], "product_name": split_data[2], "quantity": split_data[3], "price": split_data[4]}, {'$set': {"isReceived": True}})
-        self.SKU_class()
         print("Success")
 
     def expected_inventory(self):
