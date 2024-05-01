@@ -365,19 +365,17 @@ ipcMain.on('send date', (event, { end,username,message }) => {
   const pythonProcess = spawn('python', ['src/database/Main.py', date, username,operation]);
 
   pythonProcess.stdout.on('data', (data) => {
-   if (loginResponse == "Success") {
+   if (data.toString().trim() == "Success") {
        BrowserWindow.getAllWindows()[0].webContents.reload()
    }
   });  
   pythonProcess.on('error', (error) => {
     console.error(`An error occurred: ${error.message}`);
-    event.reply('performance-failure', 'An error occurred during loading report.');
   });
 
-  pythonProcess.stderr.on('data', (data) => {
-    console.error(`stderr: ${data}`);
-    event.reply('performance-failure', 'An error occurred during loading report.');
-  });
+  pythonProcess.on('close', (code) => {
+    console.log(`child process exited with code ${code}`);
+});
 });
 
 // for changing fifo lifo
