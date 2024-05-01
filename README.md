@@ -28,10 +28,10 @@
 ### Dependencies Installation [Required if not installed] 🗝️
 - Run this command line in terminal to install every package
    ```bash
-   pip install pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib, bson.json_util abc_classification
+   pip install pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib bson.json_util abc_classification
    ```
    ```bash
-   pip install --upgrade pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib, bson.json_util abc_classification
+   pip install --upgrade pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib bson.json_util abc_classification
    ```
 - (alternative option) virtual environment if you wouldn't like to install all packages in your computer
    1. Change directory to your repo
@@ -49,10 +49,10 @@
       ```
    5. Install all dependencies
       ```bash
-      python3 -m pip install pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib, bson.json_util abc_classification
+      python3 -m pip install pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib bson.json_util abc_classification
       ```
       ```bash
-      python3 -m pip install --upgrade pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib, bson.json_util abc_classification
+      python3 -m pip install --upgrade pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib bson.json_util abc_classification
       ```
    6. Deactivate once you finish running/using the application
       ```bash
