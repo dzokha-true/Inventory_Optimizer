@@ -409,6 +409,27 @@
 
 </script>
 
+    <script>
+  document.addEventListener("DOMContentLoaded", function() {
+      const settingButton = document.querySelector("#setting");
+      const settingPopup = document.getElementById("settingPopup");
+  
+      settingButton.addEventListener("click", function(event) {
+        settingPopup.style.display = "flex"; 
+      });
+  
+      document.addEventListener("click", function(event) {
+          const clickInsidesettingButton = settingButton.contains(event.target);
+          const clickInsidesettingPopup = settingPopup.contains(event.target);
+
+          if (!clickInsidesettingButton && !clickInsidesettingPopup) {
+            settingPopup.style.display = "none"; 
+          }
+      });
+
+  });
+</script>
+
 
 <script>
   document.getElementById("LogoMenu").addEventListener("click", function() {
