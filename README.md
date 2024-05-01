@@ -22,7 +22,7 @@
 - HTML, CSS, JavaScript
 - npm, pip
 - MongoDB
-- Frontend framwork: Nodejs, Electronjs, Jquery, Bootstrap 
+- Frontend framwork: Nodejs, Electronjs, Bootstrap 
 - Python Libraries: pymongo, bcrypt, scipy, numpy, pandas, statsmodels.api, matplotlib, bson.json_util, abc_classification 
 ---
 ### Dependencies Installation [Required if not installed] 🗝️
@@ -35,18 +35,18 @@
    ```
 - (alternative option) virtual environment if you wouldn't like to install all packages in your computer
    1. Change directory to your repo
-     ```bash
-     cd Desktop/Inventory_Optimizer
-     ```
+      ```bash
+      cd Desktop/Inventory_Optimizer
+      ```
    2. Setup Python virtual environment
       ```bash
       python3 -m venv .venv
       ```
    3. Change all the python path in each child_process spawn to your .venv path
    4. Before beginning any process, activate your virtual environment inside your repo
-     ```bash
-     source .venv/bin/activate
-     ```
+      ```bash
+      source .venv/bin/activate
+      ```
    5. Install all dependencies
       ```bash
       python3 -m pip install pymongo bcrypt scipy numpy pandas statsmodels.api matplotlib, bson.json_util abc_classification
@@ -92,12 +92,58 @@
    ```
 ---
 ### Software Architecture 🖥️
-<img src=""></img>
+<p align="center"><img src="src/source/public/images/Database.png"></img> Database Schema</p>
+
 ---
 ### Contribution 💼
 - This project is an open source. If you would like to contribute to the project and develop this desktop application for your organization, please reach out to us!
 ---
 ### Reference (Link) 📄
-- Badge: https://github.com/alexandresanlim/Badges4-README.md-Profile
----
-### License 🖋️
+<details>
+<summary>Badge</summary>
+   
+[example badge](https://github.com/alexandresanlim/Badges4-README.md-Profile)
+</details>
+<details>
+<summary>MongoDB</summary>
+   
+[MongoDB](https://www.mongodb.com/docs/)
+</details>
+<details>
+<summary><text>Frontend</text></summary>
+   
+[Electronjs](https://www.electronjs.org/docs/latest)
+   
+[Nodejs](https://nodejs.org/docs/latest/api/child_process.html)
+
+[Bootstrap](https://getbootstrap.com/docs/3.4/getting-started/)
+
+[Navigation Bar](https://codepen.io/areal_alien/pen/BaRpxdX)
+
+[Product Form](https://codepen.io/rickyeckhardt/pen/oNXeoZp)
+
+[Notification](https://www.frontendmentor.io/solutions/notification-page-using-html-css-and-javascript-K9FU7V5Hox)
+
+[Graphics Logo](https://spline.design/)
+</details>
+<details>
+<summary>Backend</summary>
+
+[Numpy](https://numpy.org/doc/)
+
+[Pandas](https://pandas.pydata.org/docs/)
+
+[Scipy](https://docs.scipy.org/doc/scipy/)
+
+[Matplotlib](https://matplotlib.org/stable/index.html)
+
+[bcrypt](https://pypi.org/project/bcrypt/)
+
+[pymongo](https://pymongo.readthedocs.io/en/stable/)
+
+[abc_classification](https://pypi.org/project/abc-classification/)
+
+[statsmodels](https://pypi.org/project/statsmodels/)
+
+[bson.json_util](https://pymongo.readthedocs.io/en/stable/api/bson/json_util.html)
+</details>
