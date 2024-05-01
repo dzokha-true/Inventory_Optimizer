@@ -314,7 +314,7 @@ ipcMain.on('add sale', (event, {date_input, SKU_input, name_input, amount_input,
             const python2 = spawn('python', ["src/database/Main.py", message15]);
             python2.stdout.on('data', (data) => {
             const notiResponse = data.toString().trim();
-            event.reply('get noti',{notiResponse})
+            event.reply('get noti',{dataset:notiResponse})
             });
         BrowserWindow.getAllWindows()[0].webContents.reload()
 
