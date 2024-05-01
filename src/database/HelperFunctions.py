@@ -8,12 +8,12 @@ from pymongo.server_api import ServerApi
 # Checks if a format of the fiscal year entered by the user is correct
 # If it is valid, it returns the date in datetime obkect, else returns false
 def check_fiscal_year(date):
-    date_format = "%m-%d"
+    date_format = "%Y-%m-%d"
     try:
         temp = datetime.strptime(date, date_format)
         return temp
     except ValueError:
-        print("Invalid format. Please ensure the date is in MM-DD format!")
+        print("Invalid format. Please ensure the date is in YYYY-MM-DD format!")
         return False
 
 # Checks what is the status of the user and returns the corresponding status
