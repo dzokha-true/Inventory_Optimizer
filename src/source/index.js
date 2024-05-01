@@ -360,8 +360,9 @@ ipcMain.on('place order', (event, {date_ordered_input, SKU_input, name_input, am
 // for changing fiscal year
 ipcMain.on('send date', (event, { end,username,message }) => {
   const operation = message;
+  const date = end;
   // change path to script
-  const pythonProcess = spawn('python', ['src/database/Main.py', end, username,operation]);
+  const pythonProcess = spawn('python', ['src/database/Main.py', date, username,operation]);
 
   pythonProcess.stdout.on('data', (data) => {
    if (loginResponse == "Success") {
@@ -382,8 +383,9 @@ ipcMain.on('send date', (event, { end,username,message }) => {
 // for changing fifo lifo
 ipcMain.on('change lifo fifo', (event, { status,username,message }) => {
   const operation = message;
+  const lifo_fifo = status;
   // change path to script
-  const pythonProcess = spawn('python', ['src/database/Main.py', status, username,operation]);
+  const pythonProcess = spawn('python', ['src/database/Main.py', lifo_fifo, username,operation]);
 
   pythonProcess.stdout.on('data', (data) => {
       if (loginResponse == "Success"){
