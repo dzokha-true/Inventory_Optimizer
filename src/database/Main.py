@@ -13,7 +13,7 @@ try:
 except ModuleNotFoundError:
     sys.path.insert(0, r"C:\Users\Zhakh\PycharmProjects\MongoBongo\src\backend")
     from updated_checkForReorder import checkForReorder
-    sys.argv = ['Main.py', 'noti']
+    # sys.argv = ['Main.py', 'noti']
 
 
 
