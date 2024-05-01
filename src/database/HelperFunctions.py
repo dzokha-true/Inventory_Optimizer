@@ -2,10 +2,8 @@ from datetime import datetime
 from datetime import date
 import re
 import statistics
-
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
-
 
 # Checks if a format of the fiscal year entered by the user is correct
 # If it is valid, it returns the date in datetime obkect, else returns false
@@ -74,8 +72,8 @@ def mean_daily(SKU):
     total = 0
     cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
-        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d"):
-            total += int(float(document.get("quantity")))
+        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
+            total += int(document.get("quantity"))
     return total / 730
 
 def mean_weekly(SKU):
@@ -92,7 +90,7 @@ def mean_weekly(SKU):
     cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
         if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            total += int(float(document.get("quantity")))
+            total += int(document.get("quantity"))
     return total / 104
 
 def sd_daily(SKU):
@@ -126,7 +124,7 @@ def sd_weekly(SKU):
     cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
         if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            data += [int(float(document.get("quantity")))]
+            data += [int(document.get("quantity"))]
     return statistics.stdev(data)
 
 
@@ -144,7 +142,7 @@ def total_demand(SKU):
     cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
         if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            total += int(float(document.get("quantity")))
+            total += int(document.get("quantity"))
     return total
 
 def sku_on_order(SKU):
