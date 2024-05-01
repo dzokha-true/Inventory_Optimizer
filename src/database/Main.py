@@ -6,9 +6,9 @@ import HelperFunctions
 from bson.json_util import dumps
 import random
 import numpy as np
-letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
-capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
-numbers = (1,2,3,4,5,6,7,8,9,0)
+import updated_checkForReorder
+
+
 
 if __name__ == "__main__":
     db = Mathematics()
@@ -91,20 +91,12 @@ if __name__ == "__main__":
             # Print JSON string
             print(json.dumps(data))
 
-        elif sys.argv[-1] == "algorithm":
+        elif sys.argv[-1] == "noti":
             _, operation = sys.argv
             cursor = db.product_DB.find({}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
             for document in cursor:
                 SKU = document.get("SKU")
-                # ADD THE DEMAND PREDICTION CALL
-    
-        elif sys.argv[-1] == "noti":
-            _, operation = sys.argv  
-            EOQ = np.random.choice([47,96,135,79, 88])
-            cursor = db.sales_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1, }).sort("date", -1)
-            SKU = cursor[random. randint(1, 100)].get("SKU")
-            notification = f"Stock level of SKU {SKU} is below reorder point! Replenishment needed! Economic order quantity is {EOQ}."
-            print(notification)
+                updated_checkForReorder.predictDemand(SKU)
 
     elif len(sys.argv) == 3:
         if sys.argv[-1] == "received":
@@ -226,13 +218,4 @@ if __name__ == "__main__":
 
         
         
-        
-        
-        
-        
-        
-        
-        
-
-
-
+      
