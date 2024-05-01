@@ -48,6 +48,7 @@ function addHTMLNoti(data) {
 ipcRenderer.on('get noti', (event, data) => {
 
     const our_data = data.response;
+    console.log(our_data);
     addHTMLNoti(our_data);
 });
 

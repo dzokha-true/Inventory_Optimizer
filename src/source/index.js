@@ -85,6 +85,7 @@ ipcMain.on('processitem', (event, {itemData}) => {
     const pythonProcess = spawn('python', ['src/database/Main.py', args, operation]);
     pythonProcess.stdout.on('data', (data) => {
         const loginResponse = data.toString().trim();
+        console.log(loginResponse);
         if (loginResponse == "Success"){
             BrowserWindow.getAllWindows()[0].webContents.reload()
         }
@@ -107,7 +108,8 @@ ipcMain.on('perform-login', (event, { username, password}) => {
 	}
     	const pythonProcess = spawn('python', ['src/database/Main.py', username, password, operation]);
 	pythonProcess.stdout.on('data', (data) => {
-      		const loginResponse = data.toString().trim(); 
+      		const loginResponse = data.toString().trim();
+              console.log(loginResponse);
 		if (loginResponse === 'Success') { 
 			mainWin.loadFile('src/source/views/dashboard.html');
 		} else {
