@@ -7,7 +7,15 @@ from bson.json_util import dumps
 import random
 import numpy as np
 
-from src.backend.updated_checkForReorder import checkForReorder
+
+try:
+    from src.backend.updated_checkForReorder import checkForReorder
+except ModuleNotFoundError:
+    sys.path.insert(0, r"C:\Users\Zhakh\PycharmProjects\MongoBongo\src\backend")
+    from updated_checkForReorder import checkForReorder
+    sys.argv = ['Main.py', 'noti']
+
+
 
 letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')

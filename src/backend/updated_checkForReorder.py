@@ -10,9 +10,8 @@ from scipy.stats import norm
 import statsmodels.api as sm
 from math import sqrt, ceil, pi
 
-from Inventory_Optimizer.src.backend.predictDemand import getData
-from src.database.HelperFunctions import sku_on_order, mean_daily, mean_weekly, total_demand, sd_weekly, stock
-
+from predictDemand import getData
+from HelperFunctions import sku_on_order, mean_daily, mean_weekly, total_demand, sd_weekly, stock
 
 def getEOQ(D, S, H):
     EOQ = ceil(sqrt(2*D*S/H))
@@ -21,7 +20,7 @@ def getEOQ(D, S, H):
 def calcSS(service_level, T1, sigma_LT, sigma_D, D_avg, PC):
     alpha = 1 - service_level
     Z = abs(norm.ppf(alpha))
-    
+
     SS = (Z * sqrt(PC/T1) * sigma_D) + (Z * sigma_LT * D_avg)
     return SS
 
@@ -34,17 +33,17 @@ def reorderNeeded(Stock, ROP):
         return True
     else:
         return False
-    
+
 def predictDemand(SKU):
-    
+
     # Step 0: extract historical sales data from database
     """
     NEED DATA HELPER FUNCTION
     """
     data = getData(SKU)
-    
+
     # Step 1: generate regressors
-    
+
     regressors = pd.DataFrame()
     regressors['sin_day'] = np.sin(2 * pi * np.arange(len(data)))
     regressors['cos_day'] = np.cos(2 * pi * np.arange(len(data)))
@@ -70,23 +69,21 @@ def predictDemand(SKU):
     regressors['month'] = data['Date'].dt.month
     regressors['year'] = data['Date'].dt.year
     regressors = sm.add_constant(regressors)
-    
+
     # Step 2: fit predictive model
-    
+
     wls_model = sm.WLS(data['Quantity'], regressors)
     wls_fit = wls_model.fit()
-    
+
     # Step 3: initialize array of dates covering the next year and fit the model to predict demand for them
-    
+
     prediction_date_range = 365 # default is to predict one year ahead
-    
+
     today = date.today()
 
-    prediction_dates = np.empty(prediction_date_range, dtype = 'object')
-    
-    for i in range(0,prediction_date_range):
-        prediction_dates[i] = today + timedelta(days = i)
-    
+    prediction_dates = pd.Series([today + timedelta(days=i) for i in range(prediction_date_range)])
+
+
     prediction_data = pd.DataFrame()
     prediction_data['sin_day'] = np.sin(2 * pi * np.arange(prediction_date_range))
     prediction_data['cos_day'] = np.cos(2 * pi * np.arange(prediction_date_range))
@@ -108,27 +105,34 @@ def predictDemand(SKU):
     prediction_data['cos_year'] = np.cos(2 * pi * np.arange(prediction_date_range) / 365)
     prediction_data['sin_biannual'] = np.sin(2 * pi * np.arange(prediction_date_range) / 730)
     prediction_data['cos_biannual'] = np.cos(2 * pi * np.arange(prediction_date_range) / 730)
-    prediction_data['Day'] = np.int32(prediction_dates.dt.day)
-    prediction_data['Month'] = np.int32(prediction_dates.dt.month)
-    prediction_data['Year'] = np.int32(prediction_dates.dt.year)
+
+    prediction_dates = pd.to_datetime(prediction_dates)
+    print(prediction_dates)
+    # Now you can extract day, month, and year
+    prediction_data['Day'] = prediction_dates.dt.day
+    prediction_data['Month'] = prediction_dates.dt.month
+    prediction_data['Year'] = prediction_dates.dt.year
+    prediction_data['Day'] = prediction_dates.dt.day
+    prediction_data['Month'] = prediction_dates.dt.month
+    prediction_data['Year'] = prediction_dates.dt.year
 
     wls_predictions = wls_fit.predict(prediction_data)
-    
+
     # Step 4: generate predicted demand dataframe
-    
+
     predicted_demand = pd.DataFrame()
     predicted_demand['Date'] = prediction_dates
     predicted_demand['Quantity'] = np.array(np.ceil(wls_predictions))
-    
+
     # Step 5: plot predictions
-    
+
     generate_confidence_interval = True    # set to True to generate a confidence interval alongside the plot
     plt.plot(predicted_demand['Date'], predicted_demand['Quantity'], color = 'b')
     plt.xticks(rotation=12, ha="right")
     plt.xlabel("Date")
     plt.ylabel("Expected Sales")
     plt.title(f"Predicted Demand for SKU {SKU}")
-    
+
     if generate_confidence_interval:
         Qinv = norm.ppf(0.005, prediction_date_range-1)
         epsilon = -sqrt(np.var(data['Quantity']))*Qinv*(1/sqrt(prediction_date_range))
@@ -137,72 +141,72 @@ def predictDemand(SKU):
 
     # Path - currently saves to local directory
     plt.savefig(f"{SKU}_demand_graph.png")
-    
+
     # Step 6: return data
-    
+
     return predicted_demand
 
 import statsmodels.api as smock
 
 def checkForReorder(SKU, sd_weekly_demand_predicted=None):
-    
+
     # 1. Call predictor module to generate predicted demand
-    
+
     predicted_demand = predictDemand(SKU)
     start_date = predicted_demand['Date'][0]
     end_date = predicted_demand['Date'][len(predicted_demand)-1]
-    
+
     num_days = (end_date - start_date).days
     num_years = num_days / 365.25
     num_weeks = num_days / 7
-    
+
     # 3. Extract necessary information from database and store necessary parameters in variables
     # As with 1 and 2, ultimate implementation depends on where data is stored
 
     service_level = 0.95
-    T1 = 7 
+    T1 = 7
     fixed_order_cost = 40
     fixed_holding_cost = 100
-    
+
     # call helper functions to find quantity on hand and quantity on order
     quantity_on_order = sku_on_order(SKU)
     import statsmodels.api as sm
-    quantity_on_hand = stock(SKU)
+    quantity_on_hand = int(stock(SKU))
     quantity_available = quantity_on_hand + quantity_on_order
-    
+
     mean_daily_demand_past = mean_daily(SKU)
     mean_daily_demand_predicted = np.sum(predicted_demand['Quantity'])/num_days
-    mean_daily_demand = np.mean(mean_daily_demand_past, mean_daily_demand_predicted)
-    
+    mean_daily_demand = np.mean([mean_daily_demand_past, mean_daily_demand_predicted])
+
     mean_weekly_demand_past = mean_weekly(SKU)
     mean_weekly_demand_predicted = np.sum(predicted_demand['Quantity'])/num_weeks
-    mean_weekly_demand = np.mean(mean_weekly_demand_past, mean_weekly_demand_predicted)
-    
+    mean_weekly_demand = np.mean([mean_weekly_demand_past, mean_weekly_demand_predicted])
+
     # call total_demand helper function
     annual_demand = total_demand(SKU)
-    
+
     sd_weekly_demand_past = sd_weekly(SKU)
     sd_demand_predicted = np.std(predicted_demand)
     sd_weekly_demand = np.mean(sd_weekly_demand_past, sd_weekly_demand_predicted)
-    
+
     mean_lead_time = 14 #days
     sd_lead_time = 3 # days
-    
+
     performance_cycle_additional_days = 0   # customizable parameter that accounts for additional frictions beyond lead time
     performance_cycle = mean_lead_time + performance_cycle_additional_days
-    
+
     # 4. Compute safety stock
-    
+
     safety_stock = calcSS(service_level, T1, sd_lead_time, sd_weekly_demand, mean_weekly_demand, performance_cycle)
-    
+
     # 5. Compute reorder point
-    
+
     ROP = calcROP(mean_daily_demand, mean_lead_time, safety_stock)
-    
+
     # 6. Check if reorder is needed
-    
+
     reorder_needed = reorderNeeded(quantity_available, ROP)
-    
+
     if reorder_needed:
         mean_annual_demand = annual_demand / num_years
         EOQ = getEOQ(mean_annual_demand, fixed_order_cost, fixed_holding_cost)

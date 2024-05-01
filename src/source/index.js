@@ -311,14 +311,11 @@ ipcMain.on('add sale', (event, {date_input, SKU_input, name_input, amount_input,
     python.stdout.on('data', (data) => {
         const performanceResponse = data.toString().trim();
     if (performanceResponse === "Success") {
-        saleCounter++;
-        if (saleCounter % 3 === 0) {
             const python2 = spawn('python', ["src/database/Main.py", message15]);
             python2.stdout.on('data', (data) => {
             const notiResponse = data.toString().trim();
             event.reply('get noti',{notiResponse})
             });
-        }
         BrowserWindow.getAllWindows()[0].webContents.reload()
 
     }
