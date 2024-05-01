@@ -26,7 +26,7 @@ class Mathematics(Received_Order):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
         date_str = admin_user.get('fiscal_year')  # Provide a default date if not found
         current_year = datetime.now().year
-        fiscal_year_start_date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        fiscal_year_start_date = datetime.strptime(f'{current_year}-{date_str[0:2]}-{date_str[3:]}', '%Y-%m-%d')
         fiscal_year_end_date = fiscal_year_start_date.replace(year=fiscal_year_start_date.year + 1)
         if fiscal_year_start_date > datetime.now():
             fiscal_year_start_date = fiscal_year_start_date.replace(year=fiscal_year_start_date.year - 1)
@@ -53,7 +53,7 @@ class Mathematics(Received_Order):
         date_str = admin_user.get('fiscal_year')
         now = datetime.now()
         current_year = now.year
-        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        date = datetime.strptime(f'{current_year}-{date_str[0:2]}-{date_str[3:]}', '%Y-%m-%d')
         if date > now:
             start = datetime(current_year - 1, date.month, date.day)
             end = datetime(current_year, date.month, date.day)
