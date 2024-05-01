@@ -2,7 +2,7 @@ const { spawn } = require('child_process');
 const {ipcRenderer} = require("electron");
 
 document.addEventListener('DOMContentLoaded', () => {
-    const our_setting = document.getElementById('settingPopup')
+    const our_setting = document.getElementById('settingPopup');
     if(our_setting){
         our_setting.addEventListener('click', (event) => {
             event.preventDefault();
@@ -16,24 +16,21 @@ document.addEventListener('DOMContentLoaded', () => {
             localStorage.setItem('end', end); 
           });
     }
-    const fifolifomenu = document.getElementById('fifolifoPopup')
-    if(fifolifomenu){
-        const fifo = document.getElementById('checkbox_fifo').value;
-        const lifo = document.getElementById('checkbox_lifo').value;
-        fifolifomenu.addEventListener('click', (event) => {
+    const fifo = document.getElementById('fifo');
+    fifo.addEventListener('click', (event) => {
         event.preventDefault();
-        var username = localStorage.getItem('username');
-        const message = "change lifo fifo";
-        if(lifo == "yes" && fifo == "yes"){
-            alert("choose one of two options");
-        }else if(lifo != "yes" && fifo != "yes"){
-        }else{
-            const status = lifo ? "lifo": "fifo" ;
-            ipcRenderer.send('change lifo fifo', {status,username,message});
-            localStorage.setItem('lifo-fifo', status);
-        }
-      });
-    }
+        const status = "fifo";
+        ipcRenderer.send('change lifo fifo', {status,username,message});
+        localStorage.setItem('lifo-fifo', status); 
+    });
+    const lifo = document.getElementById('lifo');
+    lifo.addEventListener('click', (event) => {
+        event.preventDefault();
+        const status = "lifo";
+        ipcRenderer.send('change lifo fifo', {status,username,message});
+        localStorage.setItem('lifo-fifo', status); 
+    });
+    
 });
 
 ipcRenderer.on('performance-success', (event, data) => {
