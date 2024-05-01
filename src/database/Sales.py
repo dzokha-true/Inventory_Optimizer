@@ -40,7 +40,7 @@ class Sales(Product):
         date_str = admin_user.get('fiscal_year', '01-01')  
         now = datetime.now()
         current_year = now.year
-        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
+        date = datetime.strptime(f'{current_year}-{date_str[0:2]}-{date_str[3:]}', '%Y-%m-%d')
 
         if date > now:
             start = datetime(current_year - 1, date.month, date.day)
