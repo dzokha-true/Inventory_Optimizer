@@ -45,7 +45,7 @@ ipcRenderer.on('sale_table_success', (event, data) => {
 });
 
 ipcRenderer.on('get noti', (event, data) => {
-    const our_data = data.response;
+    const our_data = data.dataset;
     addHTMLNoti(our_data);
 });
 
