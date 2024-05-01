@@ -1,6 +1,41 @@
 const { spawn } = require('child_process');
 const {ipcRenderer} = require("electron");
 
+document.addEventListener('DOMContentLoaded', () => {
+    const our_setting = document.getElementById('settingPopup')
+    if(our_setting){
+        our_setting.addEventListener('click', (event) => {
+            event.preventDefault();
+            const start = document.getElementById('startdate').value;
+            const end = document.getElementById('enddate').value;
+            const message = "change fiscal year";
+            var username = localStorage.getItem('username');
+            ipcRenderer.send('send date', {end,username,message});
+            // or set date in local storage and send them along with other info for function we need
+            localStorage.setItem('start', start);
+            localStorage.setItem('end', end); 
+          });
+    }
+    const fifolifomenu = document.getElementById('fifolifoPopup')
+    if(fifolifomenu){
+        const fifo = document.getElementById('checkbox_fifo').value;
+        const lifo = document.getElementById('checkbox_lifo').value;
+        fifolifomenu.addEventListener('click', (event) => {
+        event.preventDefault();
+        var username = localStorage.getItem('username');
+        const message = "change lifo fifo";
+        if(lifo == "yes" && fifo == "yes"){
+            alert("choose one of two options");
+        }else if(lifo != "yes" && fifo != "yes"){
+        }else{
+            const status = lifo ? "lifo": "fifo" ;
+            ipcRenderer.send('change lifo fifo', {status,username,message});
+            localStorage.setItem('lifo-fifo', status);
+        }
+      });
+    }
+});
+
 ipcRenderer.on('dashboard-success', (event, data) => {
     addHTMLPerformance();
     const our_data = JSON.parse(data.dataset);
