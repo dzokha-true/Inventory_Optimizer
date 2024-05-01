@@ -474,12 +474,21 @@ document.getElementById("inventory").addEventListener("click", () => {
     });
 </script>
 	
-<script>
+<script> 
+// display username
 var username = localStorage.getItem('username');
 var usernamehere = document.getElementById("usernamehere");
 usernamehere.innerHTML = ""
 usernamehere.innerHTML += localStorage.getItem('username');
-// Use the username as needed
+// display notification
+var noti = localStorage.getItem('notification');
+var notibar = document.getElementById('getnoti');
+var notinum = localStorage.getItem('noti number');
+var count1 = document.getElementById("noticount");
+var count2 = document.getElementById("noticount2");
+count1.innerHTML = notinum;
+count2.innerHTML = notinum;
+notibar.innerHTML += noti;
 </script>
 
 <script>
@@ -513,27 +522,6 @@ document.getElementById('fifolifoPopup').addEventListener('click', (event) => {
         localStorage.setItem('lifo-fifo', status);
     }
   });
-</script>
-
-<script>
-    const {ipcRenderer} = require("electron");
-
-    function addHTMLNoti(data) {
-    var notibar = document.getElementById('notiPopup');
-
-    // return produt name from back end
-    const noti = data.response;
-    
-    notibar.innerHTML += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
-    + noti+
-    + "<a class=\"link\" href=\"order.html\">Go to Orders Page!</a><span class=\"unread-symbol\">•</span> </p>"
-    + "<p class=\"time\">1m ago</p></div> </div>";
-}
-
-    ipcRenderer.on('get noti', (event, data) => {
-        const our_data = data.response;
-        addHTMLNoti(our_data);
-    });
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
