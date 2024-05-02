@@ -89,7 +89,7 @@ class LoginSystem:
         return True
 
     def change_lifo_fifo(self, lifo_fifo, status):
-        if status != "Admin":
+        if self.status != "Admin":
             print("You can not change the life or fifo computation!")
             return False
         self.login_DB.update_many({}, {"$set": {"lifo_fifo": lifo_fifo}})

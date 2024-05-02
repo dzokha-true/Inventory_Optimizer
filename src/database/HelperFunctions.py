@@ -4,19 +4,17 @@ import re
 import statistics
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
+import pandas as pd
 
-# Checks if a format of the fiscal year entered by the user is correct
-# If it is valid, it returns the date in datetime obkect, else returns false
 def check_fiscal_year(date):
-    date_format = "%Y-%m-%d"
+    date_format = "%m-%d"
     try:
         temp = datetime.strptime(date, date_format)
         return temp
     except ValueError:
-        print("Invalid format. Please ensure the date is in YYYY-MM-DD format!")
+        print("Invalid format. Please ensure the date is in MM-DD format!")
         return False
 
-# Checks what is the status of the user and returns the corresponding status
 def status_check(object, username):
     user = object.login_DB.find_one({'username': username})
     status = user.get('status')
@@ -27,7 +25,6 @@ def status_check(object, username):
     else:
         return "Read"
 
-# Checks if the SKU is in a correct format and returns false or true depending if it is correct
 def SKU_Checker(SKU):
     if re.match('^[A-Z]{3}-[0-9]{3}-[A-Z]{1}-[0-9]{1}$', SKU):
         print("Invalid format. Please ensure the SKU is in AAA-111-A-1 format!")
@@ -35,7 +32,6 @@ def SKU_Checker(SKU):
     else:
         return True
 
-# Checks if the date inputed is in correct format and returns the date if it true, else returns false
 def normal_date_checker(date_input):
     pattern = r'^\d{4}-\d{2}-\d{2}$'
     if not re.match(pattern, date_input):
@@ -57,7 +53,7 @@ def stock(SKU):
     product_DB = data_base['ProductInformation']
     cursor = product_DB.find({'SKU': SKU}, {'_id': 0, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
-        return document.get("quantity")
+        return int(float(document.get("quantity")))
 
 def mean_daily(SKU):
     now = datetime.now()
@@ -73,7 +69,7 @@ def mean_daily(SKU):
     cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
         if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            total += int(document.get("quantity"))
+            total += int(float(document.get("quantity")))
     return total / 730
 
 def mean_weekly(SKU):
@@ -90,7 +86,7 @@ def mean_weekly(SKU):
     cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
         if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            total += int(document.get("quantity"))
+            total += int(float(document.get("quantity")))
     return total / 104
 
 def sd_daily(SKU):
@@ -104,11 +100,11 @@ def sd_daily(SKU):
     data_base = client['CompanyDetails']
     sales_DB = data_base['SalesDone']
     data = []
-    cursor = sales_DB.find({'SKU': SKU},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
-    for document in cursor:
-        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),"%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            data += [int(document.get("quantity"))]
-    return statistics.stdev(data)
+    cursor = sales_DB.find({'SKU': SKU, 'date': {'$gte': start_date, '$lte': end_date}},{'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    df = pd.DataFrame(list(cursor))
+    df['quantity'] = pd.to_numeric(df['quantity'], errors='coerce').fillna(0)
+    daily_sums = df.groupby('date')['quantity'].sum()
+    return statistics.stdev(daily_sums)
 
 def sd_weekly(SKU):
     now = datetime.now()
@@ -121,12 +117,12 @@ def sd_weekly(SKU):
     data_base = client['CompanyDetails']
     sales_DB = data_base['SalesDone']
     data = []
-    cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
-    for document in cursor:
-        if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            data += [int(document.get("quantity"))]
-    return statistics.stdev(data)
-
+    cursor = sales_DB.find({'SKU': SKU,'date': {'$gte': start_date, '$lte': end_date}}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
+    df = pd.DataFrame(list(cursor))
+    df['date'] = pd.to_datetime(df['date'])
+    df['quantity'] = pd.to_numeric(df['quantity'], errors='coerce').fillna(0)
+    weekly_sums = df.resample('W-SUN', on='date')['quantity'].sum()
+    return statistics.stdev(weekly_sums)
 
 def total_demand(SKU):
     now = datetime.now()
@@ -142,7 +138,7 @@ def total_demand(SKU):
     cursor = sales_DB.find({'SKU': SKU}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
     for document in cursor:
         if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date,"%Y-%m-%d"):
-            total += int(document.get("quantity"))
+            total += int(float(document.get("quantity")))
     return total
 
 def sku_on_order(SKU):

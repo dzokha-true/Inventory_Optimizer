@@ -6,12 +6,17 @@ import pandas as pd
 from abc_classification.abc_classifier import ABCClassifier
 from datetime import datetime
 
-letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
-capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
-numbers = (1,2,3,4,5,6,7,8,9,0)
+letters = (
+'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
+'y', 'z')
+capitals = (
+'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
+'Y', 'Z')
+numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
+
 
 class Sales(Product):
-    
+
     def __init__(self):
         super().__init__()
         URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
@@ -34,13 +39,13 @@ class Sales(Product):
             temp = int(float(int(item.get("quantity")))) - 1
             self.product_DB.update_one({'SKU': SKU}, {'$set': {"quantity": str(temp)}})
             print("Success")
-    
+
     def total_revenue_calculator(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
-        date_str = admin_user.get('fiscal_year', '01-01')  
+        date_str = admin_user.get('fiscal_year', '01-01')
         now = datetime.now()
         current_year = now.year
-        date = datetime.strptime(f'{current_year}-{date_str[0:2]}-{date_str[3:]}', '%Y-%m-%d')
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
 
         if date > now:
             start = datetime(current_year - 1, date.month, date.day)

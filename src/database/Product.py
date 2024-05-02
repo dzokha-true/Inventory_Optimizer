@@ -8,12 +8,13 @@ import numpy as np
 from abc_classification.abc_classifier import ABCClassifier
 from datetime import datetime
 
-letters = ('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
-capitals = ('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z')
-numbers = (1,2,3,4,5,6,7,8,9,0)
+letters = ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z')
+capitals = ('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X','Y', 'Z')
+numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
+
 
 class Product(LoginSystem):
-    
+
     def __init__(self):
         self.status = "Admin"
         super().__init__()
@@ -27,7 +28,7 @@ class Product(LoginSystem):
         date_str = admin_user.get('fiscal_year')
         now = datetime.now()
         current_year = now.year
-        date = datetime.strptime(f'{current_year}-{date_str[0:2]}-{date_str[3:]}', '%Y-%m-%d')
+        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
         if date > now:
             start = datetime(current_year - 1, date.month, date.day)
             end = datetime(current_year, date.month, date.day)
@@ -45,7 +46,9 @@ class Product(LoginSystem):
         if start_date != False and end_date != False:
             if cursor:
                 for document in cursor:
-                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                    if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),
+                                                                                      "%Y-%m-%d") <= datetime.strptime(
+                            end_date, "%Y-%m-%d"):
                         num = float(document.get('quantity', 0))
                         cost = float(document.get('price', 0))
                         revenue += num * cost
@@ -54,13 +57,16 @@ class Product(LoginSystem):
         total = revenue
         if cursor:
             for document in cursor:
-                if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'), "%Y-%m-%d") <= datetime.strptime(end_date, "%Y-%m-%d"):
+                if datetime.strptime(start_date, "%Y-%m-%d") <= datetime.strptime(document.get('date', 'N/A'),
+                                                                                  "%Y-%m-%d") <= datetime.strptime(
+                        end_date, "%Y-%m-%d"):
                     if document.get('SKU', 'N/A') not in df['SKU'].values:
                         num = float(document.get('quantity', 0))
                         cost = float(document.get('price', 0))
                         revenue = num * cost
                         cum = revenue / total * 100
-                        new_row = {'SKU': document.get('SKU', 'N/A'), 'product_name': document.get('product_name', 'N/A'), 'revenue': revenue, 'cum': cum}
+                        new_row = {'SKU': document.get('SKU', 'N/A'),
+                                   'product_name': document.get('product_name', 'N/A'), 'revenue': revenue, 'cum': cum}
                         df.loc[len(df)] = new_row
                     else:
                         row_index = df[df['SKU'] == document.get('SKU', 'N/A')].index
@@ -86,39 +92,40 @@ class Product(LoginSystem):
         df = pareto_df.copy()
         data = [
             Bar(
-                name = "SKU Class",
-                y= df['revenue'],
-                x= df['SKU_class'],
-                marker= {"color": list(np.repeat('rgb(71, 71, 135)', 5)) + list(np.repeat('rgb(112, 111, 211)', len(df.index)))}
-                ),
+                name="SKU Class",
+                y=df['revenue'],
+                x=df['SKU_class'],
+                marker={"color": list(np.repeat('rgb(71, 71, 135)', 5)) + list(
+                    np.repeat('rgb(112, 111, 211)', len(df.index)))}
+            ),
             Scatter(
-                line= {
+                line={
                     "color": "rgb(192, 57, 43)",
                     "width": 3
-                    },
-                name= "Percentage of Total Revenue",
-                x=  df['SKU_class'],
-                y= 100 - df['cum'],
-                yaxis= "y2",
+                },
+                name="Percentage of Total Revenue",
+                x=df['SKU_class'],
+                y=100 - df['cum'],
+                yaxis="y2",
                 mode='lines+markers'
-                ),
-            ]
+            ),
+        ]
         layout = {
             "title": {
                 'text': "Pareto Chart",
                 'font': dict(size=30)
-                },
+            },
             "font": {
                 "size": 14,
                 "color": "rgb(44, 44, 84)",
                 "family": "Times New Roman, monospace"
-                },
+            },
             "margin": {
                 "b": 20,
                 "l": 50,
                 "r": 50,
                 "t": 10,
-                },
+            },
             "height": 400,
             "plot_bgcolor": "rgb(255, 255, 255)",
             "legend": {
@@ -128,17 +135,17 @@ class Product(LoginSystem):
                     "size": 12,
                     "color": "rgb(44, 44, 84)",
                     "family": "Courier New, monospace"
-                    },
-                'orientation': 'h',
                 },
+                'orientation': 'h',
+            },
             "yaxis": {
                 "title": "Total Revenue",
                 "titlefont": {
                     "size": 16,
                     "color": "rgb(71, 71, 135)",
                     "family": "Courier New, monospace"
-                    },
                 },
+            },
             "yaxis2": {
                 "side": "right",
                 "range": [0, 100],
@@ -147,11 +154,11 @@ class Product(LoginSystem):
                     "size": 16,
                     "color": "rgb(71, 71, 135)",
                     "family": "Courier New, monospace"
-                    },
+                },
                 "overlaying": "y",
                 "ticksuffix": " %",
-                },
-            }
+            },
+        }
         fig = Figure(data=data, layout=layout)
         # if not os.path.exists("Downloads"):
         #     os.mkdir("Downloads")
