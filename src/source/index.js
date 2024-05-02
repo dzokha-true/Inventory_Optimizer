@@ -380,7 +380,7 @@ ipcMain.on('send date', (event, { end,username,message }) => {
 
 // for changing fifo lifo
 ipcMain.on('change lifo fifo', (event, { status,username,message }) => {
-  const operation = message;
+  const operation = "change lifo fifo";
   const lifo_fifo = status;
   // change path to script
   const pythonProcess = spawn('python', ['src/database/Main.py', lifo_fifo, username,operation]);
@@ -392,6 +392,7 @@ ipcMain.on('change lifo fifo', (event, { status,username,message }) => {
   pythonProcess.on('error', (error) => {
     console.error(`An error occurred: ${error.message}`);
   });
+
   pythonProcess.on('close', (code) => {
     console.log(`child process exited with code ${code}`);
 });
