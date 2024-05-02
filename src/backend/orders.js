@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td>${item.product_name}</td>
                     <td>${item.price}</td>
                     <td>N/A</td>
-                    <td>Recevied</td>
+                    <td>Received</td>
                     `;
                     tbody.appendChild(tr);
                 }
