@@ -1,4 +1,4 @@
-<h1 align="center"> Inventory Optimizer </h1>
+<h1 align="center"> Inventory Rockstar: Desktop Application </h1>
 <p align="center">
 <img src="src/source/public/images/minilogo.png"></img><img src="src/source/public/images/Login.png"></img>
 </p>
@@ -13,6 +13,7 @@
 
 ---
 ### Project Description 📌
+- Inventory Rockstar is an inventory management tool aimed at small retail businesses. It tracks sales and purchases to monitor inventory levels in real time and displays stock levels to the user. This system boasts a powerful backend that learns from past sales to predict future demand, then uses its predictions to compute safety stocks, ascertain reorder points, compute economic order quantities, and notify the user when a reorder is needed. Additionally, it computes and displays a variety of accounting quantities and performance metrics, including revenue, cost of goods sold, and inventory turnover ratio.
 <p align="center">
 <img src="src/source/public/images/Sales.png"></img><img src="src/source/public/images/Dashboard.png"></img>
 </p>
