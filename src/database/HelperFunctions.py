@@ -1,4 +1,4 @@
-# Imports for the code
+# Import for the code
 from datetime import datetime
 from datetime import date
 import re
