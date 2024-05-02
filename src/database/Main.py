@@ -149,15 +149,17 @@ if __name__ == "__main__":
             status = HelperFunctions.status_check(db, username)
             new_date = HelperFunctions.check_fiscal_year(date)
             if new_date != False and status == "Admin":
-                db.change_fiscal_year(new_date, status)
+                datesend = date[5:7]+"-"+date[8:10]
+                db.change_fiscal_year(datesend,status)
+                print("Success")
             else:
                 print("You dont have the rights to change the fiscal year")
-
+                
         elif sys.argv[-1] == "change lifo fifo":
             _, lifo_fifo, username, operation = sys.argv
             status = HelperFunctions.status_check(db, username)
             if (lifo_fifo == 'lifo' or lifo_fifo == 'fifo') and status == "Admin":
-                db.change_lifo_fifo(lifo_fifo, status)
+                db.change_lifo_fifo(lifo_fifo,status)
                 print("Success")
             else:
                 print("You dont have the rights to change to lifo or fifo")
