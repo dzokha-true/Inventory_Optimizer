@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 from pymongo import MongoClient
 from pymongo.server_api import ServerApi
 from scipy.stats import t
-from math import pi, sqrt
+from math import pi, sqrt, ceil
 import statsmodels.api as sm
 
 
