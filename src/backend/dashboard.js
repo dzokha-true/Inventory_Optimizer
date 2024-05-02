@@ -73,7 +73,7 @@ function addHTMLKPI2(data) {
     rev.innerHTML += Math.round(our_data.revenue);
     gro.innerHTML += Math.round(our_data.gross);
     COGS.innerHTML += Math.round(our_data.cogs);
-    itr.innerHTML += Math.round(our_data.ITR);
+    itr.innerHTML += our_data.ITR.toFixed(3);
     profit.innerHTML += Math.round(our_data.gross_profit);
     avg_int.innerHTML += Math.round(our_data.average_inventory);
     exp_int.innerHTML += Math.round(our_data.expected_inventory);

@@ -38,7 +38,7 @@ class Mathematics(Received_Order):
     def inventory_turnover_ratio(self):
         cogs = self.cogs()
         average_inventory = self.average_inventory()
-        return cogs / average_inventory if average_inventory else 0
+        return float(cogs) / float(average_inventory)
 
     # Function to calculate cost of goods sold based on either Last-In-First-Out lifo or fifo setting
     def cogs(self):
