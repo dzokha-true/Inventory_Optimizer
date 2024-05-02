@@ -52,21 +52,7 @@ class Received_Order(Place_Order):
         print("Success")
 
     def expected_inventory(self):
-        admin_user = self.login_DB.find_one({'status': 'Admin'})
-        date_str = admin_user.get('fiscal_year')
-        now = datetime.now()
-        current_year = now.year
-        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
-        if date > now:
-            start = datetime(current_year - 1, date.month, date.day)
-            end = datetime(current_year, date.month, date.day)
-            fiscal_year_start_str = start.strftime('%Y-%m-%d')
-            fiscal_year_end_str = end.strftime('%Y-%m-%d')
-        else:
-            start = datetime(current_year, date.month, date.day)
-            end = datetime(current_year + 1, date.month, date.day)
-            fiscal_year_start_str = start.strftime('%Y-%m-%d')
-            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        fiscal_year_start_str, fiscal_year_end_str, admin_user = self.get_fiscal_year_admin()
         expected = 0
         cursor = self.place_order_DB.find({},
                                           {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
@@ -76,21 +62,7 @@ class Received_Order(Place_Order):
         return expected
 
     def actual_inventory(self):
-        admin_user = self.login_DB.find_one({'status': 'Admin'})
-        date_str = admin_user.get('fiscal_year')
-        now = datetime.now()
-        current_year = now.year
-        date = datetime.strptime(f'{current_year}-{date_str}', '%Y-%m-%d')
-        if date > now:
-            start = datetime(current_year - 1, date.month, date.day)
-            end = datetime(current_year, date.month, date.day)
-            fiscal_year_start_str = start.strftime('%Y-%m-%d')
-            fiscal_year_end_str = end.strftime('%Y-%m-%d')
-        else:
-            start = datetime(current_year, date.month, date.day)
-            end = datetime(current_year + 1, date.month, date.day)
-            fiscal_year_start_str = start.strftime('%Y-%m-%d')
-            fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        fiscal_year_start_str, fiscal_year_end_str, admin_user = self.get_fiscal_year_admin()
         actual = 0
         cursor = self.received_order_DB.find({}, {'_id': 0, 'date': 1, 'SKU': 1, 'product_name': 1, 'price': 1})
         for document in cursor:

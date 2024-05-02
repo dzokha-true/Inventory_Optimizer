@@ -27,7 +27,7 @@ class Product(LoginSystem):
         self.data_base = client['CompanyDetails']
         self.product_DB = self.data_base['ProductInformation']
 
-    def pareto_chart(self):
+    def get_fiscal_year_admin(self):
         admin_user = self.login_DB.find_one({'status': 'Admin'})
         date_str = admin_user.get('fiscal_year')
         now = datetime.now()
@@ -43,9 +43,11 @@ class Product(LoginSystem):
             end = datetime(current_year + 1, date.month, date.day)
             fiscal_year_start_str = start.strftime('%Y-%m-%d')
             fiscal_year_end_str = end.strftime('%Y-%m-%d')
+        return fiscal_year_start_str, fiscal_year_end_str, admin_user
+
+    def pareto_chart(self):
+        start_date, end_date, admin_user = self.get_fiscal_year_admin()
         revenue = 0
-        start_date = fiscal_year_start_str
-        end_date = fiscal_year_end_str
         cursor = self.sales_DB.find({}, {'_id': 1, 'date': 1, 'SKU': 1, 'product_name': 1, 'quantity': 1, 'price': 1})
         if start_date != False and end_date != False:
             if cursor:
