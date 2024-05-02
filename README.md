@@ -1,6 +1,6 @@
 <h1 align="center"> Inventory Optimizer </h1>
 <p align="center">
-<img src="src/source/public/images/minilogo.png"></img>
+<img src="src/source/public/images/minilogo.png"></img><img src="src/source/public/images/Login.png"></img>
 </p>
 
 <p align="center">
@@ -13,6 +13,10 @@
 
 ---
 ### Project Description 📌
+<p align="center">
+<img src="src/source/public/images/Sales.png"></img><img src="src/source/public/images/Dashboard.png"></img>
+</p>
+
 ---
 ### Developers 🎓
 - This project was developed by a group of Boston University College of Engineering students: Vugar Amirov (Computer Engineering (B.S.)), Zhakhangir Mamayev (Computer Engineering (B.S.)), Pree Simphliphan (Computer Engineering (B.S.)), Rawisara Chairat (Computer Engineering (B.S.)), and Cole Shaigec (Electrical and Computer Engineering (M.S.))
@@ -22,10 +26,20 @@
 - HTML, CSS, JavaScript
 - npm, pip
 - MongoDB
-- Frontend framwork: Nodejs, Electronjs, Bootstrap 
-- Python Libraries: pymongo, bcrypt, scipy, numpy, pandas, statsmodels.api, matplotlib, bson.json_util, abc_classification 
+- Frontend framework: Nodejs, Electronjs, Bootstrap 
+- Python Libraries: pymongo, bcrypt, scipy, numpy, pandas, statsmodels, matplotlib, bson.json_util, abc_classification 
 ---
 ### Dependencies Installation [Required if not installed] 🗝️
+- Install [Python](https://www.python.org/downloads/), [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm) and [pip](https://pip.pypa.io/en/stable/installation/) in your local machine, check if it's installed in your machine by
+   ```bash
+   python3 --version
+   ```
+   ```bash
+   npm --version
+   ```
+   ```bash
+   pip -version
+   ```
 - Run this command line in terminal to install every package
    ```bash
    pip install pymongo bcrypt scipy numpy pandas statsmodels matplotlib bson.json_util abc_classification
@@ -92,7 +106,9 @@
    ```
 ---
 ### Software Architecture 🖥️
-<p align="center"><img src="src/source/public/images/Database.png"></img> Database Schema</p>
+<p align="center"><img src="src/source/public/images/Database.png"></img> Database Schema </p>
+<p align="center"><img src="src/source/public/images/Frontend.jpeg"></img> Frontend </p>
+<p align="center"><img src="src/source/public/images/Backend.jpeg"></img> Backend </p>
 
 ---
 ### Contribution 💼
