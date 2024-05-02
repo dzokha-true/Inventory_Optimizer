@@ -198,7 +198,6 @@ def checkForReorder(SKU, sd_weekly_demand_predicted=None):
     # 5. Compute reorder point
 
     ROP = calcROP(mean_daily_demand, mean_lead_time, safety_stock)
-    print("ROP IS: " + str(ROP))
     # 6. Check if reorder is needed
     reorder_needed = reorderNeeded(quantity_available, ROP)
     if reorder_needed:

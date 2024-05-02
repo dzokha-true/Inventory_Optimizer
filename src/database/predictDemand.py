@@ -40,8 +40,6 @@ def getData(SKU):
 })
     for document in cursor:
         date_value = document.get('date', 'N/A')
-        print(date_value)
-        print(type(date_value))
         formatted_date = datetime.strptime(date_value, '%Y-%m-%d')
         quantity = int(float(document.get('quantity', 0)))
         new_row = {'date': formatted_date, 'quantity': quantity}
@@ -55,7 +53,6 @@ def getData(SKU):
 
     # Rename the columns to 'Date' and 'Quantity'
     data.rename(columns={'date': 'Date', 'quantity': 'Quantity'}, inplace=True)
-    print(data)
     return data
 
 def predictDemand(SKU):
