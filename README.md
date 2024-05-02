@@ -109,6 +109,7 @@
 <p align="center"><img src="src/source/public/images/Database.png"></img> Database Schema </p>
 <p align="center"><img src="src/source/public/images/Frontend.jpeg"></img> Frontend </p>
 <p align="center"><img src="src/source/public/images/Backend.jpeg"></img> Backend </p>
+
 ---
 ### Contribution 💼
 - This project is an open source. If you would like to contribute to the project and develop this desktop application for your organization, please reach out to us!
