@@ -17,8 +17,7 @@ function addHTMLNoti(data) {
     var notinum = localStorage.getItem('noti number');
 
     ourstring += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
-    + noti+
-    + "<a class=\"link\" href=\"order.html\">Go to Orders Page!</a><span class=\"unread-symbol\">•</span> </p></div> </div>";
+    + noti;
     localStorage.setItem('notification',ourstring);
     localStorage.setItem('noti number',notinum+1);
 }
