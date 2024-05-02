@@ -11,7 +11,7 @@ numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 0)
 
 
 class Place_Order(Sales):
-#a
+
     def __init__(self):
         super().__init__()
         URI = ("mongodb+srv://Admin:Admin@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority"
