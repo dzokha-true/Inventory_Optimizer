@@ -153,11 +153,12 @@ if __name__ == "__main__":
             else:
                 print("You dont have the rights to change the fiscal year")
 
-        elif sys.argv[-1] == "change lifo_fifo":
+        elif sys.argv[-1] == "change lifo fifo":
             _, lifo_fifo, username, operation = sys.argv
             status = HelperFunctions.status_check(db, username)
-            if lifo_fifo == 'lifo' or lifo_fifo == 'fifo' and status == "Admin":
-                db.change_fiscal_year(lifo_fifo, status)
+            if (lifo_fifo == 'lifo' or lifo_fifo == 'fifo') and status == "Admin":
+                db.change_lifo_fifo(lifo_fifo, status)
+                print("Success")
             else:
                 print("You dont have the rights to change to lifo or fifo")
 
