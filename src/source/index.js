@@ -392,11 +392,7 @@ ipcMain.on('change lifo fifo', (event, { status,username,message }) => {
   pythonProcess.on('error', (error) => {
     console.error(`An error occurred: ${error.message}`);
   });
-
-  // pythonProcess.stderr.on('data', (data) => {
-  //   console.error(`stderr: ${data}`);
-  // });
-  python.on('close', (code) => {
+  pythonProcess.on('close', (code) => {
     console.log(`child process exited with code ${code}`);
 });
 });
