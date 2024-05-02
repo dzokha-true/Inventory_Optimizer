@@ -313,8 +313,11 @@ ipcMain.on('add sale', (event, {date_input, SKU_input, name_input, amount_input,
     if (performanceResponse === "Success") {
             const python2 = spawn('python', ["src/database/Main.py", message15]);
             python2.stdout.on('data', (data) => {
-            const notiResponse = data.toString().trim();
-            event.reply('get noti',{dataset:notiResponse})
+                const notiResponse = data.toString().trim();
+                if (notiResponse != "Failed")
+                {
+                    event.reply('get noti',{dataset:notiResponse})
+                }
             });
         BrowserWindow.getAllWindows()[0].webContents.reload()
 
