@@ -14,7 +14,8 @@ class Place_Order(Sales):
 
     def __init__(self):
         super().__init__()
-        URI = "mongodb+srv://" + self.status + ":" + self.status + "@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority&appName=BusinessInventoryChecker&tlsInsecure=true"
+        URI = ("mongodb+srv://Admin:Admin@businessinventorychecke.hnarzhd.mongodb.net/?retryWrites=true&w=majority"
+               "&appName=BusinessInventoryChecker&tlsInsecure=true")
         client = MongoClient(URI, server_api=ServerApi('1'))
         self.data_base = client['CompanyDetails']
         self.place_order_DB = self.data_base['OrdersPlaced']
