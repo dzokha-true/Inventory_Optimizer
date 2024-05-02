@@ -147,7 +147,7 @@ if __name__ == "__main__":
         elif sys.argv[-1] == "change fiscal year":
             _, date, username, operation = sys.argv
             status = HelperFunctions.status_check(db, username)
-            new_date = db.check_fiscal_year(date)
+            new_date = HelperFunctions.check_fiscal_year(date)
             if new_date != False and status == "Admin":
                 db.change_fiscal_year(new_date, status)
             else:
