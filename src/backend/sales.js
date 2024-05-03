@@ -9,15 +9,15 @@ let loading = false;
 const container = document.getElementById('table-body');
 
 function addHTMLNoti(data) {
-    var notibar = document.getElementById('notiPopup');
+    var notibar = document.getElementById('getnoti');
 
     // return produt name from back end
     const noti = data;
     var ourstring = localStorage.getItem('notification')
     var notinum = localStorage.getItem('noti number');
 
-    ourstring += "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\"><p>"
-    + noti;
+    var ourstring = "<div class=\"row single-notification-box unread\"><div class=\"col-11 notification-text\">"+noti+"</div></div>";
+    
     localStorage.setItem('notification',ourstring);
     localStorage.setItem('noti number',notinum+1);
 }
