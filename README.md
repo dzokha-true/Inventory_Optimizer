@@ -1,6 +1,6 @@
 <h1 align="center"> Inventory Rockstar: Desktop Application </h1>
 <p align="center">
-<img src="src/source/public/images/minilogo.png"></img><img src="src/source/public/images/Login.png"></img>
+<img src="src/source/public/images/minilogo.png"></img>
 </p>
 
 <p align="center">
@@ -75,6 +75,7 @@
       ```
 ---
 ### How to Use This Product + Features (Demo Video) 💻
+[<p align="center"><img src="src/source/public/images/Login.png"></img> Watch Video</p>](https://www.youtube.com/watch?v=NPsZ9VrNPgQ&feature=youtu.be)
 ---
 ### How to Install and Run This Project 🔑
 1. Clone this repository
